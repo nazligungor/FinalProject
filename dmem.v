@@ -37,7 +37,7 @@
 // synopsys translate_off
 `timescale 1 ps / 1 ps
 // synopsys translate_on
-module dmem (
+module dmem_proc (
 	address,
 	clock,
 	data,
