@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Processor Technical Report}
+\author{Marley Zelinger}
+\date{March 2019}
+
+\begin{document}
+
+\section{General Design}
+My processor is split up into modules that handle each stage, latch, and center of control logic. There are therefore modules for PC, Fetch, F/D latch, Decode, D/X latch, Execute, X/M latch, Memory, M/w latch, bypass logic and stall logic. 
+
+\subsection{Fetch}
+The PC latch output is read as the current pc. This is then used to set the address for imem accordingly. Since the memories are set on a positive clock and the processor is set on a negative, this address is updated, and the output of imem is changed before the end of the fetch cycle. 
+
+This allows the correct data to be latched to the F/D latch on the falling clock edge. In addition retrieving the correct data from imem, fetch also calculates PC + 1 and latches this in the F/D latch. PC + 1 is then potentially muxed with another PC from the execute stage calcualated based off of a jump instruction, and then next pc is set. 
+
+At the clock edge the PC + 1 and instruction information is latched in F/D latch and the next pc is latched to the PC latch.
+
+In the event of a hazard, the instruction fetched is replaced with a noop instruction and the PC latch is disabled such that the next instruction loaded will be the same one just replaced with a noop. 
+
+In the event of a flush, the F/D latch is reset, so the instruction fetched is never passed further down the pipeline. 
+
+\subsection{F/D Latch}
+
+This latch passes the instruction data and PC + 1 calculated in the fetch stage to the decode stage on the negative clock edge.
+
+\subsection{Decode}
+All instructions enter decode and are then broken up into their respective parts. All possible values for all instruction types are determined (such as immediate, target, rs, rt, rd, etc). The source and destination registers are set on an instruction type basis. Instructions with special cases (such as a Jal that need a destination of \$r31 or setx which needs a destination of \$r30) are set accordingly. R type instructions keep rs, rt, and rd directly from their data, all other instructions set rt as rd. 
+
+Once these three registers are determined, rs and rt are set to be read from the reg file. In most cases this data is then read from the reg file. If either rt or rs are being written to in the write back stage in that same cycle, the data is bypassed from write back to decode. 
+
+\subsection{D/X Latch}
+
+All information derived from the instruction is passed on here to execute. This includes the data from each register as well as information about the type of instruction being executed, the register that will be written to, opcodes, immediates, targets, etc. If a branch is taken and this instruction needs to be flushed the reset on this latch is activated and this instruction does not continue into the execute stage. 
+
+\subsection{Execute}
+The execute stage takes in the outputs of the D/X latch, it then uses a combination of bypassing muxes/bypassing logic and instruction specific edge cases to determine the inputs to the main ALU. The execute stage has two flows of data, one into the PC calculations and one for all instruction related calculations. PC calculations include calculating PC + 1 + N as well as comparing rd and rs. Depending on the type of instruction and the comparison outputs, the select for the pc mux is then set. The other ALU is used to calculate the output for all I and R type instructions.
+
+\subsubsection{Bypassing}
+The execute stage accepts bypassing from the M and W stage into the A and B inputs of the ALU. The selects for the ALUInA and ALUInB mux are determined using the source registers of the instructions starting the execute stage as well as the destination registers of the instructions in the memory and writeback stages.
+
+\subsection{X/M Latch}
+The X/M latch passes the output of the main ALU from the execute stage, the ALUInB, and relevant instruction data (such as isLW and isSW).
+
+\subsection{Memory}
+The memory stage sets the dmem address to be the address input (which is the output of the ALU passed into the X/M latch), the dmem data (which is the ALUInB from the execute stage), and the dmem write enable based on the instruction type. Additionally, the data input to the dmem uses bypassing from the write back stage. This select is determined based on the destination registers for the instruction in memory and in write back.
+
+\subsection{M/W Latch}
+The M/W latch passes the output of the dmem and the original address input to the dmem (which is also the ALU output of execute). 
+
+\subsection{Writeback}
+The write back stage controls what data, if any data, is written back to the reg file. The write enable is set based on the type of instruction, the destination is passed into write back from the M/W latch, and the data written back is chosen by a mux. The mux's select is determined by whether or not the instruction is a memory instruction or not. If it is a memory instruction the data outputted to be written back and/or bypassed to execute is the output of dmem, otherwise it is the same data that was originally outputted from the execute stage. 
+
+\subsection{Hazards}
+Stall logic is kept in a separate module. Each time a new instruction is decoded, the stall logic determines if the instruction before it is a load and if the instruction just decoded is not a store. If this condition is met then the PC and F/D latches are disabled and a noop is passed into the D/X latch instead of the instruction that was just decoded. This places a noop in between the load instruction and the alu instruction. The next cycle, the correct instruction continues, and the PC / fetch stages are unfrozen.
+
+\subsection{Current Errors}
+Currently my processor does not have the multdiv incorporated into it. This is because I prioritized having a working pipeline with full bypassing and correct stall logic over including my multdiv. Additionally, my multdiv performed well for functional simulations, but not for gate level simulations and I did not want to break the rest of the processor as a result. When testing gate level simulations I also discovered that if my skeleton file has too many output pins (see how I was testing below), that my functional simulations broke down. However, with fewer output pins I could still check that my register file outputs were correct and therefore validated all instructions were working on a gate level simulation as well. Other than this, to the best of my knowledge all other instructions work and the processor functions as expected.
+
+\subsection{Testing}
+In order to test my processor I tested each individual module using wave forms. I then tested the entire processor by raising wires to inputs in the skeleton and running functional and gate level simulations with a variety of mips code. I tested each instruction individually as well as in combination with others. To the best of my knowledge my processor is working.
+
+\end{document}
