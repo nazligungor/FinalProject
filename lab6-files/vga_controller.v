@@ -28,11 +28,53 @@ wire[9:0] addr_x, addr_y;
 wire x_in_s, y_in_s;
 reg[9:0] y_bird;
 wire [9:0] x_bird;
-assign x_bird = 10'b111110100;
+assign x_bird = 10'b0001100100; //bird's x fixed at 100
 reg [40:0] counter;
 wire [9:0] acceleration;
 assign acceleration = 10'b1;
 reg[9:0] velocity;
+//pipes
+
+reg[9:0] x_lowerpipe1, x_lowerpipe2, x_lowerpipe3, x_lowerpipe4;
+wire[9:0]  y_lowerpipe1,  y_lowerpipe2,  y_lowerpipe3,  y_lowerpipe4;
+reg[9:0] x_upperpipe1, x_upperpipe2, x_upperpipe3, x_upperpipe4;
+wire[9:0] y_upperpipe1, y_upperpipe2, y_upperpipe3, y_upperpipe4;
+
+wire[9:0] addr_lowerpipe1_x, addr_lowerpipe1_y, addr_lowerpipe2_x, addr_lowerpipe2_y, addr_lowerpipe3_x, addr_lowerpipe3_y, addr_lowerpipe4_x, addr_lowerpipe4_y;
+wire[9:0] addr_upperpipe1_x, addr_upperpipe1_y, addr_upperpipe2_x, addr_upperpipe2_y, addr_upperpipe3_x, addr_upperpipe3_y, addr_upperpipe4_x, addr_upperpipe4_y;
+
+wire x_lpipe1_in, y_lpipe1_in, x_lpipe2_in, y_lpipe2_in, x_lpipe3_in, y_lpipe3_in, x_lpipe4_in, y_lpipe4_in;
+wire x_upipe1_in, y_upipe1_in, x_upipe2_in, y_upipe2_in, x_upipe3_in, y_upipe3_in, x_upipe4_in, y_upipe4_in;
+
+
+reg[9:0] pipe_velocity = 10'd20;
+reg[9:0] pipe_gap = 10'd100;
+wire[9:0] pipe_width = 10'd80;
+reg[9:0] pipe_height = 10'd190;
+
+wire[9:0] screen_height = 10'd480;
+
+assign y_lowerpipe1 = pipe_height + pipe_gap;
+assign y_lowerpipe2 = pipe_height + pipe_gap;
+assign y_lowerpipe3 = pipe_height + pipe_gap;
+assign y_lowerpipe4 = pipe_height + pipe_gap;
+
+assign y_upperpipe1 = 10'd0;
+assign y_upperpipe2 = 10'd0;
+assign y_upperpipe3 = 10'd0;
+assign y_upperpipe4 = 10'd0;
+
+initial x_lowerpipe1 = 10'd120;
+initial x_lowerpipe2 <= x_upperpipe1 + pipe_width + 10'd20;
+initial x_lowerpipe3 = x_upperpipe2 + pipe_width + 10'd20;
+initial x_lowerpipe4 = x_upperpipe3 + pipe_width + 10'd20;
+
+initial x_upperpipe1 = 10'd120;
+initial x_upperpipe2 = x_upperpipe1 + pipe_width + 10'd20;
+initial x_upperpipe3 = x_upperpipe2 + pipe_width + 10'd20;
+initial x_upperpipe4 = x_upperpipe3 + pipe_width + 10'd20;
+
+
 
 ////
 assign rst = ~iRST_n;
@@ -54,6 +96,18 @@ always @(posedge VGA_CLK_n) begin
 		else begin
 			y_bird<=y_bird+velocity;
 		end
+		
+		x_lowerpipe1 <= x_lowerpipe1 + pipe_velocity;
+		x_lowerpipe2 <= x_lowerpipe2 + pipe_velocity;
+		x_lowerpipe3 <= x_lowerpipe3 + pipe_velocity;
+		x_lowerpipe4 <= x_lowerpipe4 + pipe_velocity;
+		
+		x_upperpipe1 <= x_upperpipe1 + pipe_velocity;
+		x_upperpipe2 <= x_upperpipe2 + pipe_velocity;
+		x_upperpipe3 <= x_upperpipe3 + pipe_velocity;
+		x_upperpipe4 <= x_upperpipe4 + pipe_velocity;
+		
+		
 		counter <= 0;
 	end
 end
@@ -88,15 +142,71 @@ img_index	img_index_inst (
 //////
  assign addr_x = ADDR % 640;
  assign addr_y = ADDR/640;
+ assign addr_lowerpipe1_x = ADDR % 640; 
+ assign addr_lowerpipe1_y = ADDR / 640;
+ assign addr_lowerpipe2_x = ADDR % 640; 
+ assign addr_lowerpipe2_y = ADDR / 640;
+ assign addr_lowerpipe3_x = ADDR % 640; 
+ assign addr_lowerpipe3_y = ADDR / 640;
+ assign addr_lowerpipe4_x = ADDR % 640; 
+ assign addr_lowerpipe4_y = ADDR / 640;
+ 
+ assign addr_upperpipe1_x = ADDR % 640; 
+ assign addr_upperpipe1_y = ADDR / 640;
+ assign addr_upperpipe2_x = ADDR % 640; 
+ assign addr_upperpipe2_y = ADDR / 640;
+ assign addr_upperpipe3_x = ADDR % 640; 
+ assign addr_upperpipe3_y = ADDR / 640;
+ assign addr_upperpipe4_x = ADDR % 640; 
+ assign addr_upperpipe4_y = ADDR / 640;
+ 
+ 
  assign y_in_s = (addr_y < (y_bird + 20)) && (addr_y > y_bird);
  assign x_in_s = (addr_x < (x_bird + 20)) && (addr_x > x_bird);
-wire isin;
- assign isin = y_in_s && x_in_s;
  
- wire [23:0] in_square_data;
+ assign x_lpipe1_in = (addr_lowerpipe1_x < (x_lowerpipe1 + pipe_width)) && (addr_lowerpipe1_x > x_lowerpipe1);
+ assign y_lpipe1_in = (addr_lowerpipe1_y < (y_lowerpipe1 + pipe_height)) && (addr_lowerpipe1_y > y_lowerpipe1);
+ 
+ assign x_lpipe2_in = (addr_lowerpipe2_x < (x_lowerpipe2 + pipe_width)) && (addr_lowerpipe2_x > x_lowerpipe2);
+ assign y_lpipe2_in = (addr_lowerpipe2_y < (y_lowerpipe2 + pipe_height)) && (addr_lowerpipe2_y > y_lowerpipe2);
+ 
+ assign x_lpipe3_in = (addr_lowerpipe3_x < (x_lowerpipe3 + pipe_width)) && (addr_lowerpipe3_x > x_lowerpipe3);
+ assign y_lpipe3_in = (addr_lowerpipe3_y < (y_lowerpipe3 + pipe_height)) && (addr_lowerpipe3_y > y_lowerpipe3);
+ 
+ assign x_lpipe4_in = (addr_lowerpipe4_x < (x_lowerpipe4 + pipe_width)) && (addr_lowerpipe4_x > x_lowerpipe4);
+ assign y_lpipe4_in = (addr_lowerpipe4_y < (y_lowerpipe4 + pipe_height)) && (addr_lowerpipe4_y > y_lowerpipe4);
+ 
+ wire lpipe_in;
+ assign lpipe_in = x_lpipe1_in && y_lpipe1_in && x_lpipe2_in && y_lpipe2_in && x_lpipe3_in && y_lpipe3_in && x_lpipe4_in && y_lpipe4_in;
+ 
+ assign x_upipe1_in = (addr_upperpipe1_x < (x_upperpipe1 + pipe_width)) && (addr_upperpipe1_x > x_upperpipe1);
+ assign y_upipe1_in = (addr_upperpipe1_y < (y_upperpipe1 + pipe_height)) && (addr_upperpipe1_y > y_upperpipe1);
+ assign x_upipe2_in = (addr_upperpipe2_x < (x_upperpipe2 + pipe_width)) && (addr_upperpipe2_x > x_upperpipe2);
+ assign y_upipe2_in = (addr_upperpipe2_y < (y_upperpipe2 + pipe_height)) && (addr_upperpipe2_y > y_upperpipe2);
+ assign x_upipe3_in = (addr_upperpipe3_x < (x_upperpipe3 + pipe_width)) && (addr_upperpipe3_x > x_upperpipe3);
+ assign y_upipe3_in = (addr_upperpipe3_y < (y_upperpipe3 + pipe_height)) && (addr_upperpipe3_y > y_upperpipe3);
+ assign x_upipe4_in = (addr_upperpipe4_x < (x_upperpipe4 + pipe_width)) && (addr_upperpipe4_x > x_upperpipe4);
+ assign y_upipe4_in = (addr_upperpipe4_y < (y_upperpipe4 + pipe_height)) && (addr_upperpipe4_y > y_upperpipe4);
+ 
+ wire upipe_in;
+ assign upipe_in = x_upipe1_in && y_upipe1_in && x_upipe2_in && y_upipe2_in && x_upipe3_in && y_upipe3_in && x_upipe4_in && y_upipe4_in;
+ 
+ wire isin_square;
+ assign isin_square = y_in_s && x_in_s;
+ 
+ wire isin_pipe;
+ assign isin_pipe = lpipe_in && upipe_in;
+ 
+ 
+ wire [23:0] in_square_data, in_pipe_data;
  assign in_square_data = 24'b111111110000000000000000;
+ assign in_pipe_data = 24'b000000001111111100000000;
+ wire [23:0] temp_data;
  wire [23:0] use_data;
- assign use_data = isin ? in_square_data : bgr_data_raw;
+ assign temp_data = isin_pipe ? in_pipe_data : in_square_data;
+ assign use_data= (isin_square || isin_pipe) ? temp_data : bgr_data_raw;
+
+ 
 //////latch valid data at falling edge;
 always@(posedge VGA_CLK_n) bgr_data <= use_data;
 
