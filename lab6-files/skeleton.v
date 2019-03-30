@@ -24,10 +24,10 @@ module skeleton(resetn,
 	output	[7:0]	VGA_G;	 				//	VGA Green[9:0]
 	output	[7:0]	VGA_B;   				//	VGA Blue[9:0]
 	input				CLOCK_50;
-
+	//output         isin_pipe;
 	////////////////////////	PS2	////////////////////////////
 	input 			resetn,control;
-	inout 			ps2_data, ps2_clock;
+	input 			ps2_data, ps2_clock;
 	
 	////////////////////////	LCD and Seven Segment	////////////////////////////
 	output 			   lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon;
