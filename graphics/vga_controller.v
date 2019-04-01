@@ -66,14 +66,14 @@ assign y_upperpipe3 = 10'd0;
 assign y_upperpipe4 = 10'd0;
 
 initial x_lowerpipe1 = 10'd120;
-initial x_lowerpipe2 = 10'd220;
-initial x_lowerpipe3 = 10'd320;
-initial x_lowerpipe4 = 10'd420;
+initial x_lowerpipe2 = 10'd240;
+initial x_lowerpipe3 = 10'd340;
+initial x_lowerpipe4 = 10'd440;
 
 initial x_upperpipe1 = 10'd120;
-initial x_upperpipe2 = 10'd220;
-initial x_upperpipe3 = 10'd320;
-initial x_upperpipe4 = 10'd420;
+initial x_upperpipe2 = 10'd240;
+initial x_upperpipe3 = 10'd340;
+initial x_upperpipe4 = 10'd440;
 
 
 
