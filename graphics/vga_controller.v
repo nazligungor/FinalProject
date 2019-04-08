@@ -49,6 +49,7 @@ wire x_upipe1_in, y_upipe1_in, x_upipe2_in, y_upipe2_in, x_upipe3_in, y_upipe3_i
 
 
 reg[9:0] pipe_velocity = 10'd5;
+
 reg[9:0] pipe_gap = 10'd100;
 wire[9:0] pipe_width = 10'd80;
 reg[9:0] pipe_height = 10'd190;
