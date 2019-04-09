@@ -58,16 +58,38 @@ wire x_upipe1_in, y_upipe1_in, x_upipe2_in, y_upipe2_in, x_upipe3_in, y_upipe3_i
 
 
 reg[9:0] pipe_velocity = 10'd5;
-reg[9:0] pipe_gap = 10'd100;
-wire[9:0] pipe_width = 10'd80;
-reg[9:0] pipe_height = 10'd190;
 
+wire[31:0] rand_val, rand_val1, rand_val2, rand_val3;
+reg[31:0] rand_gap, rand_gap1, rand_gap2, rand_gap3;
+reg[9:0] pipe_gap, pipe_gap1, pipe_gap2, pipe_gap3;
+
+//move this part to skeleton but how? 
+
+wire[9:0] bird_size = 10'd20;
 wire[9:0] screen_height = 10'd480;
+wire[9:0] screen_width = 10'd640;
+wire[9:0] pipe_width = 10'd120;
+
+wire[9:0] pipe_height, pipe_height1, pipe_height2, pipe_height3;
+assign pipe_height = screen_height/2 - pipe_gap/2;
+assign pipe_height1 = screen_height/2 - pipe_gap1/2;
+assign pipe_height2 = screen_height/2 - pipe_gap2/2;
+assign pipe_height3 = screen_height/2 - pipe_gap3/2;
+
+initial pipe_gap = 10'd80;
+initial pipe_gap1 = 10'd100;
+initial pipe_gap2 = 10'd70;
+initial pipe_gap3 = 10'd120;
+
+lfsr lfsr_1(iVGA_CLK, iRST_n, rand_val, 32'hf0f0f0f0);
+lfsr lfsr_2(iVGA_CLK, iRST_n, rand_val1, 32'hf0f0f0f0);
+lfsr lfsr_3(iVGA_CLK, iRST_n, rand_val2, 32'hf0f0f0f0);
+lfsr lfsr_4(iVGA_CLK, iRST_n, rand_val3, 32'hf0f0f0f0);
 
 assign y_lowerpipe1 = pipe_height + pipe_gap;
-assign y_lowerpipe2 = pipe_height + pipe_gap;
-assign y_lowerpipe3 = pipe_height + pipe_gap;
-assign y_lowerpipe4 = pipe_height + pipe_gap;
+assign y_lowerpipe2 = pipe_height1 + pipe_gap1;
+assign y_lowerpipe3 = pipe_height2 + pipe_gap2;
+assign y_lowerpipe4 = pipe_height3 + pipe_gap3;
 
 assign y_upperpipe1 = 10'd0;
 assign y_upperpipe2 = 10'd0;
@@ -85,7 +107,6 @@ assign y_upperpipe4 = 10'd0;
 //initial x_upperpipe4 = 10'd440;
 
 
-
 ////
 assign rst = ~iRST_n;
 video_sync_generator LTM_ins (.vga_clk(iVGA_CLK),
@@ -95,32 +116,33 @@ video_sync_generator LTM_ins (.vga_clk(iVGA_CLK),
                               .VS(cVS));
 
 //this is our object control
-//always @(posedge VGA_CLK_n) begin
-//	counter <= counter + 1;
-//	if(counter >  1000000) begin
-//		velocity<= velocity + acceleration;
-//		if(control == 0) begin
-//			velocity <= -10'b110;
-//			y_bird<=y_bird+velocity;
-//		end
-//		else begin
-//			y_bird<=y_bird+velocity;
-//		end
-//		
-//		x_lowerpipe1 <= x_lowerpipe1 - pipe_velocity;
-//		x_lowerpipe2 <= x_lowerpipe2 - pipe_velocity;
-//		x_lowerpipe3 <= x_lowerpipe3 - pipe_velocity;
-//		x_lowerpipe4 <= x_lowerpipe4 - pipe_velocity;
-//		
-//		x_upperpipe1 <= x_upperpipe1 - pipe_velocity;
-//		x_upperpipe2 <= x_upperpipe2 - pipe_velocity;
-//		x_upperpipe3 <= x_upperpipe3 - pipe_velocity;
-//		x_upperpipe4 <= x_upperpipe4 - pipe_velocity;
-//		
-//		
-//		counter <= 0;
-//	end
-//end
+reg counter;
+always @(posedge VGA_CLK_n) begin
+	counter <= counter + 1;
+	if(counter >  1000000) begin
+		if(x_lowerpipe1 > screen_width) begin
+			rand_gap <= (rand_val % 50) + 100;
+			pipe_gap <= rand_gap[9:0];
+		end
+		
+		if(x_lowerpipe2 > screen_width) begin
+			rand_gap1 <= (rand_val1 % 50) + 100;
+			pipe_gap1 <= rand_gap1[9:0];
+		end
+		
+		if(x_lowerpipe3 > screen_width) begin
+			rand_gap2 <= (rand_val2 % 50) + 100;
+			pipe_gap2 <= rand_gap2[9:0];
+		end
+		
+		if(x_lowerpipe4 > screen_width) begin
+			rand_gap3 <= (rand_val3 % 50) + 100;
+			pipe_gap3 <= rand_gap3[9:0];
+		end
+		
+		counter <= 0;
+	end
+end
 ////Addresss generator
 always@(posedge iVGA_CLK,negedge iRST_n)
 begin
@@ -175,16 +197,16 @@ img_index	img_index_inst (
  assign x_in_s = (addr_x < (x_bird + 20)) && (addr_x > x_bird);
  
  assign x_lpipe1_in = (addr_lowerpipe1_x < (x_lowerpipe1 + pipe_width)) && (addr_lowerpipe1_x > x_lowerpipe1);
- assign y_lpipe1_in = (addr_lowerpipe1_y < (y_lowerpipe1 + pipe_height)) && (addr_lowerpipe1_y > y_lowerpipe1);
+ assign y_lpipe1_in = (addr_lowerpipe1_y < (screen_height)) && (addr_lowerpipe1_y > y_lowerpipe1);
  
  assign x_lpipe2_in = (addr_lowerpipe2_x < (x_lowerpipe2 + pipe_width)) && (addr_lowerpipe2_x > x_lowerpipe2);
- assign y_lpipe2_in = (addr_lowerpipe2_y < (y_lowerpipe2 + pipe_height)) && (addr_lowerpipe2_y > y_lowerpipe2);
+ assign y_lpipe2_in = (addr_lowerpipe2_y < (screen_height)) && (addr_lowerpipe2_y > y_lowerpipe2);
  
  assign x_lpipe3_in = (addr_lowerpipe3_x < (x_lowerpipe3 + pipe_width)) && (addr_lowerpipe3_x > x_lowerpipe3);
- assign y_lpipe3_in = (addr_lowerpipe3_y < (y_lowerpipe3 + pipe_height)) && (addr_lowerpipe3_y > y_lowerpipe3);
+ assign y_lpipe3_in = (addr_lowerpipe3_y < (screen_height)) && (addr_lowerpipe3_y > y_lowerpipe3);
  
  assign x_lpipe4_in = (addr_lowerpipe4_x < (x_lowerpipe4 + pipe_width)) && (addr_lowerpipe4_x > x_lowerpipe4);
- assign y_lpipe4_in = (addr_lowerpipe4_y < (y_lowerpipe4 + pipe_height)) && (addr_lowerpipe4_y > y_lowerpipe4);
+ assign y_lpipe4_in = (addr_lowerpipe4_y < (screen_height)) && (addr_lowerpipe4_y > y_lowerpipe4);
  
  wire lpipe1_in, lpipe2_in, lpipe3_in, lpipe4_in;
  assign lpipe1_in = x_lpipe1_in && y_lpipe1_in; // && x_lpipe3_in && y_lpipe3_in && x_lpipe4_in && y_lpipe4_in;
@@ -196,11 +218,11 @@ img_index	img_index_inst (
  assign y_upipe1_in = (addr_upperpipe1_y < (y_upperpipe1 + pipe_height)) && (addr_upperpipe1_y > y_upperpipe1);
 
  assign x_upipe2_in = (addr_upperpipe2_x < (x_upperpipe2 + pipe_width)) && (addr_upperpipe2_x > x_upperpipe2);
- assign y_upipe2_in = (addr_upperpipe2_y < (y_upperpipe2 + pipe_height)) && (addr_upperpipe2_y > y_upperpipe2);
+ assign y_upipe2_in = (addr_upperpipe2_y < (y_upperpipe2 + pipe_height1)) && (addr_upperpipe2_y > y_upperpipe2);
  assign x_upipe3_in = (addr_upperpipe3_x < (x_upperpipe3 + pipe_width)) && (addr_upperpipe3_x > x_upperpipe3);
- assign y_upipe3_in = (addr_upperpipe3_y < (y_upperpipe3 + pipe_height)) && (addr_upperpipe3_y > y_upperpipe3);
+ assign y_upipe3_in = (addr_upperpipe3_y < (y_upperpipe3 + pipe_height2)) && (addr_upperpipe3_y > y_upperpipe3);
  assign x_upipe4_in = (addr_upperpipe4_x < (x_upperpipe4 + pipe_width)) && (addr_upperpipe4_x > x_upperpipe4);
- assign y_upipe4_in = (addr_upperpipe4_y < (y_upperpipe4 + pipe_height)) && (addr_upperpipe4_y > y_upperpipe4);
+ assign y_upipe4_in = (addr_upperpipe4_y < (y_upperpipe4 + pipe_height3)) && (addr_upperpipe4_y > y_upperpipe4);
  
  wire upipe_in;
  assign upipe_in = (x_upipe1_in && y_upipe1_in) || (x_upipe2_in && y_upipe2_in) || (x_upipe3_in && y_upipe3_in) || (x_upipe4_in && y_upipe4_in);
