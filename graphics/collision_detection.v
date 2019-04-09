@@ -7,6 +7,9 @@ module collision_detection(x_bird, y_bird, bird_size, pipe_width, x_lowerpipe1, 
  
  wire birdinbetween_1, birdinbetween_2, birdinbetween_3, birdinbetween_4;
  wire birdinpipe1, birdinpipe2, birdinpipe3, birdinpipe4;
+ wire birdatboundry;
+ wire[9:0] screen_height = 10'd480;
+ wire[9:0] screen_width = 10'd640;
  wire[9:0] bird_right, bird_left, bird_top, bird_bottom;
  
  assign bird_right = x_bird + bird_size;
@@ -24,7 +27,9 @@ module collision_detection(x_bird, y_bird, bird_size, pipe_width, x_lowerpipe1, 
  assign birdinpipe3 = (bird_top <= upperpipe3_bottom) || (bird_bottom >= y_lowerpipe3);
  assign birdinpipe4 = (bird_top <= upperpipe4_bottom) || (bird_bottom >= y_lowerpipe4);
  
- assign c_flag = (birdinbetween_1 && birdinpipe1) || (birdinbetween_2 && birdinpipe2) || (birdinbetween_3 && birdinpipe3) || (birdinbetween_4 && birdinpipe4);
+ assign birdatboundry = (bird_top <= 10'd0) || (bird_bottom >= screen_height);
+ 
+ assign c_flag = (birdinbetween_1 && birdinpipe1) || (birdinbetween_2 && birdinpipe2) || (birdinbetween_3 && birdinpipe3) || (birdinbetween_4 && birdinpipe4) || birdatboundry;
 
 
 endmodule 

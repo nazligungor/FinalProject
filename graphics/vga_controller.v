@@ -95,6 +95,12 @@ assign y_upperpipe1 = 10'd0;
 assign y_upperpipe2 = 10'd0;
 assign y_upperpipe3 = 10'd0;
 assign y_upperpipe4 = 10'd0;
+
+wire[9:0] upperpipe1_bottom, upperpipe2_bottom, upperpipe3_bottom, upperpipe4_bottom;
+assign upperpipe1_bottom = y_upperpipe1 + pipe_height;
+assign upperpipe2_bottom = y_upperpipe2 + pipe_height1;
+assign upperpipe3_bottom = y_upperpipe3 + pipe_height2;
+assign upperpipe4_bottom = y_upperpipe4 + pipe_height3;
 //
 //initial x_lowerpipe1 = 10'd120;
 //initial x_lowerpipe2 = 10'd240;
@@ -233,15 +239,21 @@ img_index	img_index_inst (
  //wire isin_pipe;
  assign isin_pipe = lpipe1_in || upipe_in || lpipe2_in || lpipe3_in || lpipe4_in;
  
+ wire c_flag;
  
- wire [23:0] in_square_data, in_pipe_data;
+ collision_detection col_1(x_bird, y_bird, bird_size, pipe_width, x_lowerpipe1, x_lowerpipe2, x_lowerpipe3, x_lowerpipe4,  y_lowerpipe1, 
+ y_lowerpipe2,  y_lowerpipe3,  y_lowerpipe4, upperpipe1_bottom, upperpipe2_bottom, upperpipe3_bottom, upperpipe4_bottom, c_flag);
+ 
+ 
+ wire [23:0] in_square_data, in_pipe_data, game_over;
  assign in_square_data = 24'b111111110000000000000000;
  assign in_pipe_data = 24'b000000001111111100000000;
+ assign game_over = 24'b0;
  wire [23:0] temp_data, temp_data2;
  wire [23:0] use_data;
  assign temp_data = isin_pipe ? in_pipe_data : in_square_data;
- //assign temp_data2 = lpipe2_in ? in_pipe_data : temp_data;
- assign use_data= (isin_square || isin_pipe) ? temp_data : bgr_data_raw;
+ assign temp_data2 = c_flag ? game_over : temp_data;
+ assign use_data= (isin_square || isin_pipe) ? temp_data2 : bgr_data_raw;
 
  
 //////latch valid data at falling edge;
