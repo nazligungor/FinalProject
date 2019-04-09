@@ -59,11 +59,21 @@ wire x_upipe1_in, y_upipe1_in, x_upipe2_in, y_upipe2_in, x_upipe3_in, y_upipe3_i
 
 
 reg[9:0] pipe_velocity = 10'd5;
-reg[9:0] pipe_gap = 10'd100;
-wire[9:0] pipe_width = 10'd80;
-reg[9:0] pipe_height = 10'd190;
+wire[31:0] rand_val, rand_gap;
 
+//move this part to skeleton but how? 
+lfsr lfsr_1(iVGA_CLK, iRST_n, rand_val, 32'hf0f0f0f0);
+assign rand_gap = rand_val % 50 + 80;
+reg[9:0] pipe_gap;
+initial pipe_gap = rand_gap[9:0];
+
+wire[9:0] bird_size = 10'd20;
 wire[9:0] screen_height = 10'd480;
+wire[9:0] screen_width = 10'd640;
+wire[9:0] pipe_width = 10'd80;
+
+reg[9:0] pipe_height;
+initial pipe_height = screen_height/2 - pipe_gap/2;
 
 assign y_lowerpipe1 = pipe_height + pipe_gap;
 assign y_lowerpipe2 = pipe_height + pipe_gap;
@@ -76,16 +86,20 @@ assign y_upperpipe3 = 10'd0;
 assign y_upperpipe4 = 10'd0;
 
 initial x_lowerpipe1 = 10'd120;
-initial x_lowerpipe2 = 10'd220;
-initial x_lowerpipe3 = 10'd320;
-initial x_lowerpipe4 = 10'd420;
+initial x_lowerpipe2 = 10'd240;
+initial x_lowerpipe3 = 10'd340;
+initial x_lowerpipe4 = 10'd440;
 
 initial x_upperpipe1 = 10'd120;
-initial x_upperpipe2 = 10'd220;
-initial x_upperpipe3 = 10'd320;
-initial x_upperpipe4 = 10'd420;
+initial x_upperpipe2 = 10'd240;
+initial x_upperpipe3 = 10'd340;
+initial x_upperpipe4 = 10'd440;
 
-
+wire[9:0] upperpipe1_bottom, upperpipe2_bottom, upperpipe3_bottom, upperpipe4_bottom;
+assign upperpipe1_bottom = y_upperpipe1 + pipe_height;
+assign upperpipe2_bottom = y_upperpipe2 + pipe_height;
+assign upperpipe3_bottom = y_upperpipe3 + pipe_height;
+assign upperpipe4_bottom = y_upperpipe4 + pipe_height;
 
 ////
 assign rst = ~iRST_n;
