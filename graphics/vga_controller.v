@@ -246,7 +246,7 @@ img_index	img_index_inst (
  
  
  wire [23:0] in_square_data, in_pipe_data, game_over;
- assign in_square_data = 24'b111111110000000000000000;
+ assign in_square_data = 24'b111111111000000010101111;
  assign in_pipe_data = 24'b000000001111111100000000;
  assign game_over = 24'b0;
  wire [23:0] temp_data, temp_data2;
