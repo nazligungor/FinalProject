@@ -7,16 +7,15 @@ module vga_controller(iRST_n,
                       g_data,
                       r_data,
 							 control,
-//							 y_bird,
-//							 x_lowerpipe1,
-//							 x_lowerpipe2,
-//							 x_lowerpipe3,
-//							 x_lowerpipe4,
-//							 x_upperpipe1,
-//							 x_upperpipe2,
-//							 x_upperpipe3,
-//							 x_upperpipe4
-);
+							 y_bird,
+							 x_lowerpipe1,
+							 x_lowerpipe2,
+							 x_lowerpipe3,
+							 x_lowerpipe4,
+							 x_upperpipe1,
+							 x_upperpipe2,
+							 x_upperpipe3,
+							 x_upperpipe4);
 
 	
 input iRST_n, control;
@@ -37,18 +36,18 @@ wire [23:0] bgr_data_raw;
 wire cBLANK_n,cHS,cVS,rst;
 wire[9:0] addr_x, addr_y;
 wire x_in_s, y_in_s;
-reg [31:0] y_bird;
+input[9:0] y_bird;
 wire [9:0] x_bird;
 assign x_bird = 10'b0001100100; //bird's x fixed at 100
-reg [40:0] counter;
-wire [9:0] acceleration;
-assign acceleration = 10'b1;
-reg[9:0] velocity;
+//reg [40:0] counter;
+//wire [9:0] acceleration;
+//assign acceleration = 10'b1;
+//reg[9:0] velocity;
 //pipes
 
-reg[31:0] x_lowerpipe1, x_lowerpipe2, x_lowerpipe3, x_lowerpipe4;
+input[9:0] x_lowerpipe1, x_lowerpipe2, x_lowerpipe3, x_lowerpipe4;
 wire[9:0]  y_lowerpipe1,  y_lowerpipe2,  y_lowerpipe3,  y_lowerpipe4;
-reg[31:0] x_upperpipe1, x_upperpipe2, x_upperpipe3, x_upperpipe4;
+input[9:0] x_upperpipe1, x_upperpipe2, x_upperpipe3, x_upperpipe4;
 wire[9:0] y_upperpipe1, y_upperpipe2, y_upperpipe3, y_upperpipe4;
 
 wire[18:0] addr_lowerpipe1_x, addr_lowerpipe1_y, addr_lowerpipe2_x, addr_lowerpipe2_y, addr_lowerpipe3_x, addr_lowerpipe3_y, addr_lowerpipe4_x, addr_lowerpipe4_y;
@@ -59,21 +58,11 @@ wire x_upipe1_in, y_upipe1_in, x_upipe2_in, y_upipe2_in, x_upipe3_in, y_upipe3_i
 
 
 reg[9:0] pipe_velocity = 10'd5;
-wire[31:0] rand_val, rand_gap;
-
-//move this part to skeleton but how? 
-lfsr lfsr_1(iVGA_CLK, iRST_n, rand_val, 32'hf0f0f0f0);
-assign rand_gap = rand_val % 50 + 80;
-reg[9:0] pipe_gap;
-initial pipe_gap = rand_gap[9:0];
-
-wire[9:0] bird_size = 10'd20;
-wire[9:0] screen_height = 10'd480;
-wire[9:0] screen_width = 10'd640;
+reg[9:0] pipe_gap = 10'd100;
 wire[9:0] pipe_width = 10'd80;
+reg[9:0] pipe_height = 10'd190;
 
-reg[9:0] pipe_height;
-initial pipe_height = screen_height/2 - pipe_gap/2;
+wire[9:0] screen_height = 10'd480;
 
 assign y_lowerpipe1 = pipe_height + pipe_gap;
 assign y_lowerpipe2 = pipe_height + pipe_gap;
@@ -84,22 +73,18 @@ assign y_upperpipe1 = 10'd0;
 assign y_upperpipe2 = 10'd0;
 assign y_upperpipe3 = 10'd0;
 assign y_upperpipe4 = 10'd0;
+//
+//initial x_lowerpipe1 = 10'd120;
+//initial x_lowerpipe2 = 10'd240;
+//initial x_lowerpipe3 = 10'd340;
+//initial x_lowerpipe4 = 10'd440;
+//
+//initial x_upperpipe1 = 10'd120;
+//initial x_upperpipe2 = 10'd240;
+//initial x_upperpipe3 = 10'd340;
+//initial x_upperpipe4 = 10'd440;
 
-initial x_lowerpipe1 = 10'd120;
-initial x_lowerpipe2 = 10'd240;
-initial x_lowerpipe3 = 10'd340;
-initial x_lowerpipe4 = 10'd440;
 
-initial x_upperpipe1 = 10'd120;
-initial x_upperpipe2 = 10'd240;
-initial x_upperpipe3 = 10'd340;
-initial x_upperpipe4 = 10'd440;
-
-wire[9:0] upperpipe1_bottom, upperpipe2_bottom, upperpipe3_bottom, upperpipe4_bottom;
-assign upperpipe1_bottom = y_upperpipe1 + pipe_height;
-assign upperpipe2_bottom = y_upperpipe2 + pipe_height;
-assign upperpipe3_bottom = y_upperpipe3 + pipe_height;
-assign upperpipe4_bottom = y_upperpipe4 + pipe_height;
 
 ////
 assign rst = ~iRST_n;
@@ -110,32 +95,32 @@ video_sync_generator LTM_ins (.vga_clk(iVGA_CLK),
                               .VS(cVS));
 
 //this is our object control
-always @(posedge VGA_CLK_n) begin
-	counter <= counter + 1;
-	if(counter >  1000000) begin
-		velocity<= velocity + acceleration;
-		if(control == 0) begin
-			velocity <= -10'b110;
-			y_bird<=y_bird+velocity;
-		end
-		else begin
-			y_bird<=y_bird+velocity;
-		end
-		
-		x_lowerpipe1 <= x_lowerpipe1 - pipe_velocity;
-		x_lowerpipe2 <= x_lowerpipe2 - pipe_velocity;
-		x_lowerpipe3 <= x_lowerpipe3 - pipe_velocity;
-		x_lowerpipe4 <= x_lowerpipe4 - pipe_velocity;
-		
-		x_upperpipe1 <= x_upperpipe1 - pipe_velocity;
-		x_upperpipe2 <= x_upperpipe2 - pipe_velocity;
-		x_upperpipe3 <= x_upperpipe3 - pipe_velocity;
-		x_upperpipe4 <= x_upperpipe4 - pipe_velocity;
-		
-		
-		counter <= 0;
-	end
-end
+//always @(posedge VGA_CLK_n) begin
+//	counter <= counter + 1;
+//	if(counter >  1000000) begin
+//		velocity<= velocity + acceleration;
+//		if(control == 0) begin
+//			velocity <= -10'b110;
+//			y_bird<=y_bird+velocity;
+//		end
+//		else begin
+//			y_bird<=y_bird+velocity;
+//		end
+//		
+//		x_lowerpipe1 <= x_lowerpipe1 - pipe_velocity;
+//		x_lowerpipe2 <= x_lowerpipe2 - pipe_velocity;
+//		x_lowerpipe3 <= x_lowerpipe3 - pipe_velocity;
+//		x_lowerpipe4 <= x_lowerpipe4 - pipe_velocity;
+//		
+//		x_upperpipe1 <= x_upperpipe1 - pipe_velocity;
+//		x_upperpipe2 <= x_upperpipe2 - pipe_velocity;
+//		x_upperpipe3 <= x_upperpipe3 - pipe_velocity;
+//		x_upperpipe4 <= x_upperpipe4 - pipe_velocity;
+//		
+//		
+//		counter <= 0;
+//	end
+//end
 ////Addresss generator
 always@(posedge iVGA_CLK,negedge iRST_n)
 begin
@@ -253,19 +238,3 @@ begin
 end
 
 endmodule
- 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

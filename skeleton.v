@@ -105,7 +105,7 @@ module skeleton(resetn,
 	 reg15: pipe_x_vel
 	 */
 	 wire [31:0] reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31;
-	 
+	 wire testcontrol;
     regfile my_regfile(
         clock,
         ctrl_writeEnable,
@@ -124,7 +124,7 @@ module skeleton(resetn,
     processor my_processor(
         // Control signals
         ~clock,                          // I: The master clock
-        resetn,                          // I: A reset signal
+        1'b0,                          // I: A reset signal
 
         // Imem
         address_imem,                   // O: The address of the data to get from imem
@@ -178,16 +178,16 @@ module skeleton(resetn,
 								 .b_data(VGA_B),
 								 .g_data(VGA_G),
 								 .r_data(VGA_R),
-								 .control(control)
-//								 .y_bird(reg6),
-//								 .x_lowerpipe1(reg7),
-//								 .x_lowerpipe2(reg8),
-//								 .x_lowerpipe3(reg9),
-//								 .x_lowerpipe4(reg10),
-//								 .x_upperpipe1(reg11),
-//								 .x_upperpipe2(reg12),
-//								 .x_upperpipe3(reg13),
-//								 .x_upperpipe4(reg14),
+								 .control(control),
+								 .y_bird(reg5),
+								 .x_lowerpipe1(reg7),
+								 .x_lowerpipe2(reg8),
+								 .x_lowerpipe3(reg9),
+								 .x_lowerpipe4(reg10),
+								 .x_upperpipe1(reg11),
+								 .x_upperpipe2(reg12),
+								 .x_upperpipe3(reg13),
+								 .x_upperpipe4(reg14),
 								 );
 	
 endmodule
