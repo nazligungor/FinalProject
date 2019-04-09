@@ -6,7 +6,17 @@ module vga_controller(iRST_n,
                       b_data,
                       g_data,
                       r_data,
-							 control);
+							 control,
+//							 y_bird,
+//							 x_lowerpipe1,
+//							 x_lowerpipe2,
+//							 x_lowerpipe3,
+//							 x_lowerpipe4,
+//							 x_upperpipe1,
+//							 x_upperpipe2,
+//							 x_upperpipe3,
+//							 x_upperpipe4
+);
 
 	
 input iRST_n, control;
@@ -27,7 +37,7 @@ wire [23:0] bgr_data_raw;
 wire cBLANK_n,cHS,cVS,rst;
 wire[9:0] addr_x, addr_y;
 wire x_in_s, y_in_s;
-reg[9:0] y_bird;
+reg [31:0] y_bird;
 wire [9:0] x_bird;
 assign x_bird = 10'b0001100100; //bird's x fixed at 100
 reg [40:0] counter;
@@ -36,9 +46,9 @@ assign acceleration = 10'b1;
 reg[9:0] velocity;
 //pipes
 
-reg[9:0] x_lowerpipe1, x_lowerpipe2, x_lowerpipe3, x_lowerpipe4;
+reg[31:0] x_lowerpipe1, x_lowerpipe2, x_lowerpipe3, x_lowerpipe4;
 wire[9:0]  y_lowerpipe1,  y_lowerpipe2,  y_lowerpipe3,  y_lowerpipe4;
-reg[9:0] x_upperpipe1, x_upperpipe2, x_upperpipe3, x_upperpipe4;
+reg[31:0] x_upperpipe1, x_upperpipe2, x_upperpipe3, x_upperpipe4;
 wire[9:0] y_upperpipe1, y_upperpipe2, y_upperpipe3, y_upperpipe4;
 
 wire[18:0] addr_lowerpipe1_x, addr_lowerpipe1_y, addr_lowerpipe2_x, addr_lowerpipe2_y, addr_lowerpipe3_x, addr_lowerpipe3_y, addr_lowerpipe4_x, addr_lowerpipe4_y;

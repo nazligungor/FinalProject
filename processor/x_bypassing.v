@@ -8,7 +8,7 @@ module x_bypassing(rd_w, rd_m, r_x, alu_in_a_select);
 	alu testequalmw(rd_w, r_x, 5'b1, 0, data_mw, ine_mw, ilt_mw, of_mw);
 	
 	
-	assign alu_in_a_select[0] = ~ine_mw && ine_xm;
-	assign alu_in_a_select[1] = ine_xm && ine_mw;
+	assign alu_in_a_select[0] = ~ine_mw && ine_xm && r_x != 0;
+	assign alu_in_a_select[1] = (ine_xm && ine_mw) || r_x == 0;
 	
 endmodule

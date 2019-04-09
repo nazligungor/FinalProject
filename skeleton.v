@@ -1,8 +1,8 @@
-module project_skeleton(resetn, 
+module skeleton(resetn, 
 	ps2_clock, ps2_data, 										// ps2 related I/O
-	debug_data_in, debug_addr, leds, 						// extra debugging ports
-	lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon,// LCD info
-	seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8,		// seven segements
+//	debug_data_in, debug_addr, leds, 						// extra debugging ports
+//	lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon,// LCD info
+//	seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8,		// seven segements
 	VGA_CLK,   														//	VGA Clock
 	VGA_HS,															//	VGA H_SYNC
 	VGA_VS,															//	VGA V_SYNC
@@ -12,7 +12,11 @@ module project_skeleton(resetn,
 	VGA_G,	 														//	VGA Green[9:0]
 	VGA_B,															//	VGA Blue[9:0]
 	CLOCK_50,
-	control);  									// 50 MHz clock
+	control,
+//	address_imem,q_imem,
+//	reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31
+	
+	);  									// 50 MHz clock
 		
 	////////////////////////	VGA	////////////////////////////
 	output			VGA_CLK;   				//	VGA Clock
@@ -30,11 +34,11 @@ module project_skeleton(resetn,
 	input 			ps2_data, ps2_clock;
 	
 	////////////////////////	LCD and Seven Segment	////////////////////////////
-	output 			   lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon;
-	output 	[7:0] 	leds, lcd_data;
-	output 	[6:0] 	seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8;
-	output 	[31:0] 	debug_data_in;
-	output   [11:0]   debug_addr;
+//	output 			   lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon;
+//	output 	[7:0] 	leds, lcd_data;
+//	output 	[6:0] 	seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8;
+	wire 	[31:0] 	debug_data_in;
+	wire   [11:0]   debug_addr;
 	
 	wire			 clock;
 	wire			 lcd_write_en;
@@ -69,7 +73,7 @@ module project_skeleton(resetn,
     wire [31:0] q_dmem;
     dmem my_dmem(
         .address    (address_dmem),       // address of data
-        .clock      (clock),                  // may need to invert the clock
+        .clock      (CLOCK_50),                  // may need to invert the clock
         .data	    (data),    // data you want to write
         .wren	    (wren),      // write enable
         .q          (q_dmem)    // data from dmem
@@ -84,17 +88,21 @@ module project_skeleton(resetn,
     wire [31:0] data_readRegA, data_readRegB;
 	 /* register information:\
 	 question --> store velocity in a register or just determine which register to read from based on 
-	 reg1: nop counter
+	 reg1: nop counter max
 	 reg2: button pressed
 	 reg3: collision flag
 	 reg4: counter
 	 reg5: bird y
-	 reg6: velocity
-	 
-	 
-	 
-	 
-	 
+	 reg6: bird velocity
+	 reg7: lowerpipe1
+	 reg8: lowerpipe2
+	 reg9: lowerpipe3
+	 reg10: lowerpipe4
+	 reg11: upperpipe1
+	 reg12: upperpipe2
+	 reg13: upperpipe3
+	 reg14: upperpipe
+	 reg15: pipe_x_vel
 	 */
 	 wire [31:0] reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31;
 	 
@@ -108,14 +116,15 @@ module project_skeleton(resetn,
         data_writeReg,
         data_readRegA,
         data_readRegB,
-		  reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31
+		  reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31, 
+		  control
     );
 	 
     /** PROCESSOR **/
     processor my_processor(
         // Control signals
         ~clock,                          // I: The master clock
-        ~resetn,                          // I: A reset signal
+        resetn,                          // I: A reset signal
 
         // Imem
         address_imem,                   // O: The address of the data to get from imem
@@ -143,21 +152,21 @@ module project_skeleton(resetn,
 	// lcd controller
 	lcd mylcd(clock, ~resetn, 1'b1, ps2_out, lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon);
 	
-	// example for sending ps2 data to the first two seven segment displays
-	Hexadecimal_To_Seven_Segment hex1(ps2_out[3:0], seg1);
-	Hexadecimal_To_Seven_Segment hex2(ps2_out[7:4], seg2);
-	
-	// the other seven segment displays are currently set to 0
-	Hexadecimal_To_Seven_Segment hex3(4'b0, seg3);
-	Hexadecimal_To_Seven_Segment hex4(4'b0, seg4);
-	Hexadecimal_To_Seven_Segment hex5(4'b0, seg5);
-	Hexadecimal_To_Seven_Segment hex6(4'b0, seg6);
-	Hexadecimal_To_Seven_Segment hex7(4'b0, seg7);
-	Hexadecimal_To_Seven_Segment hex8(4'b0, seg8);
+//	// example for sending ps2 data to the first two seven segment displays
+//	Hexadecimal_To_Seven_Segment hex1(ps2_out[3:0], seg1);
+//	Hexadecimal_To_Seven_Segment hex2(ps2_out[7:4], seg2);
+//	
+//	// the other seven segment displays are currently set to 0
+//	Hexadecimal_To_Seven_Segment hex3(4'b0, seg3);
+//	Hexadecimal_To_Seven_Segment hex4(4'b0, seg4);
+//	Hexadecimal_To_Seven_Segment hex5(4'b0, seg5);
+//	Hexadecimal_To_Seven_Segment hex6(4'b0, seg6);
+//	Hexadecimal_To_Seven_Segment hex7(4'b0, seg7);
+//	Hexadecimal_To_Seven_Segment hex8(4'b0, seg8);
 	
 	// some LEDs that you could use for debugging if you wanted
-	assign leds = 8'b00101011;
-		
+//	assign leds = 8'b00101011;
+	 
 	// VGA
 	Reset_Delay			r0	(.iCLK(CLOCK_50),.oRESET(DLY_RST)	);
 	VGA_Audio_PLL 		p1	(.areset(~DLY_RST),.inclk0(CLOCK_50),.c0(VGA_CTRL_CLK),.c1(AUD_CTRL_CLK),.c2(VGA_CLK)	);
@@ -168,7 +177,18 @@ module project_skeleton(resetn,
 								 .oVS(VGA_VS),
 								 .b_data(VGA_B),
 								 .g_data(VGA_G),
-								 .r_data(VGA_R), .control(control));
+								 .r_data(VGA_R),
+								 .control(control)
+//								 .y_bird(reg6),
+//								 .x_lowerpipe1(reg7),
+//								 .x_lowerpipe2(reg8),
+//								 .x_lowerpipe3(reg9),
+//								 .x_lowerpipe4(reg10),
+//								 .x_upperpipe1(reg11),
+//								 .x_upperpipe2(reg12),
+//								 .x_upperpipe3(reg13),
+//								 .x_upperpipe4(reg14),
+								 );
 	
 endmodule
 

@@ -36,17 +36,23 @@
 # -------------------------------------------------------------------------- #
 
 
-set_global_assignment -name FAMILY "Cyclone IV GX"
-set_global_assignment -name DEVICE AUTO
-set_global_assignment -name TOP_LEVEL_ENTITY finalproject
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE115F29C7
+set_global_assignment -name TOP_LEVEL_ENTITY skeleton
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 17.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "16:15:51  APRIL 01, 2019"
 set_global_assignment -name LAST_QUARTUS_VERSION "17.1.0 Lite Edition"
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name MIF_FILE test.mif
+set_global_assignment -name SOURCE_FILE test.s
+set_global_assignment -name MIF_FILE flappybird.mif
 set_global_assignment -name VERILOG_FILE skeleton.v
 set_global_assignment -name VERILOG_FILE graphics/video_sync_generator.v
 set_global_assignment -name VERILOG_FILE graphics/vga_controller.v
 set_global_assignment -name VERILOG_FILE graphics/VGA_Audio_PLL.v
-set_global_assignment -name VERILOG_FILE graphics/skeleton.v
 set_global_assignment -name VERILOG_FILE graphics/Reset_Delay.v
 set_global_assignment -name VERILOG_FILE graphics/PS2_Interface.v
 set_global_assignment -name VERILOG_FILE graphics/PS2_Controller.v
@@ -57,10 +63,6 @@ set_global_assignment -name VERILOG_FILE graphics/Hexadecimal_To_Seven_Segment.v
 set_global_assignment -name VERILOG_FILE graphics/Altera_UP_PS2_Data_In.v
 set_global_assignment -name VERILOG_FILE graphics/Altera_UP_PS2_Command_Out.v
 set_global_assignment -name SYSTEMVERILOG_FILE graphics/lcd.sv
-set_global_assignment -name TEXT_FORMAT_REPORT_FILE graphics/skeleton.restore.rpt
-set_global_assignment -name SOURCE_FILE graphics/skeleton.qws
-set_global_assignment -name SOURCE_FILE graphics/skeleton.qsf
-set_global_assignment -name SOURCE_FILE graphics/skeleton.qpf
 set_global_assignment -name QIP_FILE graphics/pll.qip
 set_global_assignment -name SOURCE_FILE graphics/skeleton_assignment_defaults.qdf
 set_global_assignment -name SOURCE_FILE graphics/assignment_defaults.qdf
@@ -74,8 +76,6 @@ set_global_assignment -name MIF_FILE graphics/img_bars.mif
 set_global_assignment -name SOURCE_FILE graphics/qar_info.json
 set_global_assignment -name SOURCE_FILE graphics/pll.cmp
 set_global_assignment -name BSF_FILE graphics/pll.bsf
-set_global_assignment -name SOURCE_FILE graphics/vga_controller.v.bak
-set_global_assignment -name SOURCE_FILE graphics/skeleton.v.bak
 set_global_assignment -name SOURCE_FILE graphics/img_index.v.bak
 set_global_assignment -name SOURCE_FILE graphics/img_data.v.bak
 set_global_assignment -name VERILOG_FILE processor/xm_latch.v
@@ -122,8 +122,6 @@ set_global_assignment -name VERILOG_FILE processor/fetch_stage.v
 set_global_assignment -name VERILOG_FILE processor/fd_latch.v
 set_global_assignment -name VERILOG_FILE processor/execute_stage.v
 set_global_assignment -name VERILOG_FILE processor/dx_latch.v
-set_global_assignment -name VERILOG_FILE processor/dmem_vga.v
-set_global_assignment -name VERILOG_FILE processor/dmem_inst.v
 set_global_assignment -name VERILOG_FILE processor/dmem.v
 set_global_assignment -name VERILOG_FILE processor/div_action.v
 set_global_assignment -name VERILOG_FILE processor/dflipflop.v
@@ -137,3 +135,46 @@ set_global_assignment -name VERILOG_FILE processor/bitwise_or.v
 set_global_assignment -name VERILOG_FILE processor/bitwise_and.v
 set_global_assignment -name VERILOG_FILE processor/alu_tb.v
 set_global_assignment -name VERILOG_FILE processor/alu.v
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform1.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform2.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform3.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform4.vwf
+set_location_assignment PIN_G6 -to ps2_clock
+set_location_assignment PIN_H5 -to ps2_data
+set_location_assignment PIN_M23 -to resetn
+set_location_assignment PIN_B10 -to VGA_B[0]
+set_location_assignment PIN_A10 -to VGA_B[1]
+set_location_assignment PIN_C11 -to VGA_B[2]
+set_location_assignment PIN_B11 -to VGA_B[3]
+set_location_assignment PIN_A11 -to VGA_B[4]
+set_location_assignment PIN_C12 -to VGA_B[5]
+set_location_assignment PIN_D11 -to VGA_B[6]
+set_location_assignment PIN_D12 -to VGA_B[7]
+set_location_assignment PIN_F11 -to VGA_BLANK
+set_location_assignment PIN_A12 -to VGA_CLK
+set_location_assignment PIN_G13 -to VGA_HS
+set_location_assignment PIN_C13 -to VGA_VS
+set_location_assignment PIN_C10 -to VGA_SYNC
+set_location_assignment PIN_C9 -to VGA_G[7]
+set_location_assignment PIN_F10 -to VGA_G[6]
+set_location_assignment PIN_B8 -to VGA_G[5]
+set_location_assignment PIN_C8 -to VGA_G[4]
+set_location_assignment PIN_H12 -to VGA_G[3]
+set_location_assignment PIN_F8 -to VGA_G[2]
+set_location_assignment PIN_G11 -to VGA_G[1]
+set_location_assignment PIN_G8 -to VGA_G[0]
+set_location_assignment PIN_H10 -to VGA_R[7]
+set_location_assignment PIN_H8 -to VGA_R[6]
+set_location_assignment PIN_J12 -to VGA_R[5]
+set_location_assignment PIN_G10 -to VGA_R[4]
+set_location_assignment PIN_F12 -to VGA_R[3]
+set_location_assignment PIN_D10 -to VGA_R[2]
+set_location_assignment PIN_E11 -to VGA_R[1]
+set_location_assignment PIN_E12 -to VGA_R[0]
+set_location_assignment PIN_Y2 -to CLOCK_50
+set_location_assignment PIN_R24 -to control
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -5,6 +5,6 @@ module m_bypassing(rd_m, rd_w, m_select);
 	wire [31:0] data;
 	alu testequalxm(rd_m, rd_w, 5'b1, 0, data, ine, ilt, of);
 	
-	assign m_select = ~ine;
+	assign m_select = ~ine && rd_m != 0;
 
 endmodule

@@ -21,9 +21,19 @@ module execute_stage(rd_original, data_a, data_b, alu_op, shamt, target, next_pc
 	wire [31:0] alu_main_in_b;
 	wire [31:0] alu_main_out, alu_comp_out;
 	wire [4:0] opcode;
+	wire [31:0] extended_immediate;
+	assign extended_immediate[16:0] = immediate;
+	genvar c;
+	generate
+		for(c = 17; c < 32; c = c +1) begin: loop1
+			assign extended_immediate[c] = immediate[16];
+		end
+	endgenerate
+	
+	
 	wire isne_main, ilt_main, of_main, isne, ilt, of_comp;
 	assign alu_main_in_a = data_a;
-	assign alu_main_in_b = isR ? data_b : immediate;
+	assign alu_main_in_b = isR ? data_b : extended_immediate;
 	assign opcode = isR ? alu_op : 5'b0;
 	
 	//handles all R types and the rs + N operations for I types
