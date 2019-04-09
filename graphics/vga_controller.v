@@ -15,7 +15,8 @@ module vga_controller(iRST_n,
 							 x_upperpipe1,
 							 x_upperpipe2,
 							 x_upperpipe3,
-							 x_upperpipe4);
+							 x_upperpipe4, 
+							 c_flag);
 
 	
 input iRST_n, control;
@@ -127,22 +128,22 @@ always @(posedge VGA_CLK_n) begin
 	counter <= counter + 1;
 	if(counter >  1000000) begin
 		if(x_lowerpipe1 > screen_width) begin
-			rand_gap <= (rand_val % 50) + 100;
+			rand_gap <= (rand_val % 50) + 150;
 			pipe_gap <= rand_gap[9:0];
 		end
 		
 		if(x_lowerpipe2 > screen_width) begin
-			rand_gap1 <= (rand_val1 % 50) + 100;
+			rand_gap1 <= (rand_val1 % 50) + 150;
 			pipe_gap1 <= rand_gap1[9:0];
 		end
 		
 		if(x_lowerpipe3 > screen_width) begin
-			rand_gap2 <= (rand_val2 % 50) + 100;
+			rand_gap2 <= (rand_val2 % 50) + 150;
 			pipe_gap2 <= rand_gap2[9:0];
 		end
 		
 		if(x_lowerpipe4 > screen_width) begin
-			rand_gap3 <= (rand_val3 % 50) + 100;
+			rand_gap3 <= (rand_val3 % 50) + 150;
 			pipe_gap3 <= rand_gap3[9:0];
 		end
 		
@@ -239,7 +240,7 @@ img_index	img_index_inst (
  //wire isin_pipe;
  assign isin_pipe = lpipe1_in || upipe_in || lpipe2_in || lpipe3_in || lpipe4_in;
  
- wire c_flag;
+ output c_flag;
  
  collision_detection col_1(x_bird, y_bird, bird_size, pipe_width, x_lowerpipe1, x_lowerpipe2, x_lowerpipe3, x_lowerpipe4,  y_lowerpipe1, 
  y_lowerpipe2,  y_lowerpipe3,  y_lowerpipe4, upperpipe1_bottom, upperpipe2_bottom, upperpipe3_bottom, upperpipe4_bottom, c_flag);
