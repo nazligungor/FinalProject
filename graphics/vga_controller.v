@@ -32,8 +32,8 @@ wire isin_pipe;
 reg [18:0] ADDR;
 reg [23:0] bgr_data;
 wire VGA_CLK_n;
-wire [7:0] index;
-wire [23:0] bgr_data_raw;
+wire [7:0] index, index_bird;
+wire [23:0] bgr_data_raw, bird_data_raw;
 wire cBLANK_n,cHS,cVS,rst;
 wire[9:0] addr_x, addr_y;
 wire x_in_s, y_in_s;
@@ -179,6 +179,19 @@ img_index	img_index_inst (
 	.q ( bgr_data_raw)
 	);	
 //////
+
+bird_data	bird_data_inst (
+	.address ( ADDR ),
+	.clock ( VGA_CLK_n ),
+	.q ( index_bird )
+	);
+	
+bird_index	bird_index_inst (
+	.address ( index_bird ),
+	.clock ( iVGA_CLK ),
+	.q ( bird_data_raw)
+	);	
+
  assign addr_x = ADDR % 640;
  assign addr_y = ADDR/640;
  assign addr_lowerpipe1_x = ADDR % 640; 
@@ -252,7 +265,7 @@ img_index	img_index_inst (
  assign game_over = 24'b0;
  wire [23:0] temp_data, temp_data2;
  wire [23:0] use_data;
- assign temp_data = isin_pipe ? in_pipe_data : in_square_data;
+ assign temp_data = isin_pipe ? in_pipe_data : bird_data_raw;
  assign temp_data2 = c_flag ? game_over : temp_data;
  assign use_data= (isin_square || isin_pipe) ? temp_data2 : bgr_data_raw;
 
