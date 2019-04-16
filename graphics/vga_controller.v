@@ -33,14 +33,16 @@ wire isin_pipe;
 reg [18:0] ADDR;
 reg [23:0] bgr_data;
 wire VGA_CLK_n;
-wire [7:0] index, index_bird;
-wire [23:0] bgr_data_raw, bird_data_raw;
+wire [7:0] index, index_bird, index_pipe;
+wire [23:0] bgr_data_raw, bird_data_raw, pipe_data_raw;
 wire cBLANK_n,cHS,cVS,rst;
 wire[9:0] addr_x, addr_y;
 wire x_in_s, y_in_s;
 input[9:0] y_bird;
 wire [9:0] x_bird;
 assign x_bird = 10'b0001000000; //bird's x fixed at 100
+
+input[31:0] screen_state;
 //reg [40:0] counter;
 //wire [9:0] acceleration;
 //assign acceleration = 10'b1;
@@ -192,6 +194,18 @@ bird_index	bird_index_inst (
 	.clock ( iVGA_CLK ),
 	.q ( bird_data_raw)
 	);	
+	
+pipe_data	pipe_data_inst (
+	.address ( ADDR ),
+	.clock ( VGA_CLK_n ),
+	.q ( index_pipe )
+	);
+	
+pipe_index	pipe_index_inst (
+	.address ( index_pipe ),
+	.clock ( iVGA_CLK ),
+	.q ( pipe_data_raw)
+	);
 
  assign addr_x = ADDR % 640;
  assign addr_y = ADDR/640;
@@ -245,7 +259,8 @@ bird_index	bird_index_inst (
  assign x_upipe4_in = (addr_upperpipe4_x < (x_upperpipe4 + pipe_width)) && (addr_upperpipe4_x > x_upperpipe4);
  assign y_upipe4_in = (addr_upperpipe4_y < (y_upperpipe4 + pipe_height3)) && (addr_upperpipe4_y > y_upperpipe4);
  
- wire upipe_in;
+ wire upipe_in, lpipe_in;
+ assign lpipe_in = lpipe1_in  || lpipe2_in || lpipe3_in || lpipe4_in;
  assign upipe_in = (x_upipe1_in && y_upipe1_in) || (x_upipe2_in && y_upipe2_in) || (x_upipe3_in && y_upipe3_in) || (x_upipe4_in && y_upipe4_in);
  
  wire isin_square;
@@ -266,7 +281,7 @@ bird_index	bird_index_inst (
  assign game_over = 24'b0;
  wire [23:0] temp_data, temp_data2;
  wire [23:0] use_data;
- assign temp_data = isin_pipe ? in_pipe_data : bird_data_raw;
+ assign temp_data = isin_pipe ? pipe_data_raw : bird_data_raw;
  assign temp_data2 = c_flag ? game_over : temp_data;
  assign use_data= (isin_square || isin_pipe) ? temp_data2 : bgr_data_raw;
 
