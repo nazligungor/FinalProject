@@ -22,6 +22,7 @@ module vga_controller(iRST_n,
 	
 input iRST_n, control;
 input iVGA_CLK;
+input [1:0] screen_state;
 output reg oBLANK_n;
 output reg oHS;
 output reg oVS;

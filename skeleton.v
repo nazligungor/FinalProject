@@ -1,7 +1,8 @@
 module skeleton(resetn, 
 	ps2_clock, ps2_data, 										// ps2 related I/O
-//	debug_data_in, debug_addr, leds, 						// extra debugging ports
-//	lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon,// LCD info
+//	debug_data_in, debug_addr, 
+	leds, 						// extra debugging ports
+	lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon,// LCD info
 //	seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8,		// seven segements
 	VGA_CLK,   														//	VGA Clock
 	VGA_HS,															//	VGA H_SYNC
@@ -34,8 +35,8 @@ module skeleton(resetn,
 	input 			ps2_data, ps2_clock;
 	
 	////////////////////////	LCD and Seven Segment	////////////////////////////
-//	output 			   lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon;
-//	output 	[7:0] 	leds, lcd_data;
+	output 			   lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon;
+	output 	[7:0] 	lcd_data, leds;
 //	output 	[6:0] 	seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8;
 	wire 	[31:0] 	debug_data_in;
 	wire   [11:0]   debug_addr;
@@ -103,6 +104,7 @@ module skeleton(resetn,
 	 reg13: upperpipe3
 	 reg14: upperpipe
 	 reg15: pipe_x_vel
+	 reg16: high_score
 	 reg29: reset
 	 reg30: c_flag
 	 reg31: control
@@ -155,8 +157,8 @@ module skeleton(resetn,
 	PS2_Interface myps2(clock, resetn, ps2_clock, ps2_data, ps2_key_data, ps2_key_pressed, ps2_out);
 	
 	// lcd controller
-	lcd mylcd(clock, ~resetn, 1'b1, ps2_out, lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon);
-	
+	lcd mylcd(clock, ~resetn, 1'b1, reg16[14:7], lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon);
+	assign leds = reg16[14:7]; 
 //	// example for sending ps2 data to the first two seven segment displays
 //	Hexadecimal_To_Seven_Segment hex1(ps2_out[3:0], seg1);
 //	Hexadecimal_To_Seven_Segment hex2(ps2_out[7:4], seg2);
