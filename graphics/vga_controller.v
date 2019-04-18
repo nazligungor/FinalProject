@@ -165,21 +165,21 @@ end
 //////////////////////////
 //////INDEX addr.
 assign VGA_CLK_n = ~iVGA_CLK;
-img_data	img_data_inst (
-	.address ( ADDR ),
-	.clock ( VGA_CLK_n ),
-	.q ( index )
-	);
-	
+//img_data	img_data_inst (
+//	.address ( ADDR ),
+//	.clock ( VGA_CLK_n ),
+//	.q ( index )
+//	);
+//	
 /////////////////////////
 //////Add switch-input logic here
 	
 //////Color table output
-img_index	img_index_inst (
-	.address ( index ),
-	.clock ( iVGA_CLK ),
-	.q ( bgr_data_raw)
-	);	
+//img_index	img_index_inst (
+//	.address ( index ),
+//	.clock ( iVGA_CLK ),
+//	.q ( bgr_data_raw)
+//	);	
 //////
 
 bird_data	bird_data_inst (
@@ -269,6 +269,7 @@ bird_index	bird_index_inst (
  wire [23:0] use_data;
  assign temp_data = isin_pipe ? in_pipe_data : bird_data_raw;
  assign temp_data2 = c_flag ? game_over : temp_data;
+ assign bgr_data_raw = 23'b10;
  assign use_data= (isin_square || isin_pipe) ? temp_data2 : bgr_data_raw;
 
  
