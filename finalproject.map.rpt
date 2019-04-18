@@ -1,5 +1,5 @@
 Analysis & Synthesis report for finalproject
-Wed Apr 17 18:38:07 2019
+Wed Apr 17 21:22:07 2019
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -543,7 +543,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Apr 17 18:38:07 2019       ;
+; Analysis & Synthesis Status        ; Successful - Wed Apr 17 21:22:07 2019       ;
 ; Quartus Prime Version              ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                      ; finalproject                                ;
 ; Top-level Entity Name              ; skeleton                                    ;
@@ -659,7 +659,7 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
+;     Processor 2            ;   0.1%      ;
 ;     Processor 3            ;   0.0%      ;
 ;     Processor 4            ;   0.0%      ;
 +----------------------------+-------------+
@@ -751,9 +751,9 @@ refer to the applicable agreement for further details.
 ; sign_div_unsign.inc                  ; yes             ; Megafunction                           ; c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/sign_div_unsign.inc       ;         ;
 ; db/lpm_divide_ikm.tdf                ; yes             ; Auto-Generated Megafunction            ; C:/Users/mpz5/Documents/GitHub/FinalProject/db/lpm_divide_ikm.tdf                ;         ;
 ; db/sign_div_unsign_anh.tdf           ; yes             ; Auto-Generated Megafunction            ; C:/Users/mpz5/Documents/GitHub/FinalProject/db/sign_div_unsign_anh.tdf           ;         ;
-; db/alt_u_div_2ef.tdf                 ; yes             ; Auto-Generated Megafunction            ; C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_2ef.tdf                 ;         ;
-; db/add_sub_1tc.tdf                   ; yes             ; Auto-Generated Megafunction            ; C:/Users/mpz5/Documents/GitHub/FinalProject/db/add_sub_1tc.tdf                   ;         ;
-; db/add_sub_2tc.tdf                   ; yes             ; Auto-Generated Megafunction            ; C:/Users/mpz5/Documents/GitHub/FinalProject/db/add_sub_2tc.tdf                   ;         ;
+; db/alt_u_div_8af.tdf                 ; yes             ; Auto-Generated Megafunction            ; C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_8af.tdf                 ;         ;
+; db/add_sub_7pc.tdf                   ; yes             ; Auto-Generated Megafunction            ; C:/Users/mpz5/Documents/GitHub/FinalProject/db/add_sub_7pc.tdf                   ;         ;
+; db/add_sub_8pc.tdf                   ; yes             ; Auto-Generated Megafunction            ; C:/Users/mpz5/Documents/GitHub/FinalProject/db/add_sub_8pc.tdf                   ;         ;
 ; db/lpm_divide_lcm.tdf                ; yes             ; Auto-Generated Megafunction            ; C:/Users/mpz5/Documents/GitHub/FinalProject/db/lpm_divide_lcm.tdf                ;         ;
 +--------------------------------------+-----------------+----------------------------------------+----------------------------------------------------------------------------------+---------+
 
@@ -2455,15 +2455,15 @@ refer to the applicable agreement for further details.
 ;       |lpm_divide:Div2|                      ; 192 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Div2                                                                                                             ; lpm_divide           ; work         ;
 ;          |lpm_divide_ikm:auto_generated|     ; 192 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Div2|lpm_divide_ikm:auto_generated                                                                               ; lpm_divide_ikm       ; work         ;
 ;             |sign_div_unsign_anh:divider|    ; 192 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Div2|lpm_divide_ikm:auto_generated|sign_div_unsign_anh:divider                                                   ; sign_div_unsign_anh  ; work         ;
-;                |alt_u_div_2ef:divider|       ; 192 (192)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Div2|lpm_divide_ikm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_2ef:divider                             ; alt_u_div_2ef        ; work         ;
+;                |alt_u_div_8af:divider|       ; 192 (192)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Div2|lpm_divide_ikm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_8af:divider                             ; alt_u_div_8af        ; work         ;
 ;       |lpm_divide:Mod4|                      ; 50 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Mod4                                                                                                             ; lpm_divide           ; work         ;
 ;          |lpm_divide_lcm:auto_generated|     ; 50 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated                                                                               ; lpm_divide_lcm       ; work         ;
 ;             |sign_div_unsign_anh:divider|    ; 50 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider                                                   ; sign_div_unsign_anh  ; work         ;
-;                |alt_u_div_2ef:divider|       ; 50 (50)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_2ef:divider                             ; alt_u_div_2ef        ; work         ;
+;                |alt_u_div_8af:divider|       ; 50 (50)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_8af:divider                             ; alt_u_div_8af        ; work         ;
 ;       |lpm_divide:Mod6|                      ; 184 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Mod6                                                                                                             ; lpm_divide           ; work         ;
 ;          |lpm_divide_lcm:auto_generated|     ; 184 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Mod6|lpm_divide_lcm:auto_generated                                                                               ; lpm_divide_lcm       ; work         ;
 ;             |sign_div_unsign_anh:divider|    ; 184 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Mod6|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider                                                   ; sign_div_unsign_anh  ; work         ;
-;                |alt_u_div_2ef:divider|       ; 184 (184)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Mod6|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_2ef:divider                             ; alt_u_div_2ef        ; work         ;
+;                |alt_u_div_8af:divider|       ; 184 (184)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|lpm_divide:Mod6|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_8af:divider                             ; alt_u_div_8af        ; work         ;
 ;       |video_sync_generator:LTM_ins|         ; 44 (44)             ; 24 (24)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|video_sync_generator:LTM_ins                                                                                                ; video_sync_generator ; work         ;
 +----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
@@ -8924,7 +8924,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:12     ;
+; Top            ; 00:00:10     ;
 +----------------+--------------+
 
 
@@ -8934,7 +8934,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-    Info: Processing started: Wed Apr 17 18:37:14 2019
+    Info: Processing started: Wed Apr 17 21:21:21 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off finalproject -c finalproject
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -9089,6 +9089,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file graphic
     Info (12023): Found entity 1: Altera_UP_PS2_Data_In File: C:/Users/mpz5/Documents/GitHub/FinalProject/graphics/Altera_UP_PS2_Data_In.v Line: 10
 Info (12021): Found 1 design units, including 1 entities, in source file graphics/altera_up_ps2_command_out.v
     Info (12023): Found entity 1: Altera_UP_PS2_Command_Out File: C:/Users/mpz5/Documents/GitHub/FinalProject/graphics/Altera_UP_PS2_Command_Out.v Line: 10
+Info (12021): Found 1 design units, including 1 entities, in source file lcd_data_generator.v
+    Info (12023): Found entity 1: getLCDdata File: C:/Users/mpz5/Documents/GitHub/FinalProject/lcd_data_generator.v Line: 1
 Warning (10236): Verilog HDL Implicit Net warning at skeleton.v(53): created implicit net for "inclock" File: C:/Users/mpz5/Documents/GitHub/FinalProject/skeleton.v Line: 53
 Warning (10236): Verilog HDL Implicit Net warning at skeleton.v(117): created implicit net for "ctrl_reset" File: C:/Users/mpz5/Documents/GitHub/FinalProject/skeleton.v Line: 117
 Warning (10236): Verilog HDL Implicit Net warning at skeleton.v(180): created implicit net for "DLY_RST" File: C:/Users/mpz5/Documents/GitHub/FinalProject/skeleton.v Line: 180
@@ -9198,6 +9200,7 @@ Info (12133): Instantiated megafunction "dmem:my_dmem|altsyncram:altsyncram_comp
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_lbi1.tdf
     Info (12023): Found entity 1: altsyncram_lbi1 File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/altsyncram_lbi1.tdf Line: 27
 Info (12128): Elaborating entity "altsyncram_lbi1" for hierarchy "dmem:my_dmem|altsyncram:altsyncram_component|altsyncram_lbi1:auto_generated" File: c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
+Critical Warning (127003): Can't find Memory Initialization File or Hexadecimal (Intel-Format) File C:/Users/mpz5/Documents/GitHub/FinalProject/dmem.mif -- setting all initial values to 0 File: C:/Users/mpz5/Documents/GitHub/FinalProject/processor/dmem.v Line: 86
 Info (12128): Elaborating entity "regfile" for hierarchy "regfile:my_regfile" File: C:/Users/mpz5/Documents/GitHub/FinalProject/skeleton.v Line: 128
 Info (12128): Elaborating entity "my_decoder" for hierarchy "regfile:my_regfile|my_decoder:d1" File: C:/Users/mpz5/Documents/GitHub/FinalProject/processor/regfile.v Line: 11
 Info (12128): Elaborating entity "my_reg" for hierarchy "regfile:my_regfile|my_reg:my_reg0" File: C:/Users/mpz5/Documents/GitHub/FinalProject/processor/regfile.v Line: 23
@@ -9344,6 +9347,7 @@ Info (12128): Elaborating entity "video_sync_generator" for hierarchy "vga_contr
 Warning (10230): Verilog HDL assignment warning at video_sync_generator.v(77): truncated value with size 32 to match size of target (10) File: C:/Users/mpz5/Documents/GitHub/FinalProject/graphics/video_sync_generator.v Line: 77
 Warning (10230): Verilog HDL assignment warning at video_sync_generator.v(80): truncated value with size 32 to match size of target (11) File: C:/Users/mpz5/Documents/GitHub/FinalProject/graphics/video_sync_generator.v Line: 80
 Info (12128): Elaborating entity "bird_data" for hierarchy "vga_controller:vga_ins|bird_data:bird_data_inst" File: C:/Users/mpz5/Documents/GitHub/FinalProject/graphics/vga_controller.v Line: 189
+Warning (272007): Not using extra address lines in altsyncram megafunction design -- 400 memory words in side A specified but total number of address lines is 19 File: C:/Users/mpz5/Documents/GitHub/FinalProject/graphics/bird_data.v Line: 81
 Info (12128): Elaborating entity "altsyncram" for hierarchy "vga_controller:vga_ins|bird_data:bird_data_inst|altsyncram:altsyncram_component" File: C:/Users/mpz5/Documents/GitHub/FinalProject/graphics/bird_data.v Line: 81
 Info (12130): Elaborated megafunction instantiation "vga_controller:vga_ins|bird_data:bird_data_inst|altsyncram:altsyncram_component" File: C:/Users/mpz5/Documents/GitHub/FinalProject/graphics/bird_data.v Line: 81
 Info (12133): Instantiated megafunction "vga_controller:vga_ins|bird_data:bird_data_inst|altsyncram:altsyncram_component" with the following parameter: File: C:/Users/mpz5/Documents/GitHub/FinalProject/graphics/bird_data.v Line: 81
@@ -9552,12 +9556,12 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_
     Info (12023): Found entity 1: lpm_divide_ikm File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/lpm_divide_ikm.tdf Line: 24
 Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_anh.tdf
     Info (12023): Found entity 1: sign_div_unsign_anh File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/sign_div_unsign_anh.tdf Line: 24
-Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_2ef.tdf
-    Info (12023): Found entity 1: alt_u_div_2ef File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_2ef.tdf Line: 26
-Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_1tc.tdf
-    Info (12023): Found entity 1: add_sub_1tc File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/add_sub_1tc.tdf Line: 22
-Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_2tc.tdf
-    Info (12023): Found entity 1: add_sub_2tc File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/add_sub_2tc.tdf Line: 22
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_8af.tdf
+    Info (12023): Found entity 1: alt_u_div_8af File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_8af.tdf Line: 26
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_7pc.tdf
+    Info (12023): Found entity 1: add_sub_7pc File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/add_sub_7pc.tdf Line: 22
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_8pc.tdf
+    Info (12023): Found entity 1: add_sub_8pc File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/add_sub_8pc.tdf Line: 22
 Info (12130): Elaborated megafunction instantiation "vga_controller:vga_ins|lpm_divide:Mod4" File: C:/Users/mpz5/Documents/GitHub/FinalProject/graphics/vga_controller.v Line: 202
 Info (12133): Instantiated megafunction "vga_controller:vga_ins|lpm_divide:Mod4" with the following parameter: File: C:/Users/mpz5/Documents/GitHub/FinalProject/graphics/vga_controller.v Line: 202
     Info (12134): Parameter "LPM_WIDTHN" = "19"
@@ -9583,11 +9587,11 @@ Warning (13024): Output pins are stuck at VCC or GND
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 98 registers lost all their fanouts during netlist optimizations.
 Info (17016): Found the following redundant logic cells in design
-    Info (17048): Logic cell "vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_2ef:divider|add_sub_17_result_int[4]~14" File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_2ef.tdf Line: 71
-    Info (17048): Logic cell "vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_2ef:divider|add_sub_17_result_int[1]~16" File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_2ef.tdf Line: 71
-    Info (17048): Logic cell "vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_2ef:divider|add_sub_17_result_int[0]~18" File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_2ef.tdf Line: 71
-    Info (17048): Logic cell "vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_2ef:divider|add_sub_17_result_int[3]~20" File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_2ef.tdf Line: 71
-    Info (17048): Logic cell "vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_2ef:divider|add_sub_17_result_int[2]~22" File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_2ef.tdf Line: 71
+    Info (17048): Logic cell "vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_8af:divider|add_sub_17_result_int[4]~14" File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_8af.tdf Line: 71
+    Info (17048): Logic cell "vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_8af:divider|add_sub_17_result_int[1]~16" File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_8af.tdf Line: 71
+    Info (17048): Logic cell "vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_8af:divider|add_sub_17_result_int[0]~18" File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_8af.tdf Line: 71
+    Info (17048): Logic cell "vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_8af:divider|add_sub_17_result_int[3]~20" File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_8af.tdf Line: 71
+    Info (17048): Logic cell "vga_controller:vga_ins|lpm_divide:Mod4|lpm_divide_lcm:auto_generated|sign_div_unsign_anh:divider|alt_u_div_8af:divider|add_sub_17_result_int[2]~22" File: C:/Users/mpz5/Documents/GitHub/FinalProject/db/alt_u_div_8af.tdf Line: 71
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning (15897): PLL "VGA_Audio_PLL:p1|altpll:altpll_component|pll" has parameter compensate_clock set to clock0 but port CLK[0] is not connected File: c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/altpll.tdf Line: 920
@@ -9601,10 +9605,10 @@ Info (21057): Implemented 5123 device resources after synthesis - the final reso
     Info (21061): Implemented 4971 logic cells
     Info (21064): Implemented 96 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 209 warnings
-    Info: Peak virtual memory: 4952 megabytes
-    Info: Processing ended: Wed Apr 17 18:38:07 2019
-    Info: Elapsed time: 00:00:53
-    Info: Total CPU time (on all processors): 00:00:56
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 211 warnings
+    Info: Peak virtual memory: 4936 megabytes
+    Info: Processing ended: Wed Apr 17 21:22:07 2019
+    Info: Elapsed time: 00:00:46
+    Info: Total CPU time (on all processors): 00:00:55
 
 

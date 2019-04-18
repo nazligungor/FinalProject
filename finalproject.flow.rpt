@@ -1,5 +1,5 @@
 Flow report for finalproject
-Wed Apr 17 18:38:54 2019
+Wed Apr 17 21:22:07 2019
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -40,22 +40,22 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Wed Apr 17 18:38:47 2019       ;
+; Flow Status                        ; Successful - Wed Apr 17 21:22:07 2019       ;
 ; Quartus Prime Version              ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                      ; finalproject                                ;
 ; Top-level Entity Name              ; skeleton                                    ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE115F29C7                               ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 4,070 / 114,480 ( 4 % )                     ;
-;     Total combinational functions  ; 3,805 / 114,480 ( 3 % )                     ;
-;     Dedicated logic registers      ; 1,595 / 114,480 ( 1 % )                     ;
+; Total logic elements               ; 4,897                                       ;
+;     Total combinational functions  ; 3,805                                       ;
+;     Dedicated logic registers      ; 1,595                                       ;
 ; Total registers                    ; 1595                                        ;
-; Total pins                         ; 55 / 529 ( 10 % )                           ;
+; Total pins                         ; 55                                          ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 271,488 / 3,981,312 ( 7 % )                 ;
-; Embedded Multiplier 9-bit elements ; 0 / 532 ( 0 % )                             ;
-; Total PLLs                         ; 1 / 4 ( 25 % )                              ;
+; Total memory bits                  ; 271,488                                     ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 1                                           ;
 +------------------------------------+---------------------------------------------+
 
 
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/17/2019 18:37:15 ;
+; Start date & time ; 04/17/2019 21:21:22 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; finalproject        ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 154946507232357.155554063519212        ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 154946507248442.155555048116188        ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
 ; MISC_FILE                           ; graphics/pll.bsf                       ; --            ; --          ; --         ;
@@ -90,38 +90,29 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------+
-; Flow Elapsed Time                                                                                                             ;
-+---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
-+---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:51     ; 1.0                     ; 4952 MB             ; 00:00:54                           ;
-; Fitter                    ; 00:00:33     ; 1.1                     ; 5784 MB             ; 00:00:46                           ;
-; Assembler                 ; 00:00:03     ; 1.0                     ; 4724 MB             ; 00:00:03                           ;
-; TimeQuest Timing Analyzer ; 00:00:06     ; 1.2                     ; 4910 MB             ; 00:00:05                           ;
-; Total                     ; 00:01:33     ; --                      ; --                  ; 00:01:48                           ;
-+---------------------------+--------------+-------------------------+---------------------+------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                        ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis ; 00:00:44     ; 1.0                     ; 4936 MB             ; 00:00:53                           ;
+; Total                ; 00:00:44     ; --                      ; --                  ; 00:00:53                           ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                         ;
-+---------------------------+------------------+------------+------------+----------------+
-; Module Name               ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
-+---------------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis      ; 202a-pc05        ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter                    ; 202a-pc05        ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler                 ; 202a-pc05        ; Windows 10 ; 10.0       ; x86_64         ;
-; TimeQuest Timing Analyzer ; 202a-pc05        ; Windows 10 ; 10.0       ; x86_64         ;
-+---------------------------+------------------+------------+------------+----------------+
++------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                    ;
++----------------------+------------------+------------+------------+----------------+
+; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
++----------------------+------------------+------------+------------+----------------+
+; Analysis & Synthesis ; 202a-pc01        ; Windows 10 ; 10.0       ; x86_64         ;
++----------------------+------------------+------------+------------+----------------+
 
 
 ------------
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off finalproject -c finalproject
-quartus_fit --read_settings_files=off --write_settings_files=off finalproject -c finalproject
-quartus_asm --read_settings_files=off --write_settings_files=off finalproject -c finalproject
-quartus_sta finalproject -c finalproject
 
 
 
