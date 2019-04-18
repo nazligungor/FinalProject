@@ -105,6 +105,8 @@ module skeleton(resetn,
 	 reg14: upperpipe
 	 reg15: pipe_x_vel
 	 reg16: high_score
+	 reg17: lettera
+	 reg18: letterb
 	 reg29: reset
 	 reg30: c_flag
 	 reg31: control
@@ -157,9 +159,18 @@ module skeleton(resetn,
 	PS2_Interface myps2(clock, resetn, ps2_clock, ps2_data, ps2_key_data, ps2_key_pressed, ps2_out);
 	wire[7:0] ascii_data;
 	wire lcd_we, lcd_reset;
-	assign leds = reg16[14:7]; 
+	reg[15:0] name;
+	assign leds = name[7:0];
+	always @(reg17, reg18) begin 
+		name[15:8] = reg17[14:7];
+		name[7:0] = reg17[7:0];
+	end
+	
+	
+	lcd_read_name gen_chars(clock,name, ascii_data, lcd_we, lcd_reset);
 
-	lcd_data_generator gen_digits(clock, reg16[14:7], ascii_data, lcd_we, lcd_reset);
+//	lcd_data_generator gen_digits(clock, reg16[14:7], ascii_data, lcd_we, lcd_reset);
+
 	lcd mylcd(clock, lcd_reset, lcd_we, ascii_data, lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon);
 
 //	// example for sending ps2 data to the first two seven segment displays
