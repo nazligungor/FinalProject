@@ -17,7 +17,8 @@ module vga_controller(iRST_n,
 							 x_upperpipe3,
 							 x_upperpipe4, 
 							 c_flag, 
-							 screen_state);
+							 screen_state, 
+							 x_bird);
 
 	
 input iRST_n, control;
@@ -40,8 +41,8 @@ wire cBLANK_n,cHS,cVS,rst;
 wire[9:0] addr_x, addr_y;
 wire x_in_s, y_in_s;
 input[9:0] y_bird;
-wire [9:0] x_bird;
-assign x_bird = 10'b0001000000; //bird's x fixed at 100
+input [9:0] x_bird;
+//assign x_bird = 10'b0001000000; //bird's x fixed at 100
 //reg [40:0] counter;
 //wire [9:0] acceleration;
 //assign acceleration = 10'b1;

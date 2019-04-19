@@ -1,4 +1,5 @@
-module skeleton(resetn, 
+module skeleton(
+	resetn, 
 	ps2_clock, ps2_data, 										// ps2 related I/O
 //	debug_data_in, debug_addr, 
 	leds, 						// extra debugging ports
@@ -13,7 +14,9 @@ module skeleton(resetn,
 	VGA_G,	 														//	VGA Green[9:0]
 	VGA_B,															//	VGA Blue[9:0]
 	CLOCK_50,
-	control
+	control,
+	left, 
+	right
 //	address_imem,
 //	reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31
 //	
@@ -31,7 +34,7 @@ module skeleton(resetn,
 	input				CLOCK_50;
 	//output         isin_pipe;
 	////////////////////////	PS2	////////////////////////////
-	input 			resetn,control;
+	input 			resetn,control, left, right;
 	input 			ps2_data, ps2_clock;
 	
 	////////////////////////	LCD and Seven Segment	////////////////////////////
@@ -106,13 +109,24 @@ module skeleton(resetn,
 	 reg15: pipe_x_vel
 	 reg16: high_score
 	 reg17: lettera
-	 reg18: letterb
+	 reg18: birdx
+	 reg19: in pause game = maxlettervalue, 12, ingame: 2000 for speed
+	 reg20: level flag
+	 
+	 reg21: control
+	 reg22: x control flag
+	 reg23: move left
+	 reg24: move right
 	 reg29: reset
 	 reg30: c_flag
-	 reg31: control
+	 
 	 */
+	 
 	 wire [31:0] reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31;
 	 wire c_flag;
+	 wire level_flag;
+	 wire x_control_flag;
+	 assign x_control_flag = 1'b1;
     regfile my_regfile(
         clock,
         ctrl_writeEnable,
@@ -126,7 +140,11 @@ module skeleton(resetn,
 		  reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31, 
 		  control,
 		  c_flag,
-		  resetn
+		  resetn, 
+		  level_flag,
+		  left, 
+		  right,
+		  x_control_flag
     );
 	 
     /** PROCESSOR **/
@@ -160,14 +178,20 @@ module skeleton(resetn,
 	wire[7:0] ascii_data;
 	wire lcd_we, lcd_reset;
 	reg[15:0] name;
-	assign leds = name[7:0];
+	assign leds[2] = x_control_flag;
+	assign leds[4] = x_control_flag;
 	always @(reg17, reg18) begin 
-		name[15:8] = reg17[14:7];
-		name[7:0] = reg17[7:0];
+		name[15:8] = reg17[7:0];
+		name[7:0] = 0;
 	end
+	wire [7:0] score;
+	assign score = reg16[12:5];
 	
+	assign level_flag = (score + 1)%5 == 0;
+
+	lcd_inputs get_inputs(clock, name, reg16[12:5], ascii_data, lcd_we, lcd_reset);
 	
-	lcd_read_name gen_chars(clock,name, ascii_data, lcd_we, lcd_reset);
+//	lcd_read_name gen_chars(clock,name, ascii_data, lcd_we, lcd_reset);
 
 //	lcd_data_generator gen_digits(clock, reg16[14:7], ascii_data, lcd_we, lcd_reset);
 
@@ -210,7 +234,8 @@ module skeleton(resetn,
 								 .x_upperpipe3(reg13),
 								 .x_upperpipe4(reg14),
 								 .c_flag(c_flag),
-								 .screen_state(reg28)
+								 .screen_state(reg28),
+								 .x_bird(reg18)
 								 );
 	
 endmodule

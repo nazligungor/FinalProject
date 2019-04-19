@@ -1,38 +1,33 @@
-module lcd_data_generator(clock, score, data_bit, write_enable, reset);
+module lcd_data_generator(clock, start, score, data_bit, write_enable, done);
 	input [7:0] score;
 	input clock;
-//	output [3:0] curr;
+	input start;
+
 	output[7:0] data_bit;
-//	output [10:0] div;
-//	output d, s;
-//	output [31:0] num;
-	reg[7:0] last_score;
-	output reset;
+	output write_enable;
+	output done;
+	
+	reg done_reg;
 	
 	initial begin 
-		last_score = 0;
 		divisor = 1;
+		done_reg = 1;
 	end
 	
-	output write_enable;
-	
-	reg start;
 	
 	reg[7:0] curr_db;
 	reg curr_we;
 	reg[3:0] count, c;
 	reg[10:0] divisor;
 	reg found_first;
-	reg done;
+
 	
 	always @(posedge clock) begin 
-		start = score != last_score;
 		if(start) begin
-			last_score = score;
 			count = 3;
 		end
 		else begin
-			if(~done) begin 
+			if(~done_reg) begin 
 				count = count - 1;
 			end
 			
@@ -41,12 +36,12 @@ module lcd_data_generator(clock, score, data_bit, write_enable, reset);
 	
 	
 	always @(negedge clock) begin
-		if(start) begin 
+		if(start ==1) begin 
 			found_first = 0;
-			done = 0;
+			done_reg = 0;
 		end
 		if(count == 4'b1111) begin 
-				done = 1;
+				done_reg = 1;
 		end
 		divisor = 1;
 		for(c = 0; c < count && c < 3; c = c + 1) begin
@@ -56,9 +51,9 @@ module lcd_data_generator(clock, score, data_bit, write_enable, reset);
 		found_first = found_first || score/divisor != 0;
 	end
 	
-	assign write_enable = (found_first || score == 0) &&  ~done;
+	assign write_enable = (found_first || score == 0) &&  ~done_reg;
 	assign data_bit = curr_db;
-	assign reset = start;
+	assign done = done_reg;
 
 	
 endmodule
