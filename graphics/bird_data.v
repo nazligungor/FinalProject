@@ -43,7 +43,7 @@ module bird_data (
 
 	input	[18:0]  address;
 	input	  clock;
-	output	[7:0]  q;
+	output	[8:0]  q;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
@@ -52,8 +52,8 @@ module bird_data (
 // synopsys translate_on
 `endif
 
-	wire [7:0] sub_wire0;
-	wire [7:0] q = sub_wire0[7:0];
+	wire [8:0] sub_wire0;
+	wire [8:0] q = sub_wire0[8:0];
 
 	altsyncram	altsyncram_component (
 				.clock0 (clock),
@@ -83,7 +83,7 @@ module bird_data (
 		altsyncram_component.address_aclr_a = "NONE",
 		altsyncram_component.clock_enable_input_a = "BYPASS",
 		altsyncram_component.clock_enable_output_a = "BYPASS",
-		altsyncram_component.init_file = "graphics/uni_data.mif",
+		altsyncram_component.init_file = "graphics/pig_data.mif",
 		altsyncram_component.intended_device_family = "Cyclone IV E",
 		altsyncram_component.lpm_hint = "ENABLE_RUNTIME_MOD=NO",
 		altsyncram_component.lpm_type = "altsyncram",
@@ -93,7 +93,7 @@ module bird_data (
 		altsyncram_component.outdata_reg_a = "UNREGISTERED",
 		altsyncram_component.ram_block_type = "M9K",
 		altsyncram_component.widthad_a = 19,
-		altsyncram_component.width_a = 8,
+		altsyncram_component.width_a = 9,
 		altsyncram_component.width_byteena_a = 1;
 
 
