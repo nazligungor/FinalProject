@@ -35,8 +35,11 @@ wire isin_pipe;
 reg [18:0] ADDR;
 reg [23:0] bgr_data;
 wire VGA_CLK_n;
-wire [7:0] index, index_bird;
-wire [23:0] bgr_data_raw, bird_data_raw;
+wire [7:0] index;
+wire [2:0] index_splash;
+wire [2:0] index_lpipe;
+wire [8:0] index_bird;
+wire [23:0] bgr_data_raw, bird_data_raw, lpipe_raw, splash_raw;
 wire cBLANK_n,cHS,cVS,rst;
 wire[9:0] addr_x, addr_y;
 wire x_in_s, y_in_s;
@@ -73,6 +76,8 @@ wire[9:0] bird_size = 10'd20;
 wire[9:0] screen_height = 10'd480;
 wire[9:0] screen_width = 10'd640;
 wire[9:0] pipe_width = 10'd120;
+wire[18:0] bird_boxsize = 19'd20;
+wire[18:0] pipew_19 = 19'd20;
 
 wire[9:0] pipe_height, pipe_height1, pipe_height2, pipe_height3;
 assign pipe_height = screen_height/2 - pipe_gap/2;
@@ -166,25 +171,29 @@ end
 //////////////////////////
 //////INDEX addr.
 assign VGA_CLK_n = ~iVGA_CLK;
-//img_data	img_data_inst (
-//	.address ( ADDR ),
-//	.clock ( VGA_CLK_n ),
-//	.q ( index )
-//	);
+img_data	img_data_inst (
+	.address ( ADDR ),
+	.clock ( VGA_CLK_n ),
+	.q ( index )
+	);
 //	
 /////////////////////////
 //////Add switch-input logic here
 	
 //////Color table output
-//img_index	img_index_inst (
-//	.address ( index ),
-//	.clock ( iVGA_CLK ),
-//	.q ( bgr_data_raw)
-//	);	
+img_index	img_index_inst (
+	.address ( index ),
+	.clock ( iVGA_CLK ),
+	.q ( bgr_data_raw)
+	);	
 //////
 
+wire[18:0] bird_offset, lpipe_offset;
+assign bird_offset = ((ADDR/19'd640) - y_bird)*bird_boxsize + (ADDR%19'd640 - x_bird); 
+assign lpipe_offset = ((addr_lowerpipe1_y) - y_lowerpipe1)*pipew_19 + (addr_lowerpipe1_x - x_lowerpipe1);
+
 bird_data	bird_data_inst (
-	.address ( ADDR ),
+	.address (bird_offset),
 	.clock ( VGA_CLK_n ),
 	.q ( index_bird )
 	);
@@ -194,11 +203,36 @@ bird_index	bird_index_inst (
 	.clock ( iVGA_CLK ),
 	.q ( bird_data_raw)
 	);	
+	
+lpipe_data	lpipe_data_inst (
+	.address (lpipe_offset),
+	.clock ( VGA_CLK_n ),
+	.q ( index_lpipe )
+	);
+	
+lpipe_index	lpipe_index_inst (
+	.address ( index_lpipe),
+	.clock ( iVGA_CLK ),
+	.q ( lpipe_raw)
+	);	
+	
+	splash_data	splash_data_inst (
+	.address (ADDR),
+	.clock ( VGA_CLK_n ),
+	.q ( index_splash)
+	);
+	
+splash_index	splash_index_inst (
+	.address ( index_splash),
+	.clock ( iVGA_CLK ),
+	.q ( splash_raw)
+	);	
+
 
  assign addr_x = ADDR % 640;
  assign addr_y = ADDR/640;
  assign addr_lowerpipe1_x = ADDR % 640; 
- assign addr_lowerpipe1_y = (ADDR/640) % screen_height;
+ assign addr_lowerpipe1_y = (ADDR/640);// % screen_height;
  assign addr_lowerpipe2_x = ADDR % 640; 
  assign addr_lowerpipe2_y = (ADDR/640) % screen_height;
  assign addr_lowerpipe3_x = ADDR % 640; 
@@ -266,13 +300,12 @@ bird_index	bird_index_inst (
  assign in_square_data = 24'b111111111000000010101111;
  assign in_pipe_data = 24'b000000001111111100000000;
  assign game_over = 24'b0;
- wire [23:0] temp_data, temp_data2;
+ wire [23:0] temp_data, temp_data2, temp_data3;
  wire [23:0] use_data;
- assign temp_data = isin_pipe ? in_pipe_data : bird_data_raw;
+ assign temp_data = isin_pipe ? lpipe_raw : bird_data_raw;
  assign temp_data2 = c_flag ? game_over : temp_data;
- assign bgr_data_raw = 23'b10;
- assign use_data= (isin_square || isin_pipe) ? temp_data2 : bgr_data_raw;
-
+ assign temp_data3= (isin_square || isin_pipe) ? temp_data2 : bgr_data_raw;
+ assign use_data = (screen_state == 2'd1) ? splash_raw : temp_data3;
  
 //////latch valid data at falling edge;
 always@(posedge VGA_CLK_n) bgr_data <= use_data;

@@ -42,6 +42,76 @@ set_global_assignment -name TOP_LEVEL_ENTITY skeleton
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 17.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "17:58:32  APRIL 17, 2019"
 set_global_assignment -name LAST_QUARTUS_VERSION "17.1.0 Lite Edition"
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_location_assignment PIN_Y2 -to CLOCK_50
+set_location_assignment PIN_E21 -to leds[0]
+set_location_assignment PIN_E22 -to leds[1]
+set_location_assignment PIN_E25 -to leds[2]
+set_location_assignment PIN_E24 -to leds[3]
+set_location_assignment PIN_H21 -to leds[4]
+set_location_assignment PIN_G20 -to leds[5]
+set_location_assignment PIN_G22 -to leds[6]
+set_location_assignment PIN_G21 -to leds[7]
+set_location_assignment PIN_M23 -to resetn
+set_location_assignment PIN_R24 -to control
+set_location_assignment PIN_D12 -to VGA_B[7]
+set_location_assignment PIN_D11 -to VGA_B[6]
+set_location_assignment PIN_C12 -to VGA_B[5]
+set_location_assignment PIN_A11 -to VGA_B[4]
+set_location_assignment PIN_B11 -to VGA_B[3]
+set_location_assignment PIN_C11 -to VGA_B[2]
+set_location_assignment PIN_A10 -to VGA_B[1]
+set_location_assignment PIN_B10 -to VGA_B[0]
+set_location_assignment PIN_F11 -to VGA_BLANK
+set_location_assignment PIN_A12 -to VGA_CLK
+set_location_assignment PIN_C9 -to VGA_G[7]
+set_location_assignment PIN_F10 -to VGA_G[6]
+set_location_assignment PIN_B8 -to VGA_G[5]
+set_location_assignment PIN_C8 -to VGA_G[4]
+set_location_assignment PIN_H12 -to VGA_G[3]
+set_location_assignment PIN_F8 -to VGA_G[2]
+set_location_assignment PIN_G11 -to VGA_G[1]
+set_location_assignment PIN_G8 -to VGA_G[0]
+set_location_assignment PIN_G13 -to VGA_HS
+set_location_assignment PIN_H10 -to VGA_R[7]
+set_location_assignment PIN_H8 -to VGA_R[6]
+set_location_assignment PIN_E12 -to VGA_R[0]
+set_location_assignment PIN_E11 -to VGA_R[1]
+set_location_assignment PIN_D10 -to VGA_R[2]
+set_location_assignment PIN_F12 -to VGA_R[3]
+set_location_assignment PIN_J12 -to VGA_R[5]
+set_location_assignment PIN_G10 -to VGA_R[4]
+set_location_assignment PIN_C13 -to VGA_VS
+set_location_assignment PIN_C10 -to VGA_SYNC
+set_location_assignment PIN_G6 -to ps2_clock
+set_location_assignment PIN_H5 -to ps2_data
+set_location_assignment PIN_M5 -to lcd_data[7]
+set_location_assignment PIN_L3 -to lcd_data[0]
+set_location_assignment PIN_L1 -to lcd_data[1]
+set_location_assignment PIN_L2 -to lcd_data[2]
+set_location_assignment PIN_K7 -to lcd_data[3]
+set_location_assignment PIN_K1 -to lcd_data[4]
+set_location_assignment PIN_K2 -to lcd_data[5]
+set_location_assignment PIN_M3 -to lcd_data[6]
+set_location_assignment PIN_L6 -to lcd_blon
+set_location_assignment PIN_M1 -to lcd_rw
+set_location_assignment PIN_M2 -to lcd_rs
+set_location_assignment PIN_L5 -to lcd_on
+set_location_assignment PIN_L4 -to lcd_en
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_N21 -to left
+set_global_assignment -name MIF_FILE graphics/splash_index.mif
+set_global_assignment -name MIF_FILE graphics/splash_data.mif
+set_global_assignment -name VERILOG_FILE graphics/splash_index.v
+set_global_assignment -name VERILOG_FILE graphics/splash_data.v
+set_global_assignment -name MIF_FILE graphics/go_index.mif
+set_global_assignment -name MIF_FILE graphics/go_data.mif
+set_global_assignment -name VERILOG_FILE graphics/lpipe_data.v
 set_global_assignment -name MIF_FILE graphics/uni_index.mif
 set_global_assignment -name MIF_FILE graphics/uni_data.mif
 set_global_assignment -name VERILOG_FILE skeleton.v
@@ -134,65 +204,6 @@ set_global_assignment -name VERILOG_FILE graphics/bird_data.v
 set_global_assignment -name SOURCE_FILE graphics/assignment_defaults.qdf
 set_global_assignment -name VERILOG_FILE graphics/Altera_UP_PS2_Data_In.v
 set_global_assignment -name VERILOG_FILE graphics/Altera_UP_PS2_Command_Out.v
-set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
-set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
-set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
-set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_location_assignment PIN_Y2 -to CLOCK_50
-set_location_assignment PIN_E21 -to leds[0]
-set_location_assignment PIN_E22 -to leds[1]
-set_location_assignment PIN_E25 -to leds[2]
-set_location_assignment PIN_E24 -to leds[3]
-set_location_assignment PIN_H21 -to leds[4]
-set_location_assignment PIN_G20 -to leds[5]
-set_location_assignment PIN_G22 -to leds[6]
-set_location_assignment PIN_G21 -to leds[7]
-set_location_assignment PIN_M23 -to resetn
-set_location_assignment PIN_R24 -to control
-set_location_assignment PIN_D12 -to VGA_B[7]
-set_location_assignment PIN_D11 -to VGA_B[6]
-set_location_assignment PIN_C12 -to VGA_B[5]
-set_location_assignment PIN_A11 -to VGA_B[4]
-set_location_assignment PIN_B11 -to VGA_B[3]
-set_location_assignment PIN_C11 -to VGA_B[2]
-set_location_assignment PIN_A10 -to VGA_B[1]
-set_location_assignment PIN_B10 -to VGA_B[0]
-set_location_assignment PIN_F11 -to VGA_BLANK
-set_location_assignment PIN_A12 -to VGA_CLK
-set_location_assignment PIN_C9 -to VGA_G[7]
-set_location_assignment PIN_F10 -to VGA_G[6]
-set_location_assignment PIN_B8 -to VGA_G[5]
-set_location_assignment PIN_C8 -to VGA_G[4]
-set_location_assignment PIN_H12 -to VGA_G[3]
-set_location_assignment PIN_F8 -to VGA_G[2]
-set_location_assignment PIN_G11 -to VGA_G[1]
-set_location_assignment PIN_G8 -to VGA_G[0]
-set_location_assignment PIN_G13 -to VGA_HS
-set_location_assignment PIN_H10 -to VGA_R[7]
-set_location_assignment PIN_H8 -to VGA_R[6]
-set_location_assignment PIN_E12 -to VGA_R[0]
-set_location_assignment PIN_E11 -to VGA_R[1]
-set_location_assignment PIN_D10 -to VGA_R[2]
-set_location_assignment PIN_F12 -to VGA_R[3]
-set_location_assignment PIN_J12 -to VGA_R[5]
-set_location_assignment PIN_G10 -to VGA_R[4]
-set_location_assignment PIN_C13 -to VGA_VS
-set_location_assignment PIN_C10 -to VGA_SYNC
-set_location_assignment PIN_G6 -to ps2_clock
-set_location_assignment PIN_H5 -to ps2_data
-set_location_assignment PIN_M5 -to lcd_data[7]
-set_location_assignment PIN_L3 -to lcd_data[0]
-set_location_assignment PIN_L1 -to lcd_data[1]
-set_location_assignment PIN_L2 -to lcd_data[2]
-set_location_assignment PIN_K7 -to lcd_data[3]
-set_location_assignment PIN_K1 -to lcd_data[4]
-set_location_assignment PIN_K2 -to lcd_data[5]
-set_location_assignment PIN_M3 -to lcd_data[6]
-set_location_assignment PIN_L6 -to lcd_blon
-set_location_assignment PIN_M1 -to lcd_rw
-set_location_assignment PIN_M2 -to lcd_rs
-set_location_assignment PIN_L5 -to lcd_on
-set_location_assignment PIN_L4 -to lcd_en
 set_global_assignment -name VERILOG_FILE lcd_data_generator.v
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform1.vwf
@@ -200,8 +211,5 @@ set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform2.vwf
 set_global_assignment -name VERILOG_FILE lcd_read_name.v
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform3.vwf
 set_global_assignment -name VERILOG_FILE lcd_inputs.v
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_location_assignment PIN_N21 -to left
+set_global_assignment -name VERILOG_FILE graphics/lpipe_index.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
