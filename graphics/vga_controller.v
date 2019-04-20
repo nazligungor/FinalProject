@@ -290,7 +290,7 @@ splash_index	splash_index_inst (
  //wire isin_pipe;
  assign isin_pipe = lpipe1_in || upipe_in || lpipe2_in || lpipe3_in || lpipe4_in;
  
- output c_flag;
+ output[2:0] c_flag;
  
  collision_detection col_1(x_bird, y_bird, bird_size, pipe_width, x_lowerpipe1, x_lowerpipe2, x_lowerpipe3, x_lowerpipe4,  y_lowerpipe1, 
  y_lowerpipe2,  y_lowerpipe3,  y_lowerpipe4, upperpipe1_bottom, upperpipe2_bottom, upperpipe3_bottom, upperpipe4_bottom, c_flag);
@@ -303,7 +303,7 @@ splash_index	splash_index_inst (
  wire [23:0] temp_data, temp_data2, temp_data3;
  wire [23:0] use_data;
  assign temp_data = isin_pipe ? lpipe_raw : bird_data_raw;
- assign temp_data2 = c_flag ? game_over : temp_data;
+ assign temp_data2 = c_flag != 0 ? game_over : temp_data;
  assign temp_data3= (isin_square || isin_pipe) ? temp_data2 : bgr_data_raw;
  assign use_data = (screen_state == 2'd1) ? splash_raw : temp_data3;
  

@@ -2,9 +2,9 @@ module regfile(clock, ctrl_writeEnable, ctrl_reset, ctrl_writeReg, ctrl_readRegA
 	data_writeReg, data_readRegA, data_readRegB, 
 	reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, 
 	reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, 
-	reg29, reg30, reg31, control, c_flag, reset, level_flag, left, right, x_control_flag); 
+	reg29, reg30, reg31, control, c_flag, reset, level_flag, down, y_control_flag, bounce_flag, slow_flag); 
 	
-	input clock, ctrl_writeEnable, ctrl_reset, level_flag, left, right, x_control_flag;
+	input clock, ctrl_writeEnable, ctrl_reset, level_flag, down, y_control_flag, bounce_flag, slow_flag;
 	input [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB; 
 	input [31:0] data_writeReg;
 	input [31:0] control, c_flag, reset;
@@ -80,10 +80,10 @@ module regfile(clock, ctrl_writeEnable, ctrl_reset, ctrl_writeReg, ctrl_readRegA
 	my_tristate tri19a(reg19, regReadA[19], data_readRegA);
 	my_tristate tri20a(level_flag, regReadA[20], data_readRegA);
 	my_tristate tri21a(control, regReadA[21], data_readRegA);
-	my_tristate tri22a(x_control_flag, regReadA[22], data_readRegA);
-	my_tristate tri23a(left, regReadA[23], data_readRegA);
-	my_tristate tri24a(reset, regReadA[24], data_readRegA);
-	my_tristate tri25a(reg25, regReadA[25], data_readRegA);
+	my_tristate tri22a(y_control_flag, regReadA[22], data_readRegA);
+	my_tristate tri23a(down, regReadA[23], data_readRegA);
+	my_tristate tri24a(bounce_flag, regReadA[24], data_readRegA);
+	my_tristate tri25a(slow_flag, regReadA[25], data_readRegA);
 	my_tristate tri26a(reg26, regReadA[26], data_readRegA);
 	my_tristate tri27a(reg27, regReadA[27], data_readRegA);
 	my_tristate tri28a(reg28, regReadA[28], data_readRegA);
@@ -113,10 +113,10 @@ module regfile(clock, ctrl_writeEnable, ctrl_reset, ctrl_writeReg, ctrl_readRegA
 	my_tristate tri19b(reg19, regReadB[19], data_readRegB);
 	my_tristate tri20b(level_flag, regReadB[20], data_readRegB);
 	my_tristate tri21b(control, regReadB[21], data_readRegB);
-	my_tristate tri22b(x_control_flag, regReadB[22], data_readRegB);
-	my_tristate tri23b(left, regReadB[23], data_readRegB);
-	my_tristate tri24b(reset, regReadB[24], data_readRegB);
-	my_tristate tri25b(reg25, regReadB[25], data_readRegB);
+	my_tristate tri22b(y_control_flag, regReadB[22], data_readRegB);
+	my_tristate tri23b(down, regReadB[23], data_readRegB);
+	my_tristate tri24b(bounce_flag, regReadB[24], data_readRegB);
+	my_tristate tri25b(slow_flag, regReadB[25], data_readRegB);
 	my_tristate tri26b(reg26, regReadB[26], data_readRegB);
 	my_tristate tri27b(reg27, regReadB[27], data_readRegB);
 	my_tristate tri28b(reg28, regReadB[28], data_readRegB);

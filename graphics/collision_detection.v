@@ -1,9 +1,10 @@
 module collision_detection(x_bird, y_bird, bird_size, pipe_width, x_lowerpipe1, x_lowerpipe2, x_lowerpipe3, x_lowerpipe4,  y_lowerpipe1, 
- y_lowerpipe2,  y_lowerpipe3,  y_lowerpipe4, upperpipe1_bottom, upperpipe2_bottom, upperpipe3_bottom, upperpipe4_bottom, c_flag);
+ y_lowerpipe2,  y_lowerpipe3,  y_lowerpipe4, upperpipe1_bottom, upperpipe2_bottom, upperpipe3_bottom, upperpipe4_bottom, c_flag_out);
  
  input[9:0] x_bird, y_bird, bird_size, pipe_width, x_lowerpipe1, x_lowerpipe2, x_lowerpipe3, x_lowerpipe4,  y_lowerpipe1, 
  y_lowerpipe2,  y_lowerpipe3,  y_lowerpipe4, upperpipe1_bottom, upperpipe2_bottom, upperpipe3_bottom, upperpipe4_bottom;
- output c_flag;
+ output [2:0] c_flag_out;
+ reg [2:0] c_flag;
  
  wire birdinbetween_1, birdinbetween_2, birdinbetween_3, birdinbetween_4;
  wire birdinpipe1, birdinpipe2, birdinpipe3, birdinpipe4;
@@ -28,8 +29,67 @@ module collision_detection(x_bird, y_bird, bird_size, pipe_width, x_lowerpipe1, 
  assign birdinpipe4 = (bird_top <= upperpipe4_bottom) || (bird_bottom >= y_lowerpipe4);
  
  assign birdatboundry = (bird_top <= 10'd0) || (bird_bottom >= screen_height);
+ // top: 1, right: 2, bottom: 3, 4 is endgame (edges)
+ always @(*) begin
+	 if(bird_top <= 10'd0) begin 
+		 c_flag = 4;
+	 end
+	 
+	 else if(bird_bottom >= screen_height) begin 
+		 c_flag = 4;
+	 end
+	 
+	 else if(bird_left <= 0 ) begin 
+	 
+		c_flag = 4;
+	 end
+	 
+	 else if(birdinbetween_1 && birdinpipe1) begin 
+		//if like half of the bird is above the bottom, bounce left or right
+		if(bird_bottom <= upperpipe1_bottom || bird_top >= y_lowerpipe1) begin 
+			 c_flag = 2;
+		end
+		else begin 
+			 c_flag = bird_top <= upperpipe1_bottom ? 1 : 3;
+		end
+	 end
+	 
+	 else if(birdinbetween_2 && birdinpipe2) begin 
+		//if like half of the bird is above the bottom, bounce left or right
+		if(bird_bottom <= upperpipe2_bottom || bird_top >= y_lowerpipe2) begin 
+			 c_flag = 2;
+		end
+		else begin 
+			 c_flag = bird_top <= upperpipe2_bottom ? 1 : 3;
+		end
+	 end
+	 
+	 else if(birdinbetween_3 && birdinpipe3) begin 
+		//if like half of the bird is above the bottom, bounce left or right
+		if(bird_bottom <= upperpipe3_bottom || bird_top >= y_lowerpipe3) begin 
+			 c_flag = 2;
+		end
+		else begin 
+			 c_flag = bird_top <= upperpipe3_bottom ? 1 : 3;
+		end
+	 end
+	 
+	 else if(birdinbetween_4 && birdinpipe4) begin 
+		//if like half of the bird is above the bottom, bounce left or right
+		if(bird_bottom <= upperpipe4_bottom || bird_top >= y_lowerpipe4) begin 
+			c_flag = 2;
+		end
+		else begin 
+			c_flag = bird_top <= upperpipe4_bottom ? 1 : 3;
+		end
+	 end
+	 else begin 
+		c_flag = 0;
+	 end
+	end
+	assign c_flag_out = c_flag;
  
- assign c_flag = (birdinbetween_1 && birdinpipe1) || (birdinbetween_2 && birdinpipe2) || (birdinbetween_3 && birdinpipe3) || (birdinbetween_4 && birdinpipe4) || birdatboundry;
+// assign c_flag = (birdinbetween_1 && birdinpipe1) || (birdinbetween_2 && birdinpipe2) || (birdinbetween_3 && birdinpipe3) || (birdinbetween_4 && birdinpipe4) || birdatboundry;
 
 
-endmodule 
+endmodule

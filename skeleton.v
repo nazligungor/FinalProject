@@ -15,8 +15,10 @@ module skeleton(
 	VGA_B,															//	VGA Blue[9:0]
 	CLOCK_50,
 	control,
-	left, 
-	right
+	down,
+	bounce_flag,
+	y_control_flag,
+	slow_flag
 //	address_imem,
 //	reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31
 //	
@@ -34,7 +36,7 @@ module skeleton(
 	input				CLOCK_50;
 	//output         isin_pipe;
 	////////////////////////	PS2	////////////////////////////
-	input 			resetn,control, left, right;
+	input 			resetn,control, down;
 	input 			ps2_data, ps2_clock;
 	
 	////////////////////////	LCD and Seven Segment	////////////////////////////
@@ -105,28 +107,29 @@ module skeleton(
 	 reg11: upperpipe1
 	 reg12: upperpipe2
 	 reg13: upperpipe3
-	 reg14: upperpipe
+	 reg14: upperpipe4
 	 reg15: pipe_x_vel
 	 reg16: high_score
 	 reg17: lettera
 	 reg18: birdx
 	 reg19: in pause game = maxlettervalue, 12, ingame: 2000 for speed
 	 reg20: level flag
-	 
 	 reg21: control
-	 reg22: x control flag
-	 reg23: move left
-	 reg24: move right
+	 reg22: y control flag
+	 reg23: move down
+	 reg24: bounce flag, 
+	 reg25: slow flag
 	 reg29: reset
 	 reg30: c_flag
 	 
 	 */
 	 
 	 wire [31:0] reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31;
-	 wire c_flag;
+	 wire[2:0] c_flag;
 	 wire level_flag;
-	 wire x_control_flag;
-	 assign x_control_flag = 1'b1;
+	 input y_control_flag, bounce_flag, slow_flag;
+//	 assign y_control_flag = 1'b0;
+//	 assign bounce_flag = 1'b0;
     regfile my_regfile(
         clock,
         ctrl_writeEnable,
@@ -142,9 +145,10 @@ module skeleton(
 		  c_flag,
 		  resetn, 
 		  level_flag,
-		  left, 
-		  right,
-		  x_control_flag
+		  down,
+		  y_control_flag,
+		  bounce_flag,
+		  slow_flag
     );
 	 
     /** PROCESSOR **/
@@ -178,8 +182,11 @@ module skeleton(
 	wire[7:0] ascii_data;
 	wire lcd_we, lcd_reset;
 	reg[15:0] name;
-	assign leds[2] = x_control_flag;
-	assign leds[4] = x_control_flag;
+	assign leds[0] = y_control_flag;
+	assign leds[1] = bounce_flag;
+	assign leds[2] = slow_flag;
+//	assign leds[6:0] = reg15;
+//	assign leds[6:0] = reg15;
 	always @(reg17, reg18) begin 
 		name[15:8] = reg17[7:0];
 		name[7:0] = 0;
@@ -187,7 +194,8 @@ module skeleton(
 	wire [7:0] score;
 	assign score = reg16[12:5];
 	
-	assign level_flag = (score + 1)%5 == 0;
+	assign level_flag = (reg16 + 1)%300 == 0;
+	
 
 	lcd_inputs get_inputs(clock, name, reg16[12:5], ascii_data, lcd_we, lcd_reset);
 	
