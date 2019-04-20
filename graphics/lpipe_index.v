@@ -41,7 +41,7 @@ module lpipe_index (
 	clock,
 	q);
 
-	input	[2:0]  address;
+	input	[8:0]  address;
 	input	  clock;
 	output	[23:0]  q;
 `ifndef ALTERA_RESERVED_QIS
@@ -83,15 +83,15 @@ module lpipe_index (
 		altsyncram_component.address_aclr_a = "NONE",
 		altsyncram_component.clock_enable_input_a = "BYPASS",
 		altsyncram_component.clock_enable_output_a = "BYPASS",
-		altsyncram_component.init_file = "./graphics/lower_pipe_index.mif",
+		altsyncram_component.init_file = "./graphics/lpipe_index.mif",
 		altsyncram_component.intended_device_family = "Cyclone IV E",
 		altsyncram_component.lpm_hint = "ENABLE_RUNTIME_MOD=NO",
 		altsyncram_component.lpm_type = "altsyncram",
-		altsyncram_component.numwords_a = 8,
+		altsyncram_component.numwords_a = 512,
 		altsyncram_component.operation_mode = "ROM",
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_reg_a = "CLOCK0",
-		altsyncram_component.widthad_a = 3,
+		altsyncram_component.widthad_a = 9,
 		altsyncram_component.width_a = 24,
 		altsyncram_component.width_byteena_a = 1;
 

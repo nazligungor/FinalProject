@@ -40,9 +40,11 @@ reg [23:0] bgr_data;
 wire VGA_CLK_n;
 wire [7:0] index;
 wire [2:0] index_splash;
-wire [2:0] index_lpipe;
-wire [8:0] index_bird;
-wire [23:0] bgr_data_raw, bird_data_raw, lpipe_raw, splash_raw;
+wire [8:0] index_lpipe, index_upipe;
+wire [1:0] index_go;
+wire [2:0] index_bird;
+wire [23:0] bgr_data_raw, lpipe_raw, splash_raw, go_raw, br_raw, upipe_raw;
+wire [23:0] bird_data_raw;
 wire cBLANK_n,cHS,cVS,rst;
 wire[9:0] addr_x, addr_y;
 wire x_in_s, y_in_s;
@@ -224,9 +226,10 @@ img_index	img_index_inst (
 	);	
 //////
 
-wire[18:0] bird_offset, lpipe_offset;
+wire[18:0] bird_offset, lpipe_offset, upipe_offset;
 assign bird_offset = ((ADDR/19'd640) - y_bird)*bird_boxsize + (ADDR%19'd640 - x_bird); 
-assign lpipe_offset = ((addr_lowerpipe1_y) - y_lowerpipe1)*pipew_19 + (addr_lowerpipe1_x - x_lowerpipe1);
+assign lpipe_offset = (addr_lowerpipe1_y - y_lowerpipe1)*pipew_19 + (addr_lowerpipe1_x - x_lowerpipe1);
+assign upipe_offset = (addr_upperpipe1_y - y_upperpipe1)*pipew_19 + (addr_upperpipe1_x - x_upperpipe1);
 
 bird_data	bird_data_inst (
 	.address (bird_offset),
@@ -252,7 +255,19 @@ lpipe_index	lpipe_index_inst (
 	.q ( lpipe_raw)
 	);	
 	
-	splash_data	splash_data_inst (
+lpipe_data	upipe_data_inst (
+	.address (upipe_offset),
+	.clock ( VGA_CLK_n ),
+	.q ( index_upipe )
+	);
+	
+lpipe_index	upipe_index_inst (
+	.address ( index_upipe),
+	.clock ( iVGA_CLK ),
+	.q ( upipe_raw)
+	);
+	
+splash_data	splash_data_inst (
 	.address (ADDR),
 	.clock ( VGA_CLK_n ),
 	.q ( index_splash)
@@ -264,6 +279,32 @@ splash_index	splash_index_inst (
 	.q ( splash_raw)
 	);	
 
+go_data	go_data_inst (
+	.address (ADDR),
+	.clock ( VGA_CLK_n ),
+	.q ( index_go)
+	);
+	
+go_index	go_index_inst (
+	.address ( index_go),
+	.clock ( iVGA_CLK ),
+	.q ( go_raw)
+	);	
+
+	
+//always@(posedge iVGA_CLK,negedge iRST_n)
+//	begin
+//		if(br_raw == 24'hED1C24) begin
+//			bird_data_raw <= bgr_data_raw;
+//		end
+//		else begin
+//			bird_data_raw <= br_raw;
+//		end
+//
+//		bird_data_raw <= (br_raw == 24'hED1C24) ? bgr_data_raw : br_raw;
+//	end
+ 
+ //initial bird_data_raw = (br_raw == 24'hED1C24) ? bgr_data_raw : br_raw;
 
  assign addr_x = ADDR % 640;
  assign addr_y = ADDR/640;
@@ -336,12 +377,14 @@ splash_index	splash_index_inst (
  assign in_square_data = 24'b111111111000000010101111;
  assign in_pipe_data = 24'b000000001111111100000000;
  assign game_over = 24'b0;
- wire [23:0] temp_data, temp_data2, temp_data3;
+ wire [23:0] temp_data, temp_data2, temp_data3, temp_data4, temp_data5;
  wire [23:0] use_data;
- assign temp_data = isin_pipe ? lpipe_raw : bird_data_raw;
- assign temp_data2 = c_flag != 0 ? game_over : temp_data;
+ assign temp_data = (lpipe1_in || lpipe2_in || lpipe3_in || lpipe4_in) ? lpipe_raw : bird_data_raw;
+ assign temp_data5 = upipe_in ? upipe_raw : temp_data;
+ assign temp_data2 = c_flag != 0 ? game_over : temp_data5;
  assign temp_data3= (isin_square || isin_pipe) ? temp_data2 : bgr_data_raw;
- assign use_data = (screen_state == 2'd1) ? splash_raw : temp_data3;
+ assign temp_data4 = (screen_state == 2'd1) ? splash_raw : temp_data3;
+ assign use_data = (screen_state == 2'd3) ? go_raw : temp_data4;
  
 //////latch valid data at falling edge;
 always@(posedge VGA_CLK_n) bgr_data <= use_data;
