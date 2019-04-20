@@ -18,12 +18,15 @@ module vga_controller(iRST_n,
 							 x_upperpipe4, 
 							 c_flag, 
 							 screen_state, 
-							 x_bird);
+							 x_bird,
+							 animate_pipes,
+							 score);
 
 	
-input iRST_n, control;
+input iRST_n, control, animate_pipes;
 input iVGA_CLK;
 input [1:0] screen_state;
+input [31:0] score;
 output reg oBLANK_n;
 output reg oHS;
 output reg oVS;
@@ -53,7 +56,7 @@ input [9:0] x_bird;
 //pipes
 
 input[9:0] x_lowerpipe1, x_lowerpipe2, x_lowerpipe3, x_lowerpipe4;
-wire[9:0]  y_lowerpipe1,  y_lowerpipe2,  y_lowerpipe3,  y_lowerpipe4;
+reg[9:0]  y_lowerpipe1,  y_lowerpipe2,  y_lowerpipe3,  y_lowerpipe4;
 input[9:0] x_upperpipe1, x_upperpipe2, x_upperpipe3, x_upperpipe4;
 wire[9:0] y_upperpipe1, y_upperpipe2, y_upperpipe3, y_upperpipe4;
 
@@ -65,6 +68,7 @@ wire x_upipe1_in, y_upipe1_in, x_upipe2_in, y_upipe2_in, x_upipe3_in, y_upipe3_i
 
 
 reg[9:0] pipe_velocity = 10'd5;
+reg [31:0] big_counter;
 
 wire[31:0] rand_val, rand_val1, rand_val2, rand_val3;
 reg[31:0] rand_gap, rand_gap1, rand_gap2, rand_gap3;
@@ -94,22 +98,54 @@ lfsr lfsr_1(iVGA_CLK, iRST_n, rand_val, 32'hf0f0f0f0);
 lfsr lfsr_2(iVGA_CLK, iRST_n, rand_val1, 32'hf0f0f0f0);
 lfsr lfsr_3(iVGA_CLK, iRST_n, rand_val2, 32'hf0f0f0f0);
 lfsr lfsr_4(iVGA_CLK, iRST_n, rand_val3, 32'hf0f0f0f0);
-
-assign y_lowerpipe1 = pipe_height + pipe_gap;
-assign y_lowerpipe2 = pipe_height1 + pipe_gap1;
-assign y_lowerpipe3 = pipe_height2 + pipe_gap2;
-assign y_lowerpipe4 = pipe_height3 + pipe_gap3;
-
+//
+//assign y_lowerpipe1 = pipe_height + pipe_gap;
+//assign y_lowerpipe2 = pipe_height1 + pipe_gap1;
+//assign y_lowerpipe3 = pipe_height2 + pipe_gap2;
+//assign y_lowerpipe4 = pipe_height3 + pipe_gap3;
+//
 assign y_upperpipe1 = 10'd0;
 assign y_upperpipe2 = 10'd0;
 assign y_upperpipe3 = 10'd0;
 assign y_upperpipe4 = 10'd0;
+reg signed [31:0] displacement;
+reg direction;
 
-wire[9:0] upperpipe1_bottom, upperpipe2_bottom, upperpipe3_bottom, upperpipe4_bottom;
-assign upperpipe1_bottom = y_upperpipe1 + pipe_height;
-assign upperpipe2_bottom = y_upperpipe2 + pipe_height1;
-assign upperpipe3_bottom = y_upperpipe3 + pipe_height2;
-assign upperpipe4_bottom = y_upperpipe4 + pipe_height3;
+always @(posedge iVGA_CLK) begin 
+	big_counter <= big_counter + 1;
+	if(big_counter == 420000) begin 
+		if(animate_pipes) begin
+			if(displacement * displacement > 400 ) begin 
+				direction = ~direction;
+			end
+			if(~direction) begin 
+				displacement <= displacement + 1;
+			end
+			else begin 
+				displacement <= displacement - 1;
+			end
+		end
+		else begin 
+			displacement <= 0;
+		end
+		big_counter <= 0;
+	end
+	y_lowerpipe1 = pipe_height + pipe_gap - displacement;
+	y_lowerpipe2 = pipe_height1 + pipe_gap1 - displacement;
+	y_lowerpipe3 = pipe_height2 + pipe_gap2 - displacement;
+	y_lowerpipe4 = pipe_height3 + pipe_gap3- displacement;
+
+	upperpipe1_bottom = y_upperpipe1 + pipe_height - displacement;
+	upperpipe2_bottom = y_upperpipe2 + pipe_height1 - displacement;
+	upperpipe3_bottom = y_upperpipe3 + pipe_height2 - displacement;
+	upperpipe4_bottom = y_upperpipe4 + pipe_height3 - displacement;
+end
+
+reg[9:0] upperpipe1_bottom, upperpipe2_bottom, upperpipe3_bottom, upperpipe4_bottom;
+//assign upperpipe1_bottom = y_upperpipe1 + pipe_height;
+//assign upperpipe2_bottom = y_upperpipe2 + pipe_height1;
+//assign upperpipe3_bottom = y_upperpipe3 + pipe_height2;
+//assign upperpipe4_bottom = y_upperpipe4 + pipe_height3;
 //
 //initial x_lowerpipe1 = 10'd120;
 //initial x_lowerpipe2 = 10'd240;
@@ -272,14 +308,14 @@ splash_index	splash_index_inst (
  assign lpipe4_in = x_lpipe4_in && y_lpipe4_in;
  
  assign x_upipe1_in = (addr_upperpipe1_x < (x_upperpipe1 + pipe_width)) && (addr_upperpipe1_x > x_upperpipe1);
- assign y_upipe1_in = (addr_upperpipe1_y < (y_upperpipe1 + pipe_height)) && (addr_upperpipe1_y > y_upperpipe1);
+ assign y_upipe1_in = (addr_upperpipe1_y < (upperpipe1_bottom)) && (addr_upperpipe1_y > y_upperpipe1);
 
  assign x_upipe2_in = (addr_upperpipe2_x < (x_upperpipe2 + pipe_width)) && (addr_upperpipe2_x > x_upperpipe2);
- assign y_upipe2_in = (addr_upperpipe2_y < (y_upperpipe2 + pipe_height1)) && (addr_upperpipe2_y > y_upperpipe2);
+ assign y_upipe2_in = (addr_upperpipe2_y < (upperpipe2_bottom)) && (addr_upperpipe2_y > y_upperpipe2);
  assign x_upipe3_in = (addr_upperpipe3_x < (x_upperpipe3 + pipe_width)) && (addr_upperpipe3_x > x_upperpipe3);
- assign y_upipe3_in = (addr_upperpipe3_y < (y_upperpipe3 + pipe_height2)) && (addr_upperpipe3_y > y_upperpipe3);
+ assign y_upipe3_in = (addr_upperpipe3_y < (upperpipe3_bottom)) && (addr_upperpipe3_y > y_upperpipe3);
  assign x_upipe4_in = (addr_upperpipe4_x < (x_upperpipe4 + pipe_width)) && (addr_upperpipe4_x > x_upperpipe4);
- assign y_upipe4_in = (addr_upperpipe4_y < (y_upperpipe4 + pipe_height3)) && (addr_upperpipe4_y > y_upperpipe4);
+ assign y_upipe4_in = (addr_upperpipe4_y < (upperpipe4_bottom)) && (addr_upperpipe4_y > y_upperpipe4);
  
  wire upipe_in;
  assign upipe_in = (x_upipe1_in && y_upipe1_in) || (x_upipe2_in && y_upipe2_in) || (x_upipe3_in && y_upipe3_in) || (x_upipe4_in && y_upipe4_in);

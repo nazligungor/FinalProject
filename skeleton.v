@@ -18,7 +18,8 @@ module skeleton(
 	down,
 	bounce_flag,
 	y_control_flag,
-	slow_flag
+	slow_flag,
+	animate
 //	address_imem,
 //	reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31
 //	
@@ -36,7 +37,7 @@ module skeleton(
 	input				CLOCK_50;
 	//output         isin_pipe;
 	////////////////////////	PS2	////////////////////////////
-	input 			resetn,control, down;
+	input 			resetn,control, down, animate;
 	input 			ps2_data, ps2_clock;
 	
 	////////////////////////	LCD and Seven Segment	////////////////////////////
@@ -185,6 +186,7 @@ module skeleton(
 	assign leds[0] = y_control_flag;
 	assign leds[1] = bounce_flag;
 	assign leds[2] = slow_flag;
+	assign leds[3] = animate;
 //	assign leds[6:0] = reg15;
 //	assign leds[6:0] = reg15;
 	always @(reg17, reg18) begin 
@@ -243,7 +245,9 @@ module skeleton(
 								 .x_upperpipe4(reg14),
 								 .c_flag(c_flag),
 								 .screen_state(reg28),
-								 .x_bird(reg18)
+								 .x_bird(reg18),
+								 .animate_pipes(animate),
+								 .score(reg16)
 								 );
 	
 endmodule
