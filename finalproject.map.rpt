@@ -1,5 +1,5 @@
 Analysis & Synthesis report for finalproject
-Sat Apr 20 04:34:56 2019
+Sat Apr 20 04:38:26 2019
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -576,15 +576,15 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat Apr 20 04:34:56 2019       ;
+; Analysis & Synthesis Status        ; Successful - Sat Apr 20 04:38:26 2019       ;
 ; Quartus Prime Version              ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                      ; finalproject                                ;
 ; Top-level Entity Name              ; skeleton                                    ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 6,359                                       ;
-;     Total combinational functions  ; 5,425                                       ;
-;     Dedicated logic registers      ; 1,621                                       ;
-; Total registers                    ; 1621                                        ;
+; Total logic elements               ; 6,364                                       ;
+;     Total combinational functions  ; 5,430                                       ;
+;     Dedicated logic registers      ; 1,629                                       ;
+; Total registers                    ; 1629                                        ;
 ; Total pins                         ; 60                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 2,501,200                                   ;
@@ -852,20 +852,20 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 6,359          ;
+; Estimated Total logic elements              ; 6,364          ;
 ;                                             ;                ;
-; Total combinational functions               ; 5425           ;
+; Total combinational functions               ; 5430           ;
 ; Logic element usage by number of LUT inputs ;                ;
 ;     -- 4 input functions                    ; 2556           ;
-;     -- 3 input functions                    ; 1722           ;
-;     -- <=2 input functions                  ; 1147           ;
+;     -- 3 input functions                    ; 1725           ;
+;     -- <=2 input functions                  ; 1149           ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 4144           ;
-;     -- arithmetic mode                      ; 1281           ;
+;     -- normal mode                          ; 4143           ;
+;     -- arithmetic mode                      ; 1287           ;
 ;                                             ;                ;
-; Total registers                             ; 1621           ;
-;     -- Dedicated logic registers            ; 1621           ;
+; Total registers                             ; 1629           ;
+;     -- Dedicated logic registers            ; 1629           ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 60             ;
@@ -878,7 +878,7 @@ refer to the applicable agreement for further details.
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
 ; Maximum fan-out                             ; 1471           ;
-; Total fan-out                               ; 28274          ;
+; Total fan-out                               ; 28305          ;
 ; Average fan-out                             ; 3.71           ;
 +---------------------------------------------+----------------+
 
@@ -888,7 +888,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+--------------+
 ; Compilation Hierarchy Node                        ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                              ; Entity Name          ; Library Name ;
 +---------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+--------------+
-; |skeleton                                         ; 5425 (41)           ; 1621 (0)                  ; 2501200     ; 6            ; 0       ; 3         ; 60   ; 0            ; |skeleton                                                                                                                                                        ; skeleton             ; work         ;
+; |skeleton                                         ; 5430 (41)           ; 1629 (0)                  ; 2501200     ; 6            ; 0       ; 3         ; 60   ; 0            ; |skeleton                                                                                                                                                        ; skeleton             ; work         ;
 ;    |Reset_Delay:r0|                               ; 27 (27)             ; 21 (21)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|Reset_Delay:r0                                                                                                                                         ; Reset_Delay          ; work         ;
 ;    |VGA_Audio_PLL:p1|                             ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|VGA_Audio_PLL:p1                                                                                                                                       ; VGA_Audio_PLL        ; work         ;
 ;       |altpll:altpll_component|                   ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|VGA_Audio_PLL:p1|altpll:altpll_component                                                                                                               ; altpll               ; work         ;
@@ -965,7 +965,7 @@ refer to the applicable agreement for further details.
 ;          |dflipflop:data_a_dx[17]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_a_dx[17]                                                                                             ; dflipflop            ; work         ;
 ;          |dflipflop:data_a_dx[18]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_a_dx[18]                                                                                             ; dflipflop            ; work         ;
 ;          |dflipflop:data_a_dx[19]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_a_dx[19]                                                                                             ; dflipflop            ; work         ;
-;          |dflipflop:data_a_dx[1]|                 ; 18 (18)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_a_dx[1]                                                                                              ; dflipflop            ; work         ;
+;          |dflipflop:data_a_dx[1]|                 ; 17 (17)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_a_dx[1]                                                                                              ; dflipflop            ; work         ;
 ;          |dflipflop:data_a_dx[20]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_a_dx[20]                                                                                             ; dflipflop            ; work         ;
 ;          |dflipflop:data_a_dx[21]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_a_dx[21]                                                                                             ; dflipflop            ; work         ;
 ;          |dflipflop:data_a_dx[22]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_a_dx[22]                                                                                             ; dflipflop            ; work         ;
@@ -997,7 +997,7 @@ refer to the applicable agreement for further details.
 ;          |dflipflop:data_b_dx[17]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_b_dx[17]                                                                                             ; dflipflop            ; work         ;
 ;          |dflipflop:data_b_dx[18]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_b_dx[18]                                                                                             ; dflipflop            ; work         ;
 ;          |dflipflop:data_b_dx[19]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_b_dx[19]                                                                                             ; dflipflop            ; work         ;
-;          |dflipflop:data_b_dx[1]|                 ; 17 (17)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_b_dx[1]                                                                                              ; dflipflop            ; work         ;
+;          |dflipflop:data_b_dx[1]|                 ; 18 (18)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_b_dx[1]                                                                                              ; dflipflop            ; work         ;
 ;          |dflipflop:data_b_dx[20]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_b_dx[20]                                                                                             ; dflipflop            ; work         ;
 ;          |dflipflop:data_b_dx[21]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_b_dx[21]                                                                                             ; dflipflop            ; work         ;
 ;          |dflipflop:data_b_dx[22]|                ; 15 (15)             ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|processor:my_processor|dx_latch:dx|dflipflop:data_b_dx[22]                                                                                             ; dflipflop            ; work         ;
@@ -2337,7 +2337,7 @@ refer to the applicable agreement for further details.
 ;          |dflipflop:loop1[7].dff_call|            ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|regfile:my_regfile|my_reg:my_reg9|dflipflop:loop1[7].dff_call                                                                                          ; dflipflop            ; work         ;
 ;          |dflipflop:loop1[8].dff_call|            ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|regfile:my_regfile|my_reg:my_reg9|dflipflop:loop1[8].dff_call                                                                                          ; dflipflop            ; work         ;
 ;          |dflipflop:loop1[9].dff_call|            ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|regfile:my_regfile|my_reg:my_reg9|dflipflop:loop1[9].dff_call                                                                                          ; dflipflop            ; work         ;
-;    |vga_controller:vga_ins|                       ; 1891 (710)          ; 215 (175)                 ; 2239056     ; 6            ; 0       ; 3         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins                                                                                                                                 ; vga_controller       ; work         ;
+;    |vga_controller:vga_ins|                       ; 1896 (715)          ; 223 (183)                 ; 2239056     ; 6            ; 0       ; 3         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins                                                                                                                                 ; vga_controller       ; work         ;
 ;       |bird_data:bird_data_inst|                  ; 0 (0)               ; 0 (0)                     ; 3600        ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|bird_data:bird_data_inst                                                                                                        ; bird_data            ; work         ;
 ;          |altsyncram:altsyncram_component|        ; 0 (0)               ; 0 (0)                     ; 3600        ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|bird_data:bird_data_inst|altsyncram:altsyncram_component                                                                        ; altsyncram           ; work         ;
 ;             |altsyncram_ltc1:auto_generated|      ; 0 (0)               ; 0 (0)                     ; 3600        ; 0            ; 0       ; 0         ; 0    ; 0            ; |skeleton|vga_controller:vga_ins|bird_data:bird_data_inst|altsyncram:altsyncram_component|altsyncram_ltc1:auto_generated                                         ; altsyncram_ltc1      ; work         ;
@@ -2502,15 +2502,6 @@ Encoding Type:  One-Hot
 ; lcd_inputs:get_inputs|lcd_data_generator:print_numbers|curr_db[6,7]                                                                   ; Stuck at GND due to stuck port data_in                                                                                                          ;
 ; lcd_inputs:get_inputs|lcd_data_generator:print_numbers|curr_db[4,5]                                                                   ; Stuck at VCC due to stuck port data_in                                                                                                          ;
 ; PS2_Interface:myps2|PS2_Controller:PS2|idle_counter[0..7]                                                                             ; Lost fanout                                                                                                                                     ;
-; vga_controller:vga_ins|upperpipe1_bottom[2]                                                                                           ; Merged with vga_controller:vga_ins|y_lowerpipe1[2]                                                                                              ;
-; vga_controller:vga_ins|y_lowerpipe4[1]                                                                                                ; Merged with vga_controller:vga_ins|y_lowerpipe1[1]                                                                                              ;
-; vga_controller:vga_ins|upperpipe1_bottom[1]                                                                                           ; Merged with vga_controller:vga_ins|y_lowerpipe1[1]                                                                                              ;
-; vga_controller:vga_ins|upperpipe4_bottom[1]                                                                                           ; Merged with vga_controller:vga_ins|y_lowerpipe1[1]                                                                                              ;
-; vga_controller:vga_ins|y_lowerpipe2[0]                                                                                                ; Merged with vga_controller:vga_ins|y_lowerpipe1[0]                                                                                              ;
-; vga_controller:vga_ins|y_lowerpipe4[0]                                                                                                ; Merged with vga_controller:vga_ins|y_lowerpipe1[0]                                                                                              ;
-; vga_controller:vga_ins|upperpipe1_bottom[0]                                                                                           ; Merged with vga_controller:vga_ins|y_lowerpipe1[0]                                                                                              ;
-; vga_controller:vga_ins|upperpipe2_bottom[0]                                                                                           ; Merged with vga_controller:vga_ins|y_lowerpipe1[0]                                                                                              ;
-; vga_controller:vga_ins|upperpipe4_bottom[0]                                                                                           ; Merged with vga_controller:vga_ins|y_lowerpipe1[0]                                                                                              ;
 ; vga_controller:vga_ins|img_data:img_data_inst|altsyncram:altsyncram_component|altsyncram_jkd1:auto_generated|address_reg_a[5]         ; Merged with vga_controller:vga_ins|splash_data:splash_data_inst|altsyncram:altsyncram_component|altsyncram_tsa1:auto_generated|address_reg_a[5] ;
 ; vga_controller:vga_ins|img_data:img_data_inst|altsyncram:altsyncram_component|altsyncram_jkd1:auto_generated|address_reg_a[4]         ; Merged with vga_controller:vga_ins|splash_data:splash_data_inst|altsyncram:altsyncram_component|altsyncram_tsa1:auto_generated|address_reg_a[4] ;
 ; vga_controller:vga_ins|img_data:img_data_inst|altsyncram:altsyncram_component|altsyncram_jkd1:auto_generated|address_reg_a[3]         ; Merged with vga_controller:vga_ins|splash_data:splash_data_inst|altsyncram:altsyncram_component|altsyncram_tsa1:auto_generated|address_reg_a[3] ;
@@ -2576,13 +2567,14 @@ Encoding Type:  One-Hot
 ; lcd:mylcd|state2[31]                                                                                                                  ; Stuck at GND due to stuck port data_in                                                                                                          ;
 ; PS2_Interface:myps2|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|ps2_command[0]                                       ; Stuck at GND due to stuck port data_in                                                                                                          ;
 ; regfile:my_regfile|my_reg:my_reg0|dflipflop:loop1[31].dff_call|q                                                                      ; Stuck at GND due to stuck port data_in                                                                                                          ;
-; vga_controller:vga_ins|upperpipe1_bottom[3]                                                                                           ; Merged with vga_controller:vga_ins|y_lowerpipe1[3]                                                                                              ;
-; vga_controller:vga_ins|y_lowerpipe4[2]                                                                                                ; Merged with vga_controller:vga_ins|y_lowerpipe1[2]                                                                                              ;
-; vga_controller:vga_ins|upperpipe4_bottom[2]                                                                                           ; Merged with vga_controller:vga_ins|y_lowerpipe1[2]                                                                                              ;
-; vga_controller:vga_ins|y_lowerpipe2[1]                                                                                                ; Merged with vga_controller:vga_ins|y_lowerpipe1[1]                                                                                              ;
-; vga_controller:vga_ins|upperpipe2_bottom[1]                                                                                           ; Merged with vga_controller:vga_ins|y_lowerpipe1[1]                                                                                              ;
-; vga_controller:vga_ins|y_lowerpipe3[0]                                                                                                ; Merged with vga_controller:vga_ins|y_lowerpipe1[0]                                                                                              ;
-; vga_controller:vga_ins|upperpipe3_bottom[0]                                                                                           ; Merged with vga_controller:vga_ins|y_lowerpipe1[0]                                                                                              ;
+; vga_controller:vga_ins|y_lowerpipe1[0]                                                                                                ; Merged with vga_controller:vga_ins|upperpipe1_bottom[0]                                                                                         ;
+; vga_controller:vga_ins|y_lowerpipe2[0]                                                                                                ; Merged with vga_controller:vga_ins|upperpipe1_bottom[0]                                                                                         ;
+; vga_controller:vga_ins|y_lowerpipe4[0]                                                                                                ; Merged with vga_controller:vga_ins|upperpipe1_bottom[0]                                                                                         ;
+; vga_controller:vga_ins|upperpipe2_bottom[0]                                                                                           ; Merged with vga_controller:vga_ins|upperpipe1_bottom[0]                                                                                         ;
+; vga_controller:vga_ins|upperpipe4_bottom[0]                                                                                           ; Merged with vga_controller:vga_ins|upperpipe1_bottom[0]                                                                                         ;
+; vga_controller:vga_ins|y_lowerpipe3[0]                                                                                                ; Merged with vga_controller:vga_ins|upperpipe1_bottom[0]                                                                                         ;
+; vga_controller:vga_ins|upperpipe3_bottom[0]                                                                                           ; Merged with vga_controller:vga_ins|upperpipe1_bottom[0]                                                                                         ;
+; vga_controller:vga_ins|y_lowerpipe3[1]                                                                                                ; Merged with vga_controller:vga_ins|upperpipe3_bottom[1]                                                                                         ;
 ; lcd:mylcd|state1[10]                                                                                                                  ; Stuck at GND due to stuck port data_in                                                                                                          ;
 ; lcd:mylcd|line2[10][7]                                                                                                                ; Stuck at GND due to stuck port data_in                                                                                                          ;
 ; lcd:mylcd|line2[11][7]                                                                                                                ; Stuck at GND due to stuck port data_in                                                                                                          ;
@@ -2653,7 +2645,7 @@ Encoding Type:  One-Hot
 ; PS2_Interface:myps2|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_1_WAIT_FOR_DATA                     ; Lost fanout                                                                                                                                     ;
 ; PS2_Interface:myps2|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_2_DATA_IN                           ; Lost fanout                                                                                                                                     ;
 ; PS2_Interface:myps2|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_3_PARITY_IN                         ; Lost fanout                                                                                                                                     ;
-; Total Number of Removed Registers = 286                                                                                               ;                                                                                                                                                 ;
+; Total Number of Removed Registers = 278                                                                                               ;                                                                                                                                                 ;
 +---------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
@@ -2736,7 +2728,7 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 1621  ;
+; Total registers                              ; 1629  ;
 ; Number of registers using Synchronous Clear  ; 136   ;
 ; Number of registers using Synchronous Load   ; 73    ;
 ; Number of registers using Asynchronous Clear ; 318   ;
@@ -9660,7 +9652,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 60                          ;
-; cycloneiii_ff         ; 1621                        ;
+; cycloneiii_ff         ; 1629                        ;
 ;     CLR               ; 28                          ;
 ;     CLR SCLR          ; 19                          ;
 ;     ENA               ; 793                         ;
@@ -9669,15 +9661,15 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     ENA SCLR          ; 32                          ;
 ;     ENA SLD           ; 6                           ;
 ;     SCLR SLD          ; 67                          ;
-;     plain             ; 405                         ;
-; cycloneiii_lcell_comb ; 5431                        ;
-;     arith             ; 1281                        ;
+;     plain             ; 413                         ;
+; cycloneiii_lcell_comb ; 5436                        ;
+;     arith             ; 1287                        ;
 ;         1 data inputs ; 5                           ;
-;         2 data inputs ; 328                         ;
-;         3 data inputs ; 948                         ;
-;     normal            ; 4150                        ;
+;         2 data inputs ; 331                         ;
+;         3 data inputs ; 951                         ;
+;     normal            ; 4149                        ;
 ;         0 data inputs ; 80                          ;
-;         1 data inputs ; 36                          ;
+;         1 data inputs ; 35                          ;
 ;         2 data inputs ; 704                         ;
 ;         3 data inputs ; 774                         ;
 ;         4 data inputs ; 2556                        ;
@@ -9687,7 +9679,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; cycloneiii_ram_block  ; 444                         ;
 ;                       ;                             ;
 ; Max LUT depth         ; 77.50                       ;
-; Average LUT depth     ; 19.38                       ;
+; Average LUT depth     ; 19.34                       ;
 +-----------------------+-----------------------------+
 
 
@@ -9706,7 +9698,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-    Info: Processing started: Sat Apr 20 04:33:59 2019
+    Info: Processing started: Sat Apr 20 04:37:26 2019
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off finalproject -c finalproject
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -10663,17 +10655,17 @@ Warning (15899): PLL "VGA_Audio_PLL:p1|altpll:altpll_component|pll" has paramete
 Warning (21074): Design contains 2 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "ps2_data" File: C:/Users/mpz5/Documents/GitHub/FinalProject/skeleton.v Line: 41
     Warning (15610): No output dependent on input pin "ps2_clock" File: C:/Users/mpz5/Documents/GitHub/FinalProject/skeleton.v Line: 41
-Info (21057): Implemented 6951 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 6956 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 10 input pins
     Info (21059): Implemented 50 output pins
-    Info (21061): Implemented 6440 logic cells
+    Info (21061): Implemented 6445 logic cells
     Info (21064): Implemented 444 RAM segments
     Info (21065): Implemented 1 PLLs
     Info (21062): Implemented 6 DSP elements
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 245 warnings
-    Info: Peak virtual memory: 4998 megabytes
-    Info: Processing ended: Sat Apr 20 04:34:57 2019
-    Info: Elapsed time: 00:00:58
+    Info: Peak virtual memory: 4994 megabytes
+    Info: Processing ended: Sat Apr 20 04:38:26 2019
+    Info: Elapsed time: 00:01:00
     Info: Total CPU time (on all processors): 00:01:06
 
 
