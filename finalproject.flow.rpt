@@ -1,5 +1,5 @@
 Flow report for finalproject
-Sat Apr 20 00:30:35 2019
+Sat Apr 20 01:01:00 2019
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sat Apr 20 00:30:28 2019       ;
+; Flow Status                        ; Successful - Sat Apr 20 01:00:54 2019       ;
 ; Quartus Prime Version              ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                      ; finalproject                                ;
 ; Top-level Entity Name              ; skeleton                                    ;
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/20/2019 00:28:44 ;
+; Start date & time ; 04/20/2019 00:59:10 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; finalproject        ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 154946504852341.155573452413868        ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 154946504852341.155573635017364        ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
 ; MISC_FILE                           ; graphics/pll.bsf                       ; --            ; --          ; --         ;
@@ -95,11 +95,11 @@ refer to the applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:54     ; 1.0                     ; 4994 MB             ; 00:01:04                           ;
-; Fitter                    ; 00:00:38     ; 1.1                     ; 5863 MB             ; 00:01:05                           ;
+; Analysis & Synthesis      ; 00:00:56     ; 1.0                     ; 4994 MB             ; 00:01:04                           ;
+; Fitter                    ; 00:00:38     ; 1.1                     ; 5870 MB             ; 00:01:04                           ;
 ; Assembler                 ; 00:00:04     ; 1.0                     ; 4764 MB             ; 00:00:04                           ;
-; TimeQuest Timing Analyzer ; 00:00:06     ; 1.5                     ; 4972 MB             ; 00:00:06                           ;
-; Total                     ; 00:01:42     ; --                      ; --                  ; 00:02:19                           ;
+; TimeQuest Timing Analyzer ; 00:00:05     ; 1.5                     ; 4972 MB             ; 00:00:06                           ;
+; Total                     ; 00:01:43     ; --                      ; --                  ; 00:02:18                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

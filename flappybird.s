@@ -80,6 +80,9 @@ playgame:
 	j playgame
 	bne $30, $0, handlecollision
 aftercollision:
+	bne $0, $25, initialreverse;
+	j undoreverse;
+afterreverse:
 	bne $20, $0, increaselevel;
 update:
 	# here means that $4 counted up correctly
@@ -134,6 +137,15 @@ moveup:
 	addi $6, $0, -6;
 	j aftercollision
 
+undoreverse: 
+	blt $0, $15, 1;
+	addi $15, $0, 3;
+	j afterreverse
+
+initialreverse:
+	addi $15, $0, -3;
+	j afterreverse;
+
 endgame:                                                                                                                                                                                                                          
 	# save the score and sort the existing scores
 	addi $28, $0, 3
@@ -150,10 +162,15 @@ increaselevel:
 	j update
 
 speedup:
+	# if slow is one, direction is reversed, once it is off, direction is put back to normal
+	bne $0, $25, reverse;
 	addi $19, $0, 15;
 	blt $19, $15, 1;
 	addi $15, $15, 1;
 	jr $31
+reverse:
+	addi $15, $15, -1;
+	jr $31;
 
 updatebirdy:
 	blt $0, $21, 1;
