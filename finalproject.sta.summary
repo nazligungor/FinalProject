@@ -3,35 +3,59 @@ TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
-Slack : -67.747
-TNS   : -1988.019
+Slack : -67.208
+TNS   : -1868.456
 
 Type  : Slow 1200mV 85C Model Setup 'p1|altpll_component|pll|clk[2]'
-Slack : -15.357
-TNS   : -1130.638
+Slack : -12.672
+TNS   : -430.648
+
+Type  : Slow 1200mV 85C Model Setup 'DE2_Audio:a1|avconf:avc|LUT_INDEX[1]'
+Slack : -3.878
+TNS   : -58.196
+
+Type  : Slow 1200mV 85C Model Setup 'DE2_Audio:a1|avconf:avc|mI2C_CTRL_CLK'
+Slack : -2.862
+TNS   : -126.765
 
 Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
-Slack : 0.402
+Slack : 0.346
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'DE2_Audio:a1|avconf:avc|mI2C_CTRL_CLK'
+Slack : 0.387
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'p1|altpll_component|pll|clk[2]'
 Slack : 0.404
 TNS   : 0.000
 
+Type  : Slow 1200mV 85C Model Hold 'DE2_Audio:a1|avconf:avc|LUT_INDEX[1]'
+Slack : 0.893
+TNS   : 0.000
+
 Type  : Slow 1200mV 85C Model Recovery 'p1|altpll_component|pll|clk[2]'
-Slack : 12.058
+Slack : 11.612
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Recovery 'CLOCK_50'
-Slack : 12.778
+Slack : 14.868
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Removal 'CLOCK_50'
-Slack : 4.944
+Slack : 4.445
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Removal 'p1|altpll_component|pll|clk[2]'
-Slack : 6.224
+Slack : 6.696
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'DE2_Audio:a1|avconf:avc|mI2C_CTRL_CLK'
+Slack : -1.285
+TNS   : -74.530
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'DE2_Audio:a1|avconf:avc|LUT_INDEX[1]'
+Slack : 0.417
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
@@ -39,83 +63,131 @@ Slack : 9.622
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'p1|altpll_component|pll|clk[2]'
-Slack : 19.610
+Slack : 19.614
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -60.329
-TNS   : -1470.061
+Slack : -59.727
+TNS   : -1359.502
 
 Type  : Slow 1200mV 0C Model Setup 'p1|altpll_component|pll|clk[2]'
-Slack : -11.932
-TNS   : -863.852
+Slack : -9.517
+TNS   : -321.509
 
-Type  : Slow 1200mV 0C Model Hold 'p1|altpll_component|pll|clk[2]'
-Slack : 0.353
+Type  : Slow 1200mV 0C Model Setup 'DE2_Audio:a1|avconf:avc|LUT_INDEX[1]'
+Slack : -3.603
+TNS   : -54.541
+
+Type  : Slow 1200mV 0C Model Setup 'DE2_Audio:a1|avconf:avc|mI2C_CTRL_CLK'
+Slack : -2.556
+TNS   : -111.910
+
+Type  : Slow 1200mV 0C Model Hold 'DE2_Audio:a1|avconf:avc|mI2C_CTRL_CLK'
+Slack : 0.337
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
+Slack : 0.347
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'p1|altpll_component|pll|clk[2]'
 Slack : 0.354
 TNS   : 0.000
 
+Type  : Slow 1200mV 0C Model Hold 'DE2_Audio:a1|avconf:avc|LUT_INDEX[1]'
+Slack : 0.917
+TNS   : 0.000
+
 Type  : Slow 1200mV 0C Model Recovery 'p1|altpll_component|pll|clk[2]'
-Slack : 12.866
+Slack : 12.474
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Recovery 'CLOCK_50'
-Slack : 13.398
+Slack : 15.403
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Removal 'CLOCK_50'
-Slack : 4.469
+Slack : 3.995
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Removal 'p1|altpll_component|pll|clk[2]'
-Slack : 5.539
+Slack : 6.017
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'DE2_Audio:a1|avconf:avc|mI2C_CTRL_CLK'
+Slack : -1.285
+TNS   : -74.530
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'DE2_Audio:a1|avconf:avc|LUT_INDEX[1]'
+Slack : 0.333
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
-Slack : 9.646
+Slack : 9.645
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'p1|altpll_component|pll|clk[2]'
-Slack : 19.632
+Slack : 19.633
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -27.449
-TNS   : -69.535
+Slack : -27.421
+TNS   : -66.858
+
+Type  : Fast 1200mV 0C Model Setup 'DE2_Audio:a1|avconf:avc|LUT_INDEX[1]'
+Slack : -1.334
+TNS   : -19.435
+
+Type  : Fast 1200mV 0C Model Setup 'DE2_Audio:a1|avconf:avc|mI2C_CTRL_CLK'
+Slack : -1.046
+TNS   : -32.768
 
 Type  : Fast 1200mV 0C Model Setup 'p1|altpll_component|pll|clk[2]'
-Slack : 2.716
+Slack : 4.159
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'DE2_Audio:a1|avconf:avc|mI2C_CTRL_CLK'
+Slack : 0.104
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
-Slack : 0.179
+Slack : 0.136
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'p1|altpll_component|pll|clk[2]'
 Slack : 0.182
 TNS   : 0.000
 
+Type  : Fast 1200mV 0C Model Hold 'DE2_Audio:a1|avconf:avc|LUT_INDEX[1]'
+Slack : 0.234
+TNS   : 0.000
+
 Type  : Fast 1200mV 0C Model Recovery 'p1|altpll_component|pll|clk[2]'
-Slack : 15.595
+Slack : 15.379
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Recovery 'CLOCK_50'
-Slack : 16.097
+Slack : 17.235
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Removal 'CLOCK_50'
-Slack : 2.514
+Slack : 2.288
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Removal 'p1|altpll_component|pll|clk[2]'
-Slack : 3.117
+Slack : 3.386
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'DE2_Audio:a1|avconf:avc|mI2C_CTRL_CLK'
+Slack : -1.000
+TNS   : -58.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'DE2_Audio:a1|avconf:avc|LUT_INDEX[1]'
+Slack : 0.398
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
-Slack : 9.372
+Slack : 9.371
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'p1|altpll_component|pll|clk[2]'

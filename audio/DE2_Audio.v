@@ -4,6 +4,8 @@ module DE2_Audio(
 	CLOCK_50,
 	CLOCK_27,
 	KEY,
+	c_flag,
+	screen_state,
 
 	AUD_ADCDAT,
 
@@ -35,6 +37,8 @@ input				CLOCK_50;
 input				CLOCK_27;
 input		[3:0]	KEY;
 input		[3:0]	SW;
+input		[2:0]		c_flag;
+input		[1:0]    screen_state;
 
 input				AUD_ADCDAT;
 
@@ -81,18 +85,35 @@ wire				write_audio_out;
  /*****************************************************************************
  *                         LAB 6 SOUNDS END HERE                              *
  *****************************************************************************/
+reg [31:0] temp_add, counter;
+wire [31:0] data, q_out;
 
+always @(posedge CLOCK_50)begin
+	if(counter == 32'd44000000 ) begin
+		counter <= 32'b0;
+		temp_add <= temp_add + 1;
+	end
+		counter <= counter + 1;
+end
 
-assign read_audio_in			= audio_in_available & audio_out_allowed;
+audio_rom audio_inst(temp_add, CLOCK_50, q_out); 
+
+assign audio_in_available = (c_flag != 3'b0)  ? 1'b1 : 'bz;
+assign audio_out_allowed = (c_flag != 3'b0) ? 1'b1 : 'bz;
+
+//assign left_channel_audio_in = q_out;
+//assign right_channel_audio_in = q_out;
+
+assign read_audio_in			= (c_flag != 3'b0)  ? 1'b1 : 'bz; //audio_in_available & audio_out_allowed;
 
 wire [31:0] left_in, right_in, left_out, right_out;
-assign left_in = left_channel_audio_in;
-assign right_in = right_channel_audio_in;
+assign left_out = q_out;
+assign right_out = q_out;
 
 
 assign left_channel_audio_out	= left_out;
 assign right_channel_audio_out	= right_out;
-assign write_audio_out			= audio_in_available & audio_out_allowed;
+assign write_audio_out			= (c_flag != 3'b0) ? 1'b1 : 'bz;//audio_in_available & audio_out_allowed;
 
 /*****************************************************************************
  *                              Internal Modules                             *

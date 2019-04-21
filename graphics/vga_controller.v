@@ -40,10 +40,10 @@ reg [23:0] bgr_data;
 wire VGA_CLK_n;
 wire [7:0] index;
 wire [2:0] index_splash;
-wire [8:0] index_lpipe, index_upipe;
+wire [2:0] index_lpipe, index_upipe, index_lpipe2, index_lpipe3, index_lpipe4;
 wire [1:0] index_go;
 wire [2:0] index_bird;
-wire [23:0] bgr_data_raw, lpipe_raw, splash_raw, go_raw, br_raw, upipe_raw;
+wire [23:0] bgr_data_raw, lpipe_raw, splash_raw, go_raw, br_raw, upipe_raw, lpipe_raw2, lpipe_raw3, lpipe_raw4;
 wire [23:0] bird_data_raw;
 wire cBLANK_n,cHS,cVS,rst;
 wire[9:0] addr_x, addr_y;
@@ -226,9 +226,13 @@ img_index	img_index_inst (
 	);	
 //////
 
-wire[18:0] bird_offset, lpipe_offset, upipe_offset;
+wire[18:0] bird_offset, lpipe_offset, upipe_offset, lpipe_offset2, lpipe_offset3, lpipe_offset4;
 assign bird_offset = ((ADDR/19'd640) - y_bird)*bird_boxsize + (ADDR%19'd640 - x_bird); 
-assign lpipe_offset = (addr_lowerpipe1_y - y_lowerpipe1)*pipew_19 + (addr_lowerpipe1_x - x_lowerpipe1);
+assign lpipe_offset = (addr_lowerpipe1_y - y_lowerpipe1)*pipew_19 + (addr_lowerpipe1_x - x_lowerpipe1);//*pipe_height;
+assign lpipe_offset2 = (addr_lowerpipe2_y - y_lowerpipe2)*pipew_19 + (addr_lowerpipe1_x - x_lowerpipe2);//*pipe_height1;
+assign lpipe_offset3 = (addr_lowerpipe3_y - y_lowerpipe3)*pipew_19 + (addr_lowerpipe1_x - x_lowerpipe3);//*pipe_height2;
+assign lpipe_offset4 = (addr_lowerpipe4_y - y_lowerpipe4)*pipew_19 + (addr_lowerpipe1_x - x_lowerpipe4);//*pipe_height3;
+
 assign upipe_offset = (addr_upperpipe1_y - y_upperpipe1)*pipew_19 + (addr_upperpipe1_x - x_upperpipe1);
 
 bird_data	bird_data_inst (
@@ -242,7 +246,7 @@ bird_index	bird_index_inst (
 	.clock ( iVGA_CLK ),
 	.q ( bird_data_raw)
 	);	
-	
+	//PIPE1
 lpipe_data	lpipe_data_inst (
 	.address (lpipe_offset),
 	.clock ( VGA_CLK_n ),
@@ -255,17 +259,56 @@ lpipe_index	lpipe_index_inst (
 	.q ( lpipe_raw)
 	);	
 	
-lpipe_data	upipe_data_inst (
-	.address (upipe_offset),
-	.clock ( VGA_CLK_n ),
-	.q ( index_upipe )
-	);
+	//PIPE2
+ //	lpipe_data	lpipe_data_inst2 (
+//	.address (lpipe_offset2),
+//	.clock ( VGA_CLK_n ),
+//	.q ( index_lpipe2 )
+//	);
 	
-lpipe_index	upipe_index_inst (
-	.address ( index_upipe),
-	.clock ( iVGA_CLK ),
-	.q ( upipe_raw)
-	);
+//lpipe_index	lpipe_index_ins2t (
+//	.address ( index_lpipe2),
+//	.clock ( iVGA_CLK ),
+//	.q ( lpipe_raw2)
+//	);	
+	
+	//PIPE3
+//	lpipe_data	lpipe_data_inst3 (
+//	.address (lpipe_offset3),
+//	.clock ( VGA_CLK_n ),
+//	.q ( index_lpipe3 )
+//	);
+	
+//lpipe_index	lpipe_index_inst3 (
+//	.address ( index_lpipe3),
+//	.clock ( iVGA_CLK ),
+//	.q ( lpipe_raw3)
+//	);	
+	
+	//PIPE4
+//	lpipe_data	lpipe_data_inst4 (
+//	.address (lpipe_offset4),
+//	.clock ( VGA_CLK_n ),
+//	.q ( index_lpipe4 )
+//	);
+	
+//lpipe_index	lpipe_index_inst4 (
+//	.address ( index_lpipe4),
+//	.clock ( iVGA_CLK ),
+//	.q ( lpipe_raw4)
+//	);	
+	
+//lpipe_data	upipe_data_inst (
+//	.address (upipe_offset),
+//	.clock ( VGA_CLK_n ),
+//	.q ( index_upipe )
+//	);
+	
+//lpipe_index	upipe_index_inst (
+//	.address ( index_upipe),
+//	.clock ( iVGA_CLK ),
+//	.q ( upipe_raw)
+//	);
 	
 splash_data	splash_data_inst (
 	.address (ADDR),
@@ -377,10 +420,13 @@ go_index	go_index_inst (
  assign in_square_data = 24'b111111111000000010101111;
  assign in_pipe_data = 24'b000000001111111100000000;
  assign game_over = 24'b0;
- wire [23:0] temp_data, temp_data2, temp_data3, temp_data4, temp_data5;
+ wire [23:0] temp_data, temp_data2, temp_data3, temp_data4, temp_data5, temppipe1, temppipe2, temppipe3;
  wire [23:0] use_data;
- assign temp_data = (lpipe1_in || lpipe2_in || lpipe3_in || lpipe4_in) ? lpipe_raw : bird_data_raw;
- assign temp_data5 = upipe_in ? upipe_raw : temp_data;
+ assign temp_data = lpipe1_in ? lpipe_raw : bird_data_raw;
+ assign temppipe1 = lpipe2_in ? lpipe_raw : temp_data;
+ assign temppipe2 = lpipe3_in ? lpipe_raw : temppipe1;
+ assign temppipe3 = lpipe4_in ? lpipe_raw : temppipe2;
+ assign temp_data5 = upipe_in ? lpipe_raw : temppipe3;
  assign temp_data2 = c_flag != 0 ? game_over : temp_data5;
  assign temp_data3= (isin_square || isin_pipe) ? temp_data2 : bgr_data_raw;
  assign temp_data4 = (screen_state == 2'd1) ? splash_raw : temp_data3;

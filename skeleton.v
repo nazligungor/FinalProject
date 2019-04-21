@@ -19,10 +19,23 @@ module skeleton(
 	bounce_flag,
 	y_control_flag,
 	slow_flag,
-	animate
+	animate,
 //	address_imem,
 //	reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31
 //	
+	CLOCK_27,
+	KEY,
+	AUD_ADCDAT,
+	// Bidirectionals
+	AUD_BCLK,
+	AUD_ADCLRCK,
+	AUD_DACLRCK,
+	I2C_SDAT,
+	// Outputs
+	AUD_XCK,
+	AUD_DACDAT,
+	I2C_SCLK,
+	SW
 	);  									// 50 MHz clock
 		
 	////////////////////////	VGA	////////////////////////////
@@ -54,6 +67,24 @@ module skeleton(
 	wire			 ps2_key_pressed;
 	wire	[7:0]	 ps2_out;	
 	//reg          x,y;
+	/////////////////////////AUDIO /////////////////////////
+	input				CLOCK_27;
+	input		[3:0]	KEY;
+	input		[3:0]	SW;
+	input				AUD_ADCDAT;
+
+	// Bidirectionals
+	inout				AUD_BCLK;
+	inout				AUD_ADCLRCK;
+	inout				AUD_DACLRCK;
+
+	inout				I2C_SDAT;
+
+	// Outputs
+	output				AUD_XCK;
+	output				AUD_DACDAT;
+
+	output				I2C_SCLK;
 	
 	// clock divider (by 5, i.e., 10 MHz)
 	pll div(CLOCK_50,inclock);
@@ -250,6 +281,28 @@ module skeleton(
 								 .score(reg16)
 								 );
 	
+  DE2_Audio				a1( // Inputs
+									.CLOCK_50(clock),
+									.CLOCK_27(CLOCK_27),
+									.KEY(KEY),
+									.c_flag(c_flag),
+									.screen_state(reg28),
+									.AUD_ADCDAT(AUD_ADCAT),
+
+									// Bidirectionals
+									.AUD_BCLK(AUD_BCLK),
+									.AUD_ADCLRCK(AUD_ADCLRCK),
+									.AUD_DACLRCK(AUD_DACLRCK),
+
+									.I2C_SDAT(I2C_SDAT),
+
+									// Outputs
+									.AUD_XCK(AUD_XCK),
+									.AUD_DACDAT(AUD_DACDAT),
+
+									.I2C_SCLK(I2C_SCLK),
+									.SW(SW)
+  );
 endmodule
 
 
