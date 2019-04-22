@@ -16,9 +16,9 @@ module skeleton(
 	CLOCK_50,
 	control,
 	down,
-	bounce_flag,
-	y_control_flag,
-	slow_flag,
+//	bounce_flag,
+//	y_control_flag,
+//	slow_flag,
 	animate,
 //	address_imem,
 //	reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31
@@ -85,10 +85,11 @@ module skeleton(
 	output				AUD_DACDAT;
 
 	output				I2C_SCLK;
+	reg[31:0] num_clicks;
 	
 	// clock divider (by 5, i.e., 10 MHz)
 	pll div(CLOCK_50,inclock);
-	assign clock = CLOCK_50;
+	assign clock = inclock;
 	
 	// UNCOMMENT FOLLOWING LINE AND COMMENT ABOVE LINE TO RUN AT 50 MHz
 	//assign clock = inclock;
@@ -124,7 +125,7 @@ module skeleton(
 	 wire [4:0] ctrl_readRegA, ctrl_readRegB;
     wire [31:0] data_writeReg;
     wire [31:0] data_readRegA, data_readRegB;
-	 /* register information:\
+	 /* register information:
 	 question --> store velocity in a register or just determine which register to read from based on 
 	 reg1: nop counter max
 	 reg2: button pressed
@@ -159,7 +160,7 @@ module skeleton(
 	 wire [31:0] reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31;
 	 wire[2:0] c_flag;
 	 wire level_flag;
-	 input y_control_flag, bounce_flag, slow_flag;
+	 reg y_control_flag, bounce_flag, slow_flag;
 //	 assign y_control_flag = 1'b0;
 //	 assign bounce_flag = 1'b0;
     regfile my_regfile(
@@ -179,7 +180,7 @@ module skeleton(
 		  level_flag,
 		  down,
 		  y_control_flag,
-		  bounce_flag,
+		  1'b1,
 		  slow_flag
     );
 	 
@@ -214,10 +215,7 @@ module skeleton(
 	wire[7:0] ascii_data;
 	wire lcd_we, lcd_reset;
 	reg[15:0] name;
-	assign leds[0] = y_control_flag;
-	assign leds[1] = bounce_flag;
-	assign leds[2] = slow_flag;
-	assign leds[3] = animate;
+//	assign leds = num_clicks;
 //	assign leds[6:0] = reg15;
 //	assign leds[6:0] = reg15;
 	always @(reg17, reg18) begin 
@@ -225,18 +223,18 @@ module skeleton(
 		name[7:0] = 0;
 	end
 	wire [7:0] score;
-	assign score = reg16[12:5];
+	assign score = reg16[14:7];
 	
 	assign level_flag = (reg16 + 1)%300 == 0;
 	
 
-	lcd_inputs get_inputs(clock, name, reg16[12:5], ascii_data, lcd_we, lcd_reset);
+	lcd_inputs get_inputs(inclock, name, reg16[14:7], ascii_data, lcd_we, lcd_reset);
 	
 //	lcd_read_name gen_chars(clock,name, ascii_data, lcd_we, lcd_reset);
 
 //	lcd_data_generator gen_digits(clock, reg16[14:7], ascii_data, lcd_we, lcd_reset);
 
-	lcd mylcd(clock, lcd_reset, lcd_we, ascii_data, lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon);
+	lcd mylcd(inclock, lcd_reset, lcd_we, ascii_data, lcd_data, lcd_rw, lcd_en, lcd_rs, lcd_on, lcd_blon);
 
 //	// example for sending ps2 data to the first two seven segment displays
 //	Hexadecimal_To_Seven_Segment hex1(ps2_out[3:0], seg1);
@@ -253,7 +251,60 @@ module skeleton(
 	// some LEDs that you could use for debugging if you wanted
 //	assign leds = 8'b00101011;
 	 
-	// VGA
+	// VGA 
+//	reg leds_control;
+	reg[7:0] score_on;
+	reg power_on;
+	
+	initial power_on = 0;
+	initial num_clicks = 0;
+	initial bounce_flag = 0;
+	initial y_control_flag = 0;
+	initial slow_flag = 0; 
+	
+//	reg update_clicks;
+//	reg last_click;
+	always @(reg26) begin 
+		if(reg28 != 2) begin 
+			power_on = 0;
+			slow_flag = 0;
+			y_control_flag = 0;
+			bounce_flag = 0;
+		end
+		else if((reg26+1)%15 == 0) begin
+				score_on = score;
+//				power_on = 1;
+				if(reg16[1:0] == 1 && power_on == 0) begin 
+					bounce_flag = 1;
+					power_on = 1;
+				end
+				else if(reg16[1:0] == 2 && power_on == 0) begin 
+					slow_flag = 1;
+					power_on = 1;
+				end
+				else if(reg16[1:0] == 3 && power_on == 0) begin 
+					y_control_flag = 1;
+					power_on = 1;
+				end	
+		end
+		
+		if(score > score_on) begin 
+			bounce_flag = 0;
+			slow_flag = 0; 
+			y_control_flag = 0;
+			power_on = 0;
+		end
+	end
+//	
+	assign leds[6:0] = reg26;
+	assign leds[7] = power_on;
+//	assign leds[0] = bounce_flag;
+//	assign leds[1] = slow_flag;
+//	assign leds[2] = y_control_flag;
+//	assign leds[4] = power_on;
+//	assign leds[7:5] = num_clicks;
+//	assign leds = reg26;
+	
 	Reset_Delay			r0	(.iCLK(CLOCK_50),.oRESET(DLY_RST)	);
 	VGA_Audio_PLL 		p1	(.areset(~DLY_RST),.inclk0(CLOCK_50),.c0(VGA_CTRL_CLK),.c1(AUD_CTRL_CLK),.c2(VGA_CLK)	);
 	vga_controller vga_ins(.iRST_n(DLY_RST),

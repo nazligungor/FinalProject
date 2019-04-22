@@ -1,5 +1,5 @@
 Flow report for finalproject
-Sun Apr 21 15:28:19 2019
+Mon Apr 22 04:17:01 2019
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -40,22 +40,22 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sun Apr 21 15:28:11 2019       ;
+; Flow Status                        ; Successful - Mon Apr 22 04:16:53 2019       ;
 ; Quartus Prime Version              ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                      ; finalproject                                ;
 ; Top-level Entity Name              ; skeleton                                    ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE115F29C7                               ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 6,212 / 114,480 ( 5 % )                     ;
-;     Total combinational functions  ; 5,962 / 114,480 ( 5 % )                     ;
+; Total logic elements               ; 6,687 / 114,480 ( 6 % )                     ;
+;     Total combinational functions  ; 6,413 / 114,480 ( 6 % )                     ;
 ;     Dedicated logic registers      ; 1,827 / 114,480 ( 2 % )                     ;
 ; Total registers                    ; 1827                                        ;
-; Total pins                         ; 77 / 529 ( 15 % )                           ;
+; Total pins                         ; 74 / 529 ( 14 % )                           ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 3,371,536 / 3,981,312 ( 85 % )              ;
 ; Embedded Multiplier 9-bit elements ; 6 / 532 ( 1 % )                             ;
-; Total PLLs                         ; 2 / 4 ( 50 % )                              ;
+; Total PLLs                         ; 3 / 4 ( 75 % )                              ;
 +------------------------------------+---------------------------------------------+
 
 
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/21/2019 15:26:16 ;
+; Start date & time ; 04/22/2019 04:14:59 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; finalproject        ;
 +-------------------+---------------------+
@@ -75,12 +75,13 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 154946504852341.155587477612988        ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 154946504852341.155592089812000        ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
 ; MISC_FILE                           ; graphics/pll.bsf                       ; --            ; --          ; --         ;
 ; MISC_FILE                           ; graphics/pll.cmp                       ; --            ; --          ; --         ;
 ; MISC_FILE                           ; graphics/pll.ppf                       ; --            ; --          ; --         ;
+; MISC_FILE                           ; audio_rom_bb.v                         ; --            ; --          ; --         ;
 ; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; skeleton    ; Top        ;
 ; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --            ; skeleton    ; Top        ;
 ; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --            ; skeleton    ; Top        ;
@@ -95,11 +96,11 @@ refer to the applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:59     ; 1.0                     ; 5018 MB             ; 00:01:07                           ;
-; Fitter                    ; 00:00:44     ; 1.1                     ; 5797 MB             ; 00:01:15                           ;
-; Assembler                 ; 00:00:04     ; 1.0                     ; 4781 MB             ; 00:00:04                           ;
-; TimeQuest Timing Analyzer ; 00:00:07     ; 1.6                     ; 5004 MB             ; 00:00:07                           ;
-; Total                     ; 00:01:54     ; --                      ; --                  ; 00:02:33                           ;
+; Analysis & Synthesis      ; 00:00:51     ; 1.0                     ; 5026 MB             ; 00:01:01                           ;
+; Fitter                    ; 00:00:50     ; 1.1                     ; 5813 MB             ; 00:01:21                           ;
+; Assembler                 ; 00:00:04     ; 1.0                     ; 4786 MB             ; 00:00:04                           ;
+; TimeQuest Timing Analyzer ; 00:00:07     ; 1.4                     ; 4994 MB             ; 00:00:08                           ;
+; Total                     ; 00:01:52     ; --                      ; --                  ; 00:02:34                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

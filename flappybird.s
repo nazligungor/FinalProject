@@ -21,12 +21,6 @@ setupgame:
 	addi $1, $1, 20000
 	addi $1, $1, 20000
 	addi $1, $1, 20000
-	addi $1, $1, 20000
-	addi $1, $1, 20000
-	addi $1, $1, 20000
-	addi $1, $1, 20000
-	addi $1, $1, 20000
-	addi $1, $1, 20000
 	addi $4, $0, 20000
 	# lower pipes
 	addi $7, $0, 120
@@ -49,7 +43,7 @@ setupgame:
 	addi $19, $0, 95
 	addi $18, $0, 100;
 	addi $2, $0, 0;
-
+	addi $26, $0, 0;
 pauseloop:
 	addi $28, $0, 2;
 	addi $4, $4, 1;
@@ -65,7 +59,6 @@ resetloop:
 	addi $4, $0, 0;
 	blt $0, $21, pauseloop
 	j playgame
-
 # start counter loop
 waitbutton:
 	addi $4, $0, 0;
@@ -93,8 +86,9 @@ update:
 	# if flag is on, update y with buttons, otherwise act normally
 	bne $0, $22, updatebirdy
 	# if control = 0 set velocity to be -6 have to fix bug with addi and negative numbers
-	bne $21, $0, 1
+	bne $21, $0, 2
 	addi $6, $0, -6
+	addi $26, $26, 1
 	# ybird = ybird + velocity
 	addi $19, $0, 1;
 	add $5, $5, $6;
