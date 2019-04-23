@@ -41,9 +41,9 @@ module lpipe_data (
 	clock,
 	q);
 
-	input	[14:0]  address;
+	input	[18:0]  address;
 	input	  clock;
-	output	[2:0]  q;
+	output	[3:0]  q;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
@@ -52,8 +52,8 @@ module lpipe_data (
 // synopsys translate_on
 `endif
 
-	wire [2:0] sub_wire0;
-	wire [2:0] q = sub_wire0[2:0];
+	wire [3:0] sub_wire0;
+	wire [3:0] q = sub_wire0[3:0];
 
 	altsyncram	altsyncram_component (
 				.address_a (address),
@@ -83,7 +83,7 @@ module lpipe_data (
 		altsyncram_component.address_aclr_a = "NONE",
 		altsyncram_component.clock_enable_input_a = "BYPASS",
 		altsyncram_component.clock_enable_output_a = "BYPASS",
-		altsyncram_component.init_file = "pipe_data_fin.mif",
+		altsyncram_component.init_file = "pipe_data_new.mif",
 		altsyncram_component.intended_device_family = "Cyclone IV E",
 		altsyncram_component.lpm_hint = "ENABLE_RUNTIME_MOD=NO",
 		altsyncram_component.lpm_type = "altsyncram",
@@ -91,8 +91,8 @@ module lpipe_data (
 		altsyncram_component.operation_mode = "ROM",
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_reg_a = "CLOCK0",
-		altsyncram_component.widthad_a = 15,
-		altsyncram_component.width_a = 3,
+		altsyncram_component.widthad_a = 19,
+		altsyncram_component.width_a = 4,
 		altsyncram_component.width_byteena_a = 1;
 
 

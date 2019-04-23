@@ -19,7 +19,7 @@ module skeleton(
 //	bounce_flag,
 //	y_control_flag,
 //	slow_flag,
-	animate,
+//	animate,
 //	address_imem,
 //	reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31
 //	
@@ -50,7 +50,8 @@ module skeleton(
 	input				CLOCK_50;
 	//output         isin_pipe;
 	////////////////////////	PS2	////////////////////////////
-	input 			resetn,control, down, animate;
+	input 			resetn,control, down;
+//	animate;
 	input 			ps2_data, ps2_clock;
 	
 	////////////////////////	LCD and Seven Segment	////////////////////////////
@@ -127,7 +128,7 @@ module skeleton(
     wire [31:0] data_readRegA, data_readRegB;
 	 /* register information:
 	 question --> store velocity in a register or just determine which register to read from based on 
-	 reg1: nop counter max
+	 reg1: nop counter max: winner letters in end
 	 reg2: button pressed
 	 reg3: collision flag
 	 reg4: counter
@@ -145,13 +146,16 @@ module skeleton(
 	 reg16: high_score
 	 reg17: lettera
 	 reg18: birdx
-	 reg19: in pause game = maxlettervalue, 12, ingame: 2000 for speed
+	 reg19: in pause game = maxlettervalue, 12, ingame: 2000 for speed, high score in end
 	 reg20: level flag
 	 reg21: control
 	 reg22: y control flag
 	 reg23: move down
 	 reg24: bounce flag, 
 	 reg25: slow flag
+	 reg26: button clicks
+	 reg27: animate
+	 reg28: screen state
 	 reg29: reset
 	 reg30: c_flag
 	 
@@ -228,7 +232,7 @@ module skeleton(
 	assign level_flag = (reg16 + 1)%300 == 0;
 	
 
-	lcd_inputs get_inputs(inclock, name, reg16[14:7], ascii_data, lcd_we, lcd_reset);
+	lcd_inputs get_inputs(inclock, name, reg16[14:7], ascii_data, lcd_we, lcd_reset, reg28, winner_name, winner_score);
 	
 //	lcd_read_name gen_chars(clock,name, ascii_data, lcd_we, lcd_reset);
 
@@ -253,57 +257,97 @@ module skeleton(
 	 
 	// VGA 
 //	reg leds_control;
-	reg[7:0] score_on;
+	reg[31:0] cycle_on;
 	reg power_on;
-	
+	reg last_trigger;
+	reg bfo, sfo, ycfo;
 	initial power_on = 0;
-	initial num_clicks = 0;
-	initial bounce_flag = 0;
-	initial y_control_flag = 0;
-	initial slow_flag = 0; 
-	
+	initial bfo = 0;
+	initial ycfo = 0;
+	initial sfo = 0; 
+	initial last_trigger = 1;
+	reg[1:0] state;
+	reg [15:0] winner_name;
+	reg [7:0] winner_score;
 //	reg update_clicks;
 //	reg last_click;
-	always @(reg26) begin 
-		if(reg28 != 2) begin 
+	always @(posedge clock) begin 
+		if(reg28 != 3) begin 
 			power_on = 0;
-			slow_flag = 0;
-			y_control_flag = 0;
-			bounce_flag = 0;
+			sfo <= 0;
+			ycfo <= 0;
+			bfo <= 0;
+			state <= 0;
+			y_control_flag <= 0;
+			bounce_flag <= 0;
+			slow_flag <= 0;
+			if(reg28 == 4) begin 
+				if(winner_score < score) begin 
+					winner_score = score;
+					winner_name = name;
+				end
+			
+			end
+//			start_count = 0;
+//			cycle_on = 0;
 		end
-		else if((reg26+1)%15 == 0) begin
-				score_on = score;
-//				power_on = 1;
+		else if((reg26+1)%25 == 0) begin
+//			state = 1;
 				if(reg16[1:0] == 1 && power_on == 0) begin 
-					bounce_flag = 1;
-					power_on = 1;
+					bfo <= 1;
+					power_on <= 1;
+					state <= 1;
 				end
 				else if(reg16[1:0] == 2 && power_on == 0) begin 
-					slow_flag = 1;
-					power_on = 1;
+					sfo <= 1;
+					power_on <= 1;
+					state <= 1;
 				end
 				else if(reg16[1:0] == 3 && power_on == 0) begin 
-					y_control_flag = 1;
-					power_on = 1;
-				end	
+					ycfo <= 1;
+					power_on <= 1;
+					state <= 1;
+				end
 		end
-		
-		if(score > score_on) begin 
-			bounce_flag = 0;
-			slow_flag = 0; 
-			y_control_flag = 0;
-			power_on = 0;
+		else if(trigger == 0 && last_trigger == 1) begin 
+			state <= 2;
+			last_trigger <= 0;
+			cycle_on = reg16;
+			y_control_flag <= ycfo;
+			bounce_flag <= bfo;
+			slow_flag <= sfo;
+		end
+		else if(trigger == 1) begin 
+			last_trigger <= 1;
+		end
+		else if(reg16 >= (cycle_on + 400)) begin
+			sfo <= 0;
+			bfo <= 0;
+			ycfo <= 0;
+			power_on <= 0;
+			y_control_flag <= 0;
+			bounce_flag <= 0;
+			slow_flag <= 0;
+			state <= 3;
 		end
 	end
 //	
-	assign leds[6:0] = reg26;
-	assign leds[7] = power_on;
-//	assign leds[0] = bounce_flag;
-//	assign leds[1] = slow_flag;
-//	assign leds[2] = y_control_flag;
-//	assign leds[4] = power_on;
-//	assign leds[7:5] = num_clicks;
+//	assign y_control_flag = ycfo && ~trigger;
+//	assign slow_flag = sfo && ~trigger;
+//	assign bounce_flag = bfo && ~trigger;
+//	assign start_count = y_control_flag || slow_flag || bounce_flag;
+	wire trigger;
+//	assign leds[0] = last_trigger;
+//	assign leds[1] = power_on;
+//	assign leds[2] = slow_flag;
+//	assign leds[3] = y_control_flag;
+//	assign leds[4] = bounce_flag;
+//	assign leds[5] = trigger;
+////	assign leds[5] = score;
+//	assign leds[7:6] = state;
 //	assign leds = reg26;
+
+	assign leds = reg28;
 	
 	Reset_Delay			r0	(.iCLK(CLOCK_50),.oRESET(DLY_RST)	);
 	VGA_Audio_PLL 		p1	(.areset(~DLY_RST),.inclk0(CLOCK_50),.c0(VGA_CTRL_CLK),.c1(AUD_CTRL_CLK),.c2(VGA_CLK)	);
@@ -328,8 +372,13 @@ module skeleton(
 								 .c_flag(c_flag),
 								 .screen_state(reg28),
 								 .x_bird(reg18),
-								 .animate_pipes(animate),
-								 .score(reg16)
+								 .animate_pipes(reg27),
+								 .score(reg16),
+								 .power_on(power_on),
+								 .trigger(trigger),
+								 .y_flag(ycfo),
+								 .b_flag(bfo),
+								 .s_flag(sfo)
 								 );
 	
   DE2_Audio				a1( // Inputs

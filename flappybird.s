@@ -19,8 +19,6 @@ setupgame:
 	addi $1, $1, 20000
 	addi $1, $1, 20000
 	addi $1, $1, 20000
-	addi $1, $1, 20000
-	addi $1, $1, 20000
 	addi $4, $0, 20000
 	# lower pipes
 	addi $7, $0, 120
@@ -44,6 +42,7 @@ setupgame:
 	addi $18, $0, 100;
 	addi $2, $0, 0;
 	addi $26, $0, 0;
+	addi $27, $0, 0;
 pauseloop:
 	addi $28, $0, 2;
 	addi $4, $4, 1;
@@ -67,6 +66,7 @@ waitbutton:
 	jr $31
 playgame:
 	# noops loop
+	addi $28, $0, 3;
 	addi $4, $4, 1
 	# check collision flag
 	blt $1, $4, 1
@@ -142,11 +142,12 @@ initialreverse:
 
 endgame:                                                                                                                                                                                                                          
 	# save the score and sort the existing scores
-	addi $28, $0, 3
-	lw $16, 0($0);
+	addi $28, $0, 4
+	lw $19, 0($0);
 	blt $19, $16, updatehighscore
 continue:
-	lw $17, 0($0)
+	lw $19, 0($0)
+	lw $1, 10($0)
 	blt $0, $29, endgame
 	jal waitbutton
 	j setupgame
@@ -158,8 +159,8 @@ increaselevel:
 speedup:
 	# if slow is one, direction is reversed, once it is off, direction is put back to normal
 	bne $0, $25, reverse;
-	addi $19, $0, 15;
-	blt $19, $15, 1;
+	addi $19, $0, 10;
+	blt $19, $15, moving_pipes;
 	addi $15, $15, 1;
 	jr $31
 reverse:
@@ -167,6 +168,7 @@ reverse:
 	jr $31;
 
 updatebirdy:
+	addi $6, $0, 0;
 	blt $0, $21, 1;
 	addi $5, $5, -2;
 	blt $0, $23, 1;
@@ -177,3 +179,7 @@ updatehighscore:
 	sw $16, 0($0)
 	sw $17, 10($0)
 	j continue
+
+moving_pipes: 
+	addi $27, $0, 1;
+	jr $31;

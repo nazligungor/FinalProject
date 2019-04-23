@@ -122,7 +122,7 @@ assign write_audio_out			= (c_flag != 3'b0) ? 1'b1 : 'bz;//audio_in_available & 
 Audio_Controller Audio_Controller (
 	// Inputs
 	.CLOCK_50						(CLOCK_50),
-	.reset						(~KEY[0]),
+	.reset						(KEY[0]),
 
 	.clear_audio_in_memory		(),
 	.read_audio_in				(read_audio_in),
@@ -156,7 +156,7 @@ avconf #(.USE_MIC_INPUT(1)) avc (
 	.I2C_SCLK					(I2C_SCLK),
 	.I2C_SDAT					(I2C_SDAT),
 	.CLOCK_50					(CLOCK_50),
-	.reset						(~KEY[0]),
+	.reset						(KEY[0]),
 	.key1							(KEY[1]),
 	.key2							(KEY[2])
 );
