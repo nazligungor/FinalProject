@@ -102,7 +102,6 @@ set_location_assignment PIN_M2 -to lcd_rs
 set_location_assignment PIN_L5 -to lcd_on
 set_location_assignment PIN_L4 -to lcd_en
 set_location_assignment PIN_N21 -to down
-set_location_assignment PIN_AD27 -to animate
 set_location_assignment PIN_C2 -to AUD_ADCLRCK
 set_location_assignment PIN_D2 -to AUD_ADCDAT
 set_location_assignment PIN_F2 -to AUD_BCLK
@@ -112,6 +111,52 @@ set_location_assignment PIN_E1 -to AUD_XCK
 set_location_assignment PIN_B7 -to I2C_SCLK
 set_location_assignment PIN_A8 -to I2C_SDAT
 set_location_assignment PIN_AC26 -to KEY[3]
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_AB28 -to SW[0]
+set_location_assignment PIN_AC28 -to SW[1]
+set_location_assignment PIN_AC27 -to SW[2]
+set_location_assignment PIN_AD27 -to SW[3]
+set_location_assignment PIN_Y24 -to KEY[1]
+set_location_assignment PIN_Y23 -to KEY[2]
+set_global_assignment -name VERILOG_FILE Audio_Demo/avconf/avconf.v
+set_global_assignment -name VERILOG_FILE Audio_Demo/avconf/I2C_Controller.v
+set_global_assignment -name VERILOG_FILE Audio_Demo/Audio_Controller/Audio_Controller.v
+set_global_assignment -name VERILOG_FILE Audio_Demo/Audio_Controller/Audio_Clock.v
+set_global_assignment -name SOURCE_FILE Audio_Demo/Audio_Controller/Altera_UP_SYNC_FIFO.v.bak
+set_global_assignment -name VERILOG_FILE Audio_Demo/Audio_Controller/Altera_UP_SYNC_FIFO.v
+set_global_assignment -name VERILOG_FILE Audio_Demo/Audio_Controller/Altera_UP_Clock_Edge.v
+set_global_assignment -name VERILOG_FILE Audio_Demo/Audio_Controller/Altera_UP_Audio_Out_Serializer.v
+set_global_assignment -name VERILOG_FILE Audio_Demo/Audio_Controller/Altera_UP_Audio_In_Deserializer.v
+set_global_assignment -name VERILOG_FILE Audio_Demo/Audio_Controller/Altera_UP_Audio_Bit_Counter.v
+set_global_assignment -name VERILOG_FILE Audio_Demo/keytr.v
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example_assignment_defaults.qdf.bak
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example_assignment_defaults.qdf
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example.v.bak
+set_global_assignment -name VERILOG_FILE Audio_Demo/DE2_Audio_Example.v
+set_global_assignment -name TEXT_FORMAT_REPORT_FILE Audio_Demo/DE2_Audio_Example.sta.summary
+set_global_assignment -name TEXT_FORMAT_REPORT_FILE Audio_Demo/DE2_Audio_Example.sta.rpt
+set_global_assignment -name SRAM_OBJECT_FILE Audio_Demo/DE2_Audio_Example.sof
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example.sld
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example.qws
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example.qsf.bak
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example.qsf
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example.qpf
+set_global_assignment -name PROGRAMMER_OBJECT_FILE Audio_Demo/DE2_Audio_Example.pof
+set_global_assignment -name PIN_FILE Audio_Demo/DE2_Audio_Example.pin
+set_global_assignment -name TEXT_FORMAT_REPORT_FILE Audio_Demo/DE2_Audio_Example.mif_update.rpt
+set_global_assignment -name TEXT_FORMAT_REPORT_FILE Audio_Demo/DE2_Audio_Example.map.summary
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example.map.smsg
+set_global_assignment -name TEXT_FORMAT_REPORT_FILE Audio_Demo/DE2_Audio_Example.map.rpt
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example.jdi
+set_global_assignment -name TEXT_FORMAT_REPORT_FILE Audio_Demo/DE2_Audio_Example.flow.rpt
+set_global_assignment -name TEXT_FORMAT_REPORT_FILE Audio_Demo/DE2_Audio_Example.fit.summary
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example.fit.smsg
+set_global_assignment -name TEXT_FORMAT_REPORT_FILE Audio_Demo/DE2_Audio_Example.fit.rpt
+set_global_assignment -name SOURCE_FILE Audio_Demo/DE2_Audio_Example.done
+set_global_assignment -name CDF_FILE Audio_Demo/DE2_Audio_Example.cdf
+set_global_assignment -name TEXT_FORMAT_REPORT_FILE Audio_Demo/DE2_Audio_Example.asm.rpt
 set_global_assignment -name MIF_FILE last_index.mif
 set_global_assignment -name MIF_FILE last_data.mif
 set_global_assignment -name VERILOG_FILE lpipe_new_data.v
@@ -288,7 +333,23 @@ set_global_assignment -name MIF_FILE pipe_index.mif
 set_global_assignment -name MIF_FILE pipe_data.mif
 set_global_assignment -name VERILOG_FILE graphics/lpipe_data.v
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name IO_STANDARD "2.5 V" -to SW[0]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to SW[1]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to SW[2]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to SW[3]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to I2C_SCLK
+set_instance_assignment -name IO_STANDARD "2.5 V" -to I2C_SDAT
+set_instance_assignment -name IO_STANDARD "2.5 V" -to AUD_ADCLRCK
+set_instance_assignment -name IO_STANDARD "2.5 V" -to AUD_ADCDAT
+set_instance_assignment -name IO_STANDARD "2.5 V" -to AUD_DACLRCK
+set_instance_assignment -name IO_STANDARD "2.5 V" -to AUD_DACDAT
+set_instance_assignment -name IO_STANDARD "2.5 V" -to AUD_XCK
+set_instance_assignment -name IO_STANDARD "2.5 V" -to AUD_BCLK
+set_instance_assignment -name IO_MAXIMUM_TOGGLE_RATE "0 MHz" -to KEY
+set_instance_assignment -name IO_MAXIMUM_TOGGLE_RATE "0 MHz" -to SW
+set_instance_assignment -name IO_STANDARD "2.5 V" -to KEY[0]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to KEY[1]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to KEY[2]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to KEY[3]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to CLOCK_50
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -184,7 +184,7 @@ module skeleton(
 		  level_flag,
 		  down,
 		  y_control_flag,
-		  1'b1,
+		  bounce_flag,
 		  slow_flag
     );
 	 
@@ -347,7 +347,16 @@ module skeleton(
 //	assign leds[7:6] = state;
 //	assign leds = reg26;
 
-	assign leds = reg28;
+//	assign leds[0] = bounce_flag;
+//	assign leds[1] = slow_flag;
+//	assign leds[4] = y_control_flag;
+//	assign leds[7:5] = c_flag;
+	
+	wire[2:0] powers;
+//	assign powers = {bounce_flag, slow_flag, y_control_flag};
+	assign powers[0] = bounce_flag;
+	assign powers[1] = slow_flag;
+	assign powers[2] = y_control_flag;
 	
 	Reset_Delay			r0	(.iCLK(CLOCK_50),.oRESET(DLY_RST)	);
 	VGA_Audio_PLL 		p1	(.areset(~DLY_RST),.inclk0(CLOCK_50),.c0(VGA_CTRL_CLK),.c1(AUD_CTRL_CLK),.c2(VGA_CLK)	);
@@ -381,28 +390,57 @@ module skeleton(
 								 .s_flag(sfo)
 								 );
 	
-  DE2_Audio				a1( // Inputs
-									.CLOCK_50(clock),
-									.CLOCK_27(CLOCK_27),
-									.KEY(KEY),
-									.c_flag(c_flag),
-									.screen_state(reg28),
-									.AUD_ADCDAT(AUD_ADCAT),
+//  DE2_Audio				a1( // Inputs
+//									.CLOCK_50(CLOCK_50),
+//									.CLOCK_27(CLOCK_27),
+//									.KEY(KEY),
+//									.c_flag(c_flag),
+//									.screen_state(reg28),
+//									.AUD_ADCDAT(AUD_ADCAT),
+//
+//									// Bidirectionals
+//									.AUD_BCLK(AUD_BCLK),
+//									.AUD_ADCLRCK(AUD_ADCLRCK),
+//									.AUD_DACLRCK(AUD_DACLRCK),
+//
+//									.I2C_SDAT(I2C_SDAT),
+//
+//									// Outputs
+//									.AUD_XCK(AUD_XCK),
+//									.AUD_DACDAT(AUD_DACDAT),
+//
+//									.I2C_SCLK(I2C_SCLK),
+//									.SW(SW)
+//  );
+  
+  
+  DE2_Audio_Example audio(
+	// Inputs
+	CLOCK_50,
+	CLOCK_27,
+	KEY,
 
-									// Bidirectionals
-									.AUD_BCLK(AUD_BCLK),
-									.AUD_ADCLRCK(AUD_ADCLRCK),
-									.AUD_DACLRCK(AUD_DACLRCK),
+	AUD_ADCDAT,
 
-									.I2C_SDAT(I2C_SDAT),
+	// Bidirectionals
+	AUD_BCLK,
+	AUD_ADCLRCK,
+	AUD_DACLRCK,
 
-									// Outputs
-									.AUD_XCK(AUD_XCK),
-									.AUD_DACDAT(AUD_DACDAT),
+	I2C_SDAT,
 
-									.I2C_SCLK(I2C_SCLK),
-									.SW(SW)
-  );
+	// Outputs
+	AUD_XCK,
+	AUD_DACDAT,
+
+	I2C_SCLK,
+	SW,
+	c_flag,
+	powers,
+	control,
+	leds
+	);
+	
 endmodule
 
 

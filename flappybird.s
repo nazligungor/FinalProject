@@ -21,15 +21,15 @@ setupgame:
 	addi $1, $1, 20000
 	addi $4, $0, 20000
 	# lower pipes
-	addi $7, $0, 120
-	addi $8, $0, 320
-	addi $9, $0, 520
-	addi $10, $0, 720
+	addi $7, $0, 220	
+	addi $8, $0, 420
+	addi $9, $0, 620
+	addi $10, $0, 820
 	# upper pipes
-	addi $11, $0, 120
-	addi $12, $0, 320
-	addi $13, $0, 520
-	addi $14, $0, 720
+	addi $11, $0, 220
+	addi $12, $0, 420
+	addi $13, $0, 620
+	addi $14, $0, 820
 	# pipe velocity
 	addi $15, $0, 5
 	# bird velocity
